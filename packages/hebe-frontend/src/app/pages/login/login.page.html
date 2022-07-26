@@ -1,0 +1,58 @@
+<ion-content>
+  <form [formGroup]="accountLogin">
+    <ion-grid>
+      <ion-list>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-text-center">
+            <h1>Log In</h1>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item fill="outline">
+              <ion-label position="floating">E-mail:</ion-label>
+              <ion-input
+                type="email"
+                inputmode="email"
+                minlength="15"
+                placeholder="Enter your E-mail"
+                spellcheck="true"
+                required="true"
+                autocomplete="email"
+                formControlName="email"
+                clearInput
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item fill="outline">
+              <ion-label position="floating">Password:</ion-label>
+              <ion-input
+                type="tel"
+                inputMode="numeric"
+                min="1"
+                placeholder="Enter Password"
+                required="true"
+                formControlName="password"
+                clearInput
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-button expand="block" (click)="signIn()">Sign In</ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-button expand="block" routerLink="/signup">Create Account</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </ion-grid>
+  </form>
+</ion-content>

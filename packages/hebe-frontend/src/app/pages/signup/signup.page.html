@@ -1,0 +1,135 @@
+<ion-content>
+  <ion-content>
+    <form [formGroup]="accountSignup">
+      <ion-grid>
+        <ion-list>
+          <ion-row class="ion-justify-content-center ion-align-items-center">
+            <ion-col
+              size-md="6"
+              size-lg="5"
+              size-xs="12"
+              class="ion-text-center"
+            >
+              <h1>Create Account</h1>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-col size-md="6" size-lg="5" size-xs="12">
+              <ion-item fill="outline">
+                <ion-label position="floating">Name:</ion-label>
+                <ion-input
+                  type="text"
+                  inputmode="text"
+                  placeholder="Enter Name"
+                  minlength="5"
+                  spellcheck="true"
+                  required="true"
+                  formControlName="firstName"
+                  clearInput
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <p *ngIf="this.accountSignup.controls['firstName'].invalid">
+                  Please enter Name.
+                </p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-col size-md="6" size-lg="5" size-xs="12">
+              <ion-item fill="outline">
+                <ion-label position="floating">last Name:</ion-label>
+                <ion-input
+                  type="text"
+                  inputmode="text"
+                  placeholder="Enter Name"
+                  minlength="5"
+                  spellcheck="true"
+                  required="true"
+                  formControlName="lastName"
+                  clearInput
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-justify-content-center">
+            <ion-col size-md="6" size-lg="5" size-xs="12">
+              <ion-item fill="outline">
+                <ion-label position="floating">E-mail:</ion-label>
+                <ion-input
+                  type="email"
+                  inputmode="email"
+                  minlength="15"
+                  placeholder="Enter your E-mail"
+                  spellcheck="true"
+                  required="true"
+                  autocomplete="email"
+                  formControlName="email"
+                  clearInput
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-col size-md="6" size-lg="5" size-xs="12">
+              <ion-item fill="outline">
+                <ion-label position="floating">Password:</ion-label>
+                <ion-input
+                  type="password"
+                  inputMode="text"
+                  placeholder="Password"
+                  required="true"
+                  formControlName="password"
+                  clearInput
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-col size-md="6" size-lg="5" size-xs="12">
+              <ion-item fill="outline">
+                <ion-label position="floating">Re-enter(Password):</ion-label>
+                <ion-input
+                  type="password"
+                  inputMode="text"
+                  min="1"
+                  placeholder="Re-enter your Password"
+                  required="true"
+                  formControlName="password"
+                  clearInput
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-col size-md="6" size-lg="5" size-xs="12">
+              <ion-item fill="outline">
+                <ion-label position="floating">Phone Number:</ion-label>
+                <ion-input
+                  type="tel"
+                  inputMode="numeric"
+                  min="1"
+                  placeholder="Enter Phone Number"
+                  formControlName="phone"
+                  required="true"
+                  clearInput
+                ></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-col size-md="6" size-lg="5" size-xs="12">
+              <ion-button expand="block" (click)="signUp()">Sign Up</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-text-end">
+            <ion-col size-md="6" size-lg="5" size-xs="12" routerLink="/login"
+              >Log in instead?
+            </ion-col>
+          </ion-row>
+        </ion-list>
+      </ion-grid>
+    </form>
+  </ion-content>
+</ion-content>
