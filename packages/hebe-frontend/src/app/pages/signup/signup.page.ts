@@ -10,9 +10,8 @@ import { SingUp } from 'src/app/interface/signUp';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
+  constructor(private userService: UserService, private router: Router) {}
 
-  constructor(private userService: UserService, private router: Router) { }
-  
   ngOnInit() {
     if (localStorage.getItem('jwt_token') != null) {
       this.router.navigate(['/account']);
@@ -33,6 +32,7 @@ export class SignupPage implements OnInit {
       Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
     ]),
   });
+
   signUp() {
     const signUpInfo: SingUp = {
       email: this.accountSignup.controls['email'].value,
@@ -41,8 +41,9 @@ export class SignupPage implements OnInit {
       lastName: this.accountSignup.controls['lastName'].value,
     };
     this.userService.signUp(signUpInfo).subscribe(
-      (data) => {
-        console.log(data);
+      (data: any) => {
+        localStorage.setItem('jwt_token', data.access_token);
+        this.router.navigate(['/account']);
       },
       (error) => {
         console.log(error);

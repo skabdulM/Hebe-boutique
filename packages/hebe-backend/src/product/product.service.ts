@@ -8,12 +8,12 @@ export class ProductService {
   constructor(private prisma: PrismaService) {}
 
   async addProduct(dto: ProductDto) {
-    const price = parseInt(dto.productPrice);
+    // const price = parseInt(dto.productPrice);
     const product = await this.prisma.products.create({
       data: {
         productName: dto.productName,
         productDescription: dto.productDescription,
-        productPrice: price,
+        productPrice: dto.productPrice,
         productImg: dto.productImg,
       },
     });
@@ -29,7 +29,7 @@ export class ProductService {
   }
 
   async updateProduct(productId: string, dto: UpdateProductDto) {
-    const price = parseInt(dto.productPrice);
+    // const price = parseInt(dto.productPrice);
     const product = await this.prisma.products.update({
       where: {
         id: productId,
@@ -37,7 +37,7 @@ export class ProductService {
       data: {
         productName: dto.productName,
         productDescription: dto.productDescription,
-        productPrice: price,
+        productPrice: dto.productPrice,
         productImg: dto.productImg,
       },
     });

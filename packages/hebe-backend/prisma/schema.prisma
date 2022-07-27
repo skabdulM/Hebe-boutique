@@ -10,6 +10,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// model User {
+//   id      Int      @id @default(autoincrement())
+//   email   String   @unique
+//   name    String?
+//   role    Role     @default(USER)
+//   posts   Post[]
+//   profile Profile?
+// }
+// model Category {
+//   id    Int    @id @default(autoincrement())
+//   name  String
+//   posts Post[] @relation()
+// }
+
+// model Post {
+//   id         Int        @id @default(autoincrement())
+//   createdAt  DateTime   @default(now())
+//   title      String
+//   published  Boolean    @default(false)
+//   author     User       @relation(fields: [authorId], references: [id])
+//   authorId   Int
+//   categories Category[]  @relation()
+// }
+// model Profile {
+//   id     Int    @id @default(autoincrement())
+//   bio    String
+//   user   User   @relation(fields: [userId], references: [id])
+//   userId Int    @unique
+// }
+
 model Users {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
@@ -18,11 +48,12 @@ model Users {
   email String @unique
   hash  String
 
+  phone     Int?
   firstName String?
   lastName  String?
-
-  orders Orders[]
-  cart   CartProducts[]
+  address   String?
+  orders    Orders[]
+  cart      Cart[]
 }
 
 model Products {
@@ -32,30 +63,40 @@ model Products {
 
   productName        String
   productDescription String
-  productPrice       Int
+  productPrice       Decimal
   productImg         String
 }
 
 model Orders {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt //for delivery status later
 
-  // productName        String
-  // productDescription String
-  // productPrice       Int
-  userId String
-  user   Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String
+  user            Users   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name            String
+  phone           Int
+  phone2          Int?
+  shippingAddress String
+  paynmentId      String
+  status          Boolean @default(false)
+  products        Json
+  totalAmount     Decimal
 }
 
-model CartProducts {
-  productId String   @id @default(uuid())
+model Cart {
+  id        Int      @id @default(dbgenerated())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // productName        String
-  // productDescription String
-  // productPrice       Int
-  userId String
-  user   Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId       String
+  productQuantity Int    @default(1)
+  userId          String
+  // products        Products[] @relation()
+  user            Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  USER
+  ADMIN
 }

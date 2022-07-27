@@ -36,7 +36,6 @@ export class LoginPage implements OnInit {
     this.userService.signIn(signIn).subscribe(
       (data: any) => {
         localStorage.setItem('jwt_token', data.access_token);
-        this.userService.getUser();
         this.router.navigate(['/account']);
       },
       (error) => {

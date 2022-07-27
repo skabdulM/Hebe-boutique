@@ -1,0 +1,29 @@
+{"name":"abdul",
+"phone":9403,
+"shippingAddress":"ooeaf skjfaljd jfdklslfmvlkdjsllkfdlj dshllafkkldkjk",
+"paynmentId":"cash on delivery",
+    "products":[
+       {
+    "productName":"1",
+    "productDescription":"hebe;hebe",
+    "productPrice":22,
+    "productImg":"feshf"
+},{
+    "productName":"2",
+    "productDescription":"hebe;hebe",
+    "productPrice":22,
+    "productImg":"feshf"
+},{
+    "productName":"3",
+    "productDescription":"hebe;hebe",
+    "productPrice":22,
+    "productImg":"feshf"
+},{
+    "productName":"4",
+    "productDescription":"hebe;hebe",
+    "productPrice":22,
+    "productImg":"feshf"
+}
+        ],
+        "totalAmount":9230
+}

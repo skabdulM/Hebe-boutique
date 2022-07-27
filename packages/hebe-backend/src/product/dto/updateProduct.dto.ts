@@ -1,4 +1,5 @@
 import {
+  IsNumber,
     // IsNumber,
     IsOptional,
     IsString,
@@ -13,9 +14,9 @@ import {
     @IsOptional()
     productDescription: string;
   
-    @IsString()
+    @IsNumber()
     @IsOptional()
-    productPrice: string;
+    productPrice: number;
   
     @IsString()
     @IsOptional()

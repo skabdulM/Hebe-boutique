@@ -13,9 +13,9 @@ export class ProductDto {
   @IsNotEmpty()
   productDescription: string;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  productPrice: string;
+  productPrice: number;
 
   @IsString()
   @IsNotEmpty()

@@ -33,8 +33,6 @@ export class UserService {
     const jwt = localStorage.getItem('jwt_token');
     const url: string = this.url + '/users/me';
     let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
-    this.http.get(url, { headers: headers }).subscribe((res) => {
-      console.log(res);
-    });
+    return this.http.get(url, { headers: headers })
   }
 }
