@@ -1,7 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { OrderDto } from './dto';
-import { OrderStatusDto } from './dto/orderStatus.dto';
+import { OrderDto, OrderStatusDto } from './dto';
 
 @Injectable()
 export class OrderService {
@@ -21,20 +20,8 @@ export class OrderService {
     });
     return order;
   }
-  async updateOrderStatus(
-    userId: string,
-    orderId: string,
-    dto: OrderStatusDto,
-  ) {
-    const order = await this.prisma.orders.findUnique({
-      where: {
-        id: orderId,
-      },
-    });
 
-    if (!order || order.userId !== userId)
-      throw new ForbiddenException('Access to resources denied');
-
+  async updateOrderStatus(orderId: string, dto: OrderStatusDto) {
     return this.prisma.orders.update({
       where: {
         id: orderId,
@@ -45,7 +32,7 @@ export class OrderService {
     });
   }
 
-  allOrders(userId: string) {
+  getuserOrders(userId: string) {
     return this.prisma.orders.findMany({
       where: {
         userId,
@@ -53,11 +40,31 @@ export class OrderService {
     });
   }
 
+  getallOrders() {
+    return this.prisma.orders.findMany(
+      {
+        orderBy:{
+          createdAt:'asc'
+        }
+      }
+    );
+  }
+
   getOrderbyId(userId: string, orderId: string) {
-    return this.prisma.orders.findUnique({
+    return this.prisma.orders.findFirst({
       where: {
         id: orderId,
+        userId,
       },
     });
   }
 }
+/*
+    const order = await this.prisma.orders.findUnique({
+      where: {
+        id: orderId,
+      },
+    });
+    if (!order || order.userId !== userId)
+      throw new ForbiddenException('Access to resources denied');
+*/

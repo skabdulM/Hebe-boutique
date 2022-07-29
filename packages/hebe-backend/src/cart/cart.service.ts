@@ -15,7 +15,7 @@ export class CartService {
     });
   }
 
-  getCartProductsbyId(userId: string, productId: number) {
+  getCartProductsbyId(userId: string, productId: string) {
     return this.prisma.cart.findFirst({
       where: {
         id: productId,
@@ -38,10 +38,21 @@ export class CartService {
     }
     */
   // logic for product already exists in cart
-
+  /*
+  async addtoCart(userId: string, dto: AddCartProductDto) {
+    const product = await this.prisma.cart
+      .create({
+        data: {
+          userId,
+          ...dto,
+        },
+      });
+  return product;
+}
+*/
   async addtoCart(userId: string, dto: AddCartProductDto) {
     let product: AddCartProductDto;
-    const af = await this.prisma.cart
+    await this.prisma.cart
       .findFirst({
         where: {
           productId: dto.productId,
@@ -64,6 +75,8 @@ export class CartService {
         })
         .then((data) => {
           product = data;
+          console.log(product);
+          
         })
         .catch((error) => {})
         .finally(() => {});
@@ -75,7 +88,7 @@ export class CartService {
 
   async editCartProductbyid(
     userId: string,
-    productId: number,
+    productId: string,
     dto: EditCartProductDto,
   ) {
     const product = await this.prisma.cart.findUnique({
@@ -97,7 +110,7 @@ export class CartService {
     });
   }
 
-  async deleteCartProductByid(userId: string, bookmarkId: number) {
+  async deleteCartProductByid(userId: string, bookmarkId: string) {
     const product = await this.prisma.cart.findUnique({
       where: {
         id: bookmarkId,

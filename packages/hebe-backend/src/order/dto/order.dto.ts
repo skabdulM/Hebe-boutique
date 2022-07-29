@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class OrderDto {
 
@@ -6,9 +6,14 @@ export class OrderDto {
   @IsString()
   @IsNotEmpty()
   name: string;
+
   @IsNumber()
   @IsNotEmpty()
   phone: number;
+
+  @IsNumber()
+  @IsOptional()
+  phone2?: number;
 
   @IsString()
   @IsNotEmpty()

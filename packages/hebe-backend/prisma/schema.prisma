@@ -10,36 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model User {
-//   id      Int      @id @default(autoincrement())
-//   email   String   @unique
-//   name    String?
-//   role    Role     @default(USER)
-//   posts   Post[]
-//   profile Profile?
-// }
-// model Category {
-//   id    Int    @id @default(autoincrement())
-//   name  String
-//   posts Post[] @relation()
-// }
-
-// model Post {
-//   id         Int        @id @default(autoincrement())
-//   createdAt  DateTime   @default(now())
-//   title      String
-//   published  Boolean    @default(false)
-//   author     User       @relation(fields: [authorId], references: [id])
-//   authorId   Int
-//   categories Category[]  @relation()
-// }
-// model Profile {
-//   id     Int    @id @default(autoincrement())
-//   bio    String
-//   user   User   @relation(fields: [userId], references: [id])
-//   userId Int    @unique
-// }
-
 model Users {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
@@ -54,17 +24,7 @@ model Users {
   address   String?
   orders    Orders[]
   cart      Cart[]
-}
-
-model Products {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  productName        String
-  productDescription String
-  productPrice       Decimal
-  productImg         String
+  roles     Role     @default(USER)
 }
 
 model Orders {
@@ -85,7 +45,7 @@ model Orders {
 }
 
 model Cart {
-  id        Int      @id @default(dbgenerated())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -96,7 +56,49 @@ model Cart {
   user            Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Category {
+  id       Int     @id @default(autoincrement())
+  name     String     @unique
+  products Products[]
+  // PostCategory PostCategory[]
+}
+
+model Products {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  productName        String
+  productDescription String
+  productPrice       Decimal
+  productImg         String
+  categoryId         Int?
+  category           Category? @relation(fields: [categoryId], references: [id])
+}
+
+// model ProductCategory {
+//   id         Int   @default(autoincrement())
+//   // PostCategory PostCategory[]
+//   Products   Products @relation(fields: [productsId], references: [id])
+//   Category   Category @relation(fields: [categoryId], references: [id])
+//   categoryId String 
+//   productsId String
+
+//   @@id([productsId, categoryId])
+// }
+
 enum Role {
   USER
+  MANAGER
   ADMIN
 }
+
+// model PostCategory {
+//   categoryId Int      @map("category_id")
+//   eid     Int      @map("post_id")
+//   category   Category @relation(fields: [categoryId], references: [id])
+//   products   Products @relation(fields: [id], references: [eid])
+
+//   @@id([categoryId, eid])
+//   @@map("post_category")
+// }

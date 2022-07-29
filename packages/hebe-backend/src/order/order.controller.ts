@@ -7,10 +7,9 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { GetUser } from '../auth/decorator';
-import { JwtGuard } from '../auth/guard';
-import { OrderDto } from './dto';
-import { OrderStatusDto } from './dto/orderStatus.dto';
+import { GetUser, Roles } from '../auth/decorator';
+import { JwtGuard, RolesGuard } from '../auth/guard';
+import { OrderDto, OrderStatusDto } from './dto';
 import { OrderService } from './order.service';
 
 @UseGuards(JwtGuard)
@@ -23,22 +22,30 @@ export class OrderController {
     return this.orderService.order(userId, dto);
   }
 
+  @Roles('MANAGER','ADMIN')
+  @UseGuards(RolesGuard)
   @Patch('update/:id')
-  editCartProductsbyid(
-    @GetUser('id') userId: string,
+  updateorderStatus(
     @Param('id') orderId: string,
     @Body() dto: OrderStatusDto,
   ) {
-    return this.orderService.updateOrderStatus(userId, orderId, dto);
+    return this.orderService.updateOrderStatus(orderId, dto);
   }
 
-  @Get('allorders')
-  getCartProducts(@GetUser('id') userId: string) {
-    return this.orderService.allOrders(userId);
+  @Get('myorders')
+  getuserOrders(@GetUser('id') userId: string) {
+    return this.orderService.getuserOrders(userId);
+  }
+  
+  @Roles('MANAGER','ADMIN')
+  @UseGuards(RolesGuard)
+  @Get('allOrders')
+  getallorders() {
+    return this.orderService.getallOrders();
   }
 
   @Get(':id')
-  getCartProductsbyId(
+  getOrderbyid(
     @GetUser('id') userId: string,
     @Param('id') orderId: string,
   ) {

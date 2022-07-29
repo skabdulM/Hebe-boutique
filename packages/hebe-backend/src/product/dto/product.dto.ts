@@ -9,6 +9,7 @@ export class ProductDto {
   @IsNotEmpty()
   productName: string;
 
+
   @IsString()
   @IsNotEmpty()
   productDescription: string;
@@ -20,4 +21,7 @@ export class ProductDto {
   @IsString()
   @IsNotEmpty()
   productImg: string;
+
+  @IsString()
+  category?: string;
 }
