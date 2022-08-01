@@ -2,9 +2,14 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/hebe-backend"
   ],
   "devDependencies": {
     "lerna": "^5.2.0"
+  },
+  "scripts": {
+    "dev": "nest dev",
+    "build": "nest build",
+    "start": "nest start"
   }
 }
