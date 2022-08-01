@@ -6,7 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "engines": {
-    "yarn":"1.22.19"
+    "yarn":"1.22.19",
+    "node": "16.16.0"
   },
   "scripts": {
     "prisma:dev:deploy": "prisma migrate deploy",
@@ -23,7 +24,8 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/main.js",
+    "postinstall": "yarn run prestart:prod",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
