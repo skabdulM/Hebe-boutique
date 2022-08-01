@@ -18,9 +18,9 @@ export class CartController {
     @Get('getCartProduct/:id')
     getCartProductsbyId(
       @GetUser('id') userId: string,
-      @Param('id', ParseIntPipe) productId: string,
+      @Param('id', ParseIntPipe) cartproductId: number,
     ) {
-      return this.cartService.getCartProductsbyId(userId, productId);
+      return this.cartService.getCartProductsbyId(userId, cartproductId);
     }
   
     @Post('addtoCart')
@@ -35,7 +35,7 @@ export class CartController {
     @Patch('updateCartProduct/:id')
     editCartProductsbyid(
       @GetUser('id') userId: string,
-      @Param('id', ParseIntPipe) cartproductId: string,
+      @Param('id', ParseIntPipe) cartproductId: number,
       @Body() dto: EditCartProductDto,
     ) {
       return this.cartService.editCartProductbyid(
@@ -49,7 +49,7 @@ export class CartController {
     @Delete('remove/:id')
     deleteCartProductByid(
       @GetUser('id') userId: string,
-      @Param('id', ParseIntPipe) cartproductId: string,
+      @Param('id', ParseIntPipe) cartproductId: number,
     ) {
       return this.cartService.deleteCartProductByid(
         userId,

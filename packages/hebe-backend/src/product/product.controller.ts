@@ -22,7 +22,7 @@ export class ProductController {
   @Roles('MANAGER', 'ADMIN')
   @UseGuards(JwtGuard, RolesGuard)
   @Post('addProduct')
-  addProduct(@Body() dto: ProductDto) {
+  addProduct(@Body() dto:ProductDto) {
     return this.productService.addProduct(dto);
   }
 

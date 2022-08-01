@@ -15,10 +15,10 @@ export class CartService {
     });
   }
 
-  getCartProductsbyId(userId: string, productId: string) {
+  getCartProductsbyId(userId: string, cartproductId: number) {
     return this.prisma.cart.findFirst({
       where: {
-        id: productId,
+        id: cartproductId,
         userId,
       },
     });
@@ -88,12 +88,12 @@ export class CartService {
 
   async editCartProductbyid(
     userId: string,
-    productId: string,
+    cartproductId: number,
     dto: EditCartProductDto,
   ) {
     const product = await this.prisma.cart.findUnique({
       where: {
-        id: productId,
+        id: cartproductId,
       },
     });
 
@@ -102,7 +102,7 @@ export class CartService {
 
     return this.prisma.cart.update({
       where: {
-        id: productId,
+        id: cartproductId,
       },
       data: {
         ...dto,
@@ -110,10 +110,10 @@ export class CartService {
     });
   }
 
-  async deleteCartProductByid(userId: string, bookmarkId: string) {
+  async deleteCartProductByid(userId: string, cartproductId: number) {
     const product = await this.prisma.cart.findUnique({
       where: {
-        id: bookmarkId,
+        id: cartproductId,
       },
     });
 
@@ -123,7 +123,7 @@ export class CartService {
 
     await this.prisma.cart.delete({
       where: {
-        id: bookmarkId,
+        id: cartproductId,
       },
     });
   }

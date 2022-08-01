@@ -26,7 +26,9 @@ CREATE TABLE "Products" (
     "productDescription" TEXT NOT NULL,
     "productPrice" DECIMAL(65,30) NOT NULL,
     "productImg" TEXT NOT NULL,
-    "productCategoryId" UUID,
+    "brandsId" INTEGER,
+    "tagsId" INTEGER,
+    "categoryId" INTEGER,
 
     CONSTRAINT "Products_pkey" PRIMARY KEY ("id")
 );
@@ -51,7 +53,7 @@ CREATE TABLE "Orders" (
 
 -- CreateTable
 CREATE TABLE "Cart" (
-    "id" INTEGER NOT NULL,
+    "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "productId" TEXT NOT NULL,
@@ -63,24 +65,38 @@ CREATE TABLE "Cart" (
 
 -- CreateTable
 CREATE TABLE "Category" (
-    "id" UUID NOT NULL,
+    "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
 
     CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "ProductCategory" (
-    "id" UUID NOT NULL,
+CREATE TABLE "Brands" (
+    "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
 
-    CONSTRAINT "ProductCategory_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Brands_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "_CategoryToProducts" (
-    "A" UUID NOT NULL,
-    "B" TEXT NOT NULL
+CREATE TABLE "ProductComments" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "feedback" TEXT NOT NULL,
+    "userId" TEXT,
+    "productId" TEXT,
+
+    CONSTRAINT "ProductComments_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Tags" (
+    "id" SERIAL NOT NULL,
+    "tagName" TEXT NOT NULL,
+    "productId" TEXT NOT NULL,
+
+    CONSTRAINT "Tags_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -90,16 +106,16 @@ CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");
 CREATE UNIQUE INDEX "Category_name_key" ON "Category"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "ProductCategory_name_key" ON "ProductCategory"("name");
-
--- CreateIndex
-CREATE UNIQUE INDEX "_CategoryToProducts_AB_unique" ON "_CategoryToProducts"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_CategoryToProducts_B_index" ON "_CategoryToProducts"("B");
+CREATE UNIQUE INDEX "Brands_name_key" ON "Brands"("name");
 
 -- AddForeignKey
-ALTER TABLE "Products" ADD CONSTRAINT "Products_productCategoryId_fkey" FOREIGN KEY ("productCategoryId") REFERENCES "ProductCategory"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Products" ADD CONSTRAINT "Products_brandsId_fkey" FOREIGN KEY ("brandsId") REFERENCES "Brands"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Products" ADD CONSTRAINT "Products_tagsId_fkey" FOREIGN KEY ("tagsId") REFERENCES "Tags"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Products" ADD CONSTRAINT "Products_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Orders" ADD CONSTRAINT "Orders_userId_fkey" FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -108,7 +124,7 @@ ALTER TABLE "Orders" ADD CONSTRAINT "Orders_userId_fkey" FOREIGN KEY ("userId") 
 ALTER TABLE "Cart" ADD CONSTRAINT "Cart_userId_fkey" FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_CategoryToProducts" ADD CONSTRAINT "_CategoryToProducts_A_fkey" FOREIGN KEY ("A") REFERENCES "Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "ProductComments" ADD CONSTRAINT "ProductComments_userId_fkey" FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_CategoryToProducts" ADD CONSTRAINT "_CategoryToProducts_B_fkey" FOREIGN KEY ("B") REFERENCES "Products"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "ProductComments" ADD CONSTRAINT "ProductComments_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Products"("id") ON DELETE CASCADE ON UPDATE CASCADE;

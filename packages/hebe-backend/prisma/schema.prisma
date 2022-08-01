@@ -22,45 +22,11 @@ model Users {
   firstName String?
   lastName  String?
   address   String?
-  orders    Orders[]
-  cart      Cart[]
-  roles     Role     @default(USER)
-}
 
-model Orders {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt //for delivery status later
-
-  userId          String
-  user            Users   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  name            String
-  phone           Int
-  phone2          Int?
-  shippingAddress String
-  paynmentId      String
-  status          Boolean @default(false)
-  products        Json
-  totalAmount     Decimal
-}
-
-model Cart {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  productId       String
-  productQuantity Int    @default(1)
-  userId          String
-  // products        Products[] @relation()
-  user            Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Category {
-  id       Int     @id @default(autoincrement())
-  name     String     @unique
-  products Products[]
-  // PostCategory PostCategory[]
+  comments ProductComments[]
+  orders   Orders[]
+  cart     Cart[]
+  roles    Role              @default(USER)
 }
 
 model Products {
@@ -70,22 +36,57 @@ model Products {
 
   productName        String
   productDescription String
-  productPrice       Decimal
+  productPrice       Decimal //@db.Money
   productImg         String
+  brandsId           Int?
+  tagsId             Int?
   categoryId         Int?
-  category           Category? @relation(fields: [categoryId], references: [id])
+
+  brand    Brands?           @relation(fields: [brandsId], references: [id])
+  comments ProductComments[] //
+  tags     Tags?             @relation(fields: [tagsId], references: [id])
+  category Category?         @relation(fields: [categoryId], references: [id])
 }
 
-// model ProductCategory {
-//   id         Int   @default(autoincrement())
-//   // PostCategory PostCategory[]
-//   Products   Products @relation(fields: [productsId], references: [id])
-//   Category   Category @relation(fields: [categoryId], references: [id])
-//   categoryId String 
-//   productsId String
+model Orders {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt //for delivery status later
 
-//   @@id([productsId, categoryId])
-// }
+  userId          String
+  name            String
+  phone           Int
+  phone2          Int?
+  shippingAddress String
+  paynmentId      String
+  status          Boolean @default(false)
+  products        Json
+  totalAmount     Decimal
+  user            Users   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Cart {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  productId       String
+  productQuantity Int    @default(1)
+  userId          String
+  user            Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  products Products[]
+}
+
+model Brands {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  products Products[]
+}
 
 enum Role {
   USER
@@ -93,12 +94,21 @@ enum Role {
   ADMIN
 }
 
-// model PostCategory {
-//   categoryId Int      @map("category_id")
-//   eid     Int      @map("post_id")
-//   category   Category @relation(fields: [categoryId], references: [id])
-//   products   Products @relation(fields: [id], references: [eid])
+model ProductComments {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
 
-//   @@id([categoryId, eid])
-//   @@map("post_category")
-// }
+  feedback  String  @db.Text
+  userId    String?
+  productId String?
+
+  user    Users?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Products? @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+//for later
+model Tags {
+  id        Int        @id @default(autoincrement())
+  tagName   String
+  productId String
+  product   Products[]
+}

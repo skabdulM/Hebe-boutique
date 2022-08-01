@@ -7,6 +7,9 @@ import { ConfigModule } from '@nestjs/config';
 import { OrderController } from './order/order.controller';
 import { OrderService } from './order/order.service';
 import { CartModule } from './cart/cart.module';
+import { CommentController } from './comment/comment.controller';
+import { CommentService } from './comment/comment.service';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -18,8 +21,9 @@ import { CartModule } from './cart/cart.module';
       isGlobal: true,
     }),
     CartModule,
+    CommentModule,
   ],
-  controllers: [OrderController],
-  providers: [OrderService],
+  controllers: [OrderController, CommentController],
+  providers: [OrderService, CommentService],
 })
 export class AppModule {}

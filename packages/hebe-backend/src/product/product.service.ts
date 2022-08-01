@@ -5,28 +5,46 @@ import { ProductDto, UpdateProductDto } from './dto';
 @Injectable()
 export class ProductService {
   constructor(private prisma: PrismaService) {}
+
   async addProduct(dto: ProductDto) {
-    const product = await this.prisma.products.create({
-      data: {
-        ...dto,
-        // category:{
-        //   create:{
-        //     name:"awdawd"
-        //   }
-        // }
-        category: {
-          connectOrCreate:{
-            where:{
-              name:dto.category
+    const product = await this.prisma.products
+      .create({
+        data: {
+          ...dto,
+          category: {
+            connectOrCreate: {
+              where: {
+                name: dto.category,
+              },
+              create: {
+                name: dto.category,
+              },
             },
-            create:{
-              name:dto.category
-            }
-          }
+          },
+          brand: {
+            connectOrCreate: {
+              where: {
+                name: dto.brand.toLowerCase(),
+              },
+              create: {
+                name: dto.brand.toLowerCase(),
+              },
+            },
+          },
         },
-        // categoryId: 3,
-      },
-    });
+        include: {
+          category: true,
+          // category: {
+          //   select: {
+          //     name: true,
+          //   },
+          // },
+          brand: true,
+        },
+      })
+      .catch((error) => {
+        return error;
+      });
 
     return product;
   }
@@ -44,6 +62,20 @@ export class ProductService {
       },
       data: {
         ...dto,
+        category: {
+          connectOrCreate: {
+            where: {
+              name: dto.category,
+            },
+            create: {
+              name: dto.category,
+            },
+          },
+        },
+      },
+      include: {
+        category: true,
+        brand: true,
       },
     });
     return product;
@@ -53,6 +85,10 @@ export class ProductService {
     const product = await this.prisma.products.findUnique({
       where: {
         id: productId,
+      },
+      include: {
+        category: true,
+        brand: true,
       },
     });
     return product;
