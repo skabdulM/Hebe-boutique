@@ -6,7 +6,6 @@
   "private": true,
   "license": "UNLICENSED",
   "engines": {
-    "yarn":"1.22.19",
     "node": "16.16.0"
   },
   "scripts": {

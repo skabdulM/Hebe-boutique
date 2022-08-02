@@ -45,7 +45,6 @@ export class ProductService {
       .catch((error) => {
         return error;
       });
-
     return product;
   }
 
