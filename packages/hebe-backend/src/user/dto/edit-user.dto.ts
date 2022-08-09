@@ -7,13 +7,17 @@ export class EditUserDto {
 
   @IsString()
   @IsOptional()
-  password?: string;
-
-  @IsString()
-  @IsOptional()
   firstName?: string;
 
   @IsString()
   @IsOptional()
   lastName?: string;
+
+  @IsString()
+  @IsOptional()
+  phone?: string;
+
+  @IsString()
+  @IsOptional()
+  address?: string;
 }

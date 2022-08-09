@@ -1,9 +1,23 @@
-ion-item{
-    padding-bottom: 5px;
+ion-item {
+  padding-bottom: 5px;
 }
 /* --ion-grid-width{
     width: 10px;
 } */
-.end{
-    float:right
+.end {
+  float: right;
+}
+@media only screen and (min-width: 700px) {
+  .grid {
+    margin-left: 10%;
+  }
+}
+.title {
+  margin-left: 5%;
+}
+
+h1 {
+  display: inline-block;
+  border-bottom: 2px solid black;
+  padding-bottom: 1.5%;
 }

@@ -1,6 +1,7 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { OrderDto, OrderStatusDto } from './dto';
+
 
 @Injectable()
 export class OrderService {
@@ -13,7 +14,8 @@ export class OrderService {
         name: dto.name,
         products: dto.products,
         shippingAddress: dto.shippingAddress,
-        phone: dto.totalAmount,
+        phone: dto.phone,
+        phone2: dto.phone2,
         totalAmount: dto.totalAmount,
         paynmentId: dto.paymentId,
       },
@@ -41,13 +43,11 @@ export class OrderService {
   }
 
   getallOrders() {
-    return this.prisma.orders.findMany(
-      {
-        orderBy:{
-          createdAt:'asc'
-        }
-      }
-    );
+    return this.prisma.orders.findMany({
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
   }
 
   getOrderbyId(userId: string, orderId: string) {

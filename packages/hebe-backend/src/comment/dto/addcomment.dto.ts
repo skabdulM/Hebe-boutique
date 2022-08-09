@@ -1,13 +1,13 @@
-import {  IsOptional, IsString } from 'class-validator';
+import {  IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class AddCommentDto {
   @IsString()
-  @IsOptional()
-  feedback?: string;
+  @IsNotEmpty()
+  feedback: string;
 
   @IsString()
-  @IsOptional()
-  productId?: string;
+  @IsNotEmpty()
+  productId: string;
 
   // @IsString()
   // @IsOptional()

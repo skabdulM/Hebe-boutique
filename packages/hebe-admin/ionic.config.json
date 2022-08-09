@@ -1,0 +1,7 @@
+{
+  "name": "hebe-admin",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

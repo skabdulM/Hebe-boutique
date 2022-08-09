@@ -21,14 +21,12 @@
           *ngFor="let product of products"
         >
           <ion-card>
+            <ion-img style="height: 250px;" [src]="product.productImg"></ion-img>
             <ion-card-header>
-              <ion-img [src]="product.productImg"></ion-img>
-              <ion-card-subtitle>  <strong>₹{{product.productPrice}}</strong></ion-card-subtitle>
-              <ion-card-title>{{product.productName}}</ion-card-title>
+              <ion-card-subtitle >  <strong>₹{{product.productPrice}}</strong></ion-card-subtitle>
+              <ion-card-title class="ellipsis">{{product.productName}}</ion-card-title>
             </ion-card-header>
             <ion-card-content>
-              {{product.productDescription}}
-            
             </ion-card-content>
           </ion-card>
         </ion-col>

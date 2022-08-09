@@ -18,7 +18,7 @@ model Users {
   email String @unique
   hash  String
 
-  phone     Int?
+  phone     String?
   firstName String?
   lastName  String?
   address   String?
@@ -36,16 +36,14 @@ model Products {
 
   productName        String
   productDescription String
-  productPrice       Decimal //@db.Money
+  productPrice       Decimal @db.Money
   productImg         String
   brandsId           Int?
-  tagsId             Int?
-  categoryId         Int?
 
   brand    Brands?           @relation(fields: [brandsId], references: [id])
   comments ProductComments[] //
-  tags     Tags?             @relation(fields: [tagsId], references: [id])
-  category Category?         @relation(fields: [categoryId], references: [id])
+  category Category[]
+  tags     Tags[]
 }
 
 model Orders {
@@ -55,8 +53,8 @@ model Orders {
 
   userId          String
   name            String
-  phone           Int
-  phone2          Int?
+  phone           String
+  phone2          String?
   shippingAddress String
   paynmentId      String
   status          Boolean @default(false)
@@ -105,10 +103,11 @@ model ProductComments {
   user    Users?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   product Products? @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
+
 //for later
 model Tags {
-  id        Int        @id @default(autoincrement())
-  tagName   String
-  productId String
-  product   Products[]
+  id         Int       @id @default(autoincrement())
+  tagName    String
+  Products   Products? @relation(fields: [productsId], references: [id])
+  productsId String?
 }

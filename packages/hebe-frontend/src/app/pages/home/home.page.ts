@@ -16,9 +16,10 @@ export class HomePage implements OnInit {
   }
   products: any = [];
   fetchProducts() {
-
     this.productService.getAllProduct().subscribe((data) => {
       this.products = data;
+      console.log(data);
+      
     });
   }
 }

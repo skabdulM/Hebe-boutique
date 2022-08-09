@@ -1,6 +1,6 @@
 .image {
   background-image: linear-gradient(rgba(20, 0, 0, 0.151), rgba(19, 0, 0, 0.144)),
-    url(../../../assets/shopimg1.jpg);
+    url(../../../assets/2593168.png);
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -17,4 +17,9 @@
    // top: 70%;
   // transform: translate(-50%, -50%);
   // color: #1B130D;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

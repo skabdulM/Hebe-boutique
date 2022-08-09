@@ -1,7 +1,6 @@
 import {
     Body,
     Controller,
-    Patch,
     Post,
     UseGuards,
   } from '@nestjs/common';

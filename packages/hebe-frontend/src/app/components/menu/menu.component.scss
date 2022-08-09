@@ -56,7 +56,8 @@
   margin-left: -150px;
   padding: 20px;
   // background-color: var(--ion-color-primary);
-  background-color: #caafa8;
+  // background-color: #caafa8;
+  background-color: #769FCD;
   z-index: 102;
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
@@ -144,5 +145,6 @@
   }
 }
 ion-fab-button {
-  --background: #caafa8;
+  // --background: #caafa8;
+  --background:  #769FCD;
 }

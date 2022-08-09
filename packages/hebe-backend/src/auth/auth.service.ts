@@ -1,7 +1,4 @@
-import {
-  ForbiddenException,
-  Injectable,
-} from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuthDto, LoginDto } from './dto';
 import * as argon from 'argon2';
@@ -20,27 +17,21 @@ export class AuthService {
   async signup(dto: AuthDto) {
     const hash = await argon.hash(dto.password);
     try {
-      const user = await this.prisma.users.create(
-        {
-          data: {
-            email: dto.email,
-            hash,
-            firstName: dto.firstName,
-            lastName: dto.lastName,
-          },
+      const user = await this.prisma.users.create({
+        data: {
+          email: dto.email,
+          hash: hash,
+          firstName: dto.firstName,
+          lastName: dto.lastName,
+          phone: dto.phone,
         },
-      );
+      });
       // delete user.hash;
       return this.signToken(user.id, user.email);
     } catch (error) {
-      if (
-        error instanceof
-        PrismaClientKnownRequestError
-      ) {
+      if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ForbiddenException(
-            'Credentials Taken',
-          );
+          throw new ForbiddenException('Credentials Taken');
         }
       }
       throw error;
@@ -48,29 +39,20 @@ export class AuthService {
   }
 
   async signin(dto: LoginDto) {
-    const user =
-      await this.prisma.users.findUnique({
-        where: {
-          email: dto.email,
-        },
-      });
+    const user = await this.prisma.users.findUnique({
+      where: {
+        email: dto.email,
+      },
+    });
 
     //compare user
-    if (!user)
-      throw new ForbiddenException(
-        'Credentials invalid',
-      );
+    if (!user) throw new ForbiddenException('Credentials invalid');
 
     //compare password
-    const passwordMatch = await argon.verify(
-      user.hash,
-      dto.password,
-    );
+    const passwordMatch = await argon.verify(user.hash, dto.password);
 
     if (!passwordMatch)
-      throw new ForbiddenException(
-        'Credentials invalid',
-      );
+      throw new ForbiddenException('Credentials invalid');
 
     //delete user
     // delete user.hash;
@@ -87,16 +69,12 @@ export class AuthService {
         sub: userId,
         email,
       };
-      const secret =
-        this.config.get('JWT_SECRET');
+      const secret = this.config.get('JWT_SECRET');
 
-      const token = await this.jwt.signAsync(
-        payload,
-        {
-          expiresIn: '24h',
-          secret: secret,
-        },
-      );
+      const token = await this.jwt.signAsync(payload, {
+        expiresIn: '24h',
+        secret: secret,
+      });
       return {
         access_token: token,
       };

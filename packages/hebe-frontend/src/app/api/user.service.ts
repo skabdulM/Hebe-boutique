@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SingUp } from '../interface/signUp';
 import { SignIn } from '../interface/signIn';
+import { UpdateUser } from '../interface/updateUser';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,9 @@ import { SignIn } from '../interface/signIn';
 export class UserService {
   constructor(private http: HttpClient) {}
 
+  jwt = localStorage.getItem('jwt_token');
+
+  // url = 'https://hebe-app-backend.herokuapp.com';
   url = 'http://localhost:3000';
 
   signUp(data: SingUp) {
@@ -18,6 +22,7 @@ export class UserService {
       password: data.password,
       firstName: data.firstName,
       lastName: data.lastName,
+      phone: data.phone,
     });
   }
 
@@ -30,9 +35,14 @@ export class UserService {
   }
 
   getUser() {
-    const jwt = localStorage.getItem('jwt_token');
     const url: string = this.url + '/users/me';
-    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
-    return this.http.get(url, { headers: headers })
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.jwt);
+    return this.http.get(url, { headers: headers });
+  }
+
+  updateUser(data: UpdateUser) {
+    const url: string = this.url + '/users/editUser';
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.jwt);
+    return this.http.patch(url, data, { headers: headers });
   }
 }

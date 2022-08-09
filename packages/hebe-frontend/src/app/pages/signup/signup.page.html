@@ -1,135 +1,233 @@
 <ion-content>
-  <ion-content>
-    <form [formGroup]="accountSignup">
-      <ion-grid>
-        <ion-list>
-          <ion-row class="ion-justify-content-center ion-align-items-center">
-            <ion-col
-              size-md="6"
-              size-lg="5"
-              size-xs="12"
-              class="ion-text-center"
+  <form [formGroup]="accountSignup">
+    <ion-grid>
+      <ion-list>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-text-center">
+            <h1>Create Account</h1>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item fill="outline">
+              <ion-label position="floating">First Name:</ion-label>
+              <ion-input
+                type="text"
+                inputmode="text"
+                placeholder="Enter Name"
+                spellcheck="true"
+                required="true"
+                clearOnEdit="false"
+                formControlName="firstName"
+              ></ion-input>
+            </ion-item>
+            <ion-label
+              *ngIf="accountSignup.controls['firstName'].touched &&accountSignup.controls['firstName'].invalid"
             >
-              <h1>Create Account</h1>
-            </ion-col>
-          </ion-row>
-          <ion-row class="ion-justify-content-center">
-            <ion-col size-md="6" size-lg="5" size-xs="12">
-              <ion-item fill="outline">
-                <ion-label position="floating">Name:</ion-label>
-                <ion-input
-                  type="text"
-                  inputmode="text"
-                  placeholder="Enter Name"
-                  minlength="5"
-                  spellcheck="true"
-                  required="true"
-                  formControlName="firstName"
-                  clearInput
-                ></ion-input>
-              </ion-item>
-              <ion-item>
-                <p *ngIf="this.accountSignup.controls['firstName'].invalid">
-                  Please enter Name.
-                </p>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row class="ion-justify-content-center">
-            <ion-col size-md="6" size-lg="5" size-xs="12">
-              <ion-item fill="outline">
-                <ion-label position="floating">last Name:</ion-label>
-                <ion-input
-                  type="text"
-                  inputmode="text"
-                  placeholder="Enter Name"
-                  minlength="5"
-                  spellcheck="true"
-                  required="true"
-                  formControlName="lastName"
-                  clearInput
-                ></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
+              Please enter Name.
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item fill="outline">
+              <ion-label position="floating">Last Name:</ion-label>
+              <ion-input
+                type="text"
+                inputmode="text"
+                placeholder="Enter Name"
+                spellcheck="true"
+                required="true"
+                clearOnEdit="false"
+                formControlName="lastName"
+              ></ion-input>
+            </ion-item>
+            <ion-label
+              *ngIf="accountSignup.controls['lastName'].touched &&accountSignup.controls['lastName'].invalid"
+            >
+              Please enter Name.
+            </ion-label>
+          </ion-col>
+        </ion-row>
 
-          <ion-row class="ion-justify-content-center">
-            <ion-col size-md="6" size-lg="5" size-xs="12">
-              <ion-item fill="outline">
-                <ion-label position="floating">E-mail:</ion-label>
-                <ion-input
-                  type="email"
-                  inputmode="email"
-                  minlength="15"
-                  placeholder="Enter your E-mail"
-                  spellcheck="true"
-                  required="true"
-                  autocomplete="email"
-                  formControlName="email"
-                  clearInput
-                ></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row class="ion-justify-content-center">
-            <ion-col size-md="6" size-lg="5" size-xs="12">
-              <ion-item fill="outline">
-                <ion-label position="floating">Password:</ion-label>
-                <ion-input
-                  type="password"
-                  inputMode="text"
-                  placeholder="Password"
-                  required="true"
-                  formControlName="password"
-                  clearInput
-                ></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row class="ion-justify-content-center">
-            <ion-col size-md="6" size-lg="5" size-xs="12">
-              <ion-item fill="outline">
-                <ion-label position="floating">Re-enter(Password):</ion-label>
-                <ion-input
-                  type="password"
-                  inputMode="text"
-                  min="1"
-                  placeholder="Re-enter your Password"
-                  required="true"
-                  formControlName="password"
-                  clearInput
-                ></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row class="ion-justify-content-center">
-            <ion-col size-md="6" size-lg="5" size-xs="12">
-              <ion-item fill="outline">
-                <ion-label position="floating">Phone Number:</ion-label>
-                <ion-input
-                  type="tel"
-                  inputMode="numeric"
-                  min="1"
-                  placeholder="Enter Phone Number"
-                  formControlName="phone"
-                  required="true"
-                  clearInput
-                ></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row class="ion-justify-content-center">
-            <ion-col size-md="6" size-lg="5" size-xs="12">
-              <ion-button expand="block" (click)="signUp()">Sign Up</ion-button>
-            </ion-col>
-          </ion-row>
-          <ion-row class="ion-text-end">
-            <ion-col size-md="6" size-lg="5" size-xs="12" routerLink="/login"
-              >Log in instead?
-            </ion-col>
-          </ion-row>
-        </ion-list>
-      </ion-grid>
-    </form>
-  </ion-content>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item fill="outline">
+              <ion-label position="floating">E-mail:</ion-label>
+              <ion-input
+                type="email"
+                inputmode="email"
+                placeholder="Enter your E-mail"
+                spellcheck="true"
+                required="true"
+                autocomplete="email"
+                formControlName="email"
+                clearOnEdit="false"
+              ></ion-input>
+              <ion-icon name="mail" color="primary" slot="end"></ion-icon>
+            </ion-item>
+            <!-- <p
+              ion-text
+              class="text08"
+              *ngIf="accountSignup.get('email').touched && accountSignup.get('email').hasError('required')"
+            >
+              <ion-text class="ion-padding-start"> Required Field </ion-text>
+            </p> -->
+            <p
+              ion-text
+              class="text08"
+              *ngIf="accountSignup.controls['email'].touched &&accountSignup.controls['email'].invalid"
+            >
+              <ion-text class="ion-padding-start">
+                Please enter correct email
+              </ion-text>
+            </p>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item fill="outline" class="form-text error">
+              <ion-label position="floating">Password:</ion-label>
+              <ion-input
+                [type]="passwordType"
+                inputMode="text"
+                placeholder="Password"
+                required="true"
+                formControlName="password"
+                clearOnEdit="false"
+              ></ion-input>
+              <ion-icon
+                name="eye"
+                color="primary"
+                slot="end"
+                (click)="hideShowPassword()"
+              ></ion-icon>
+            </ion-item>
+            <p
+              ion-text
+              class="text08"
+              *ngIf="accountSignup.controls['password'].touched && !accountSignup.controls['password'].valid"
+            >
+              <ion-text class="ion-padding-start ion-text-wrap">
+                Password must be a combination of lower-case
+              </ion-text>
+            </p>
+            <p
+              ion-text
+              class="text08"
+              *ngIf="accountSignup.controls['password'].touched && !accountSignup.controls['password'].valid "
+            >
+              <ion-text class="ion-padding-start"> A Number </ion-text>
+            </p>
+            <p
+              ion-text
+              class="text08"
+              *ngIf="accountSignup.controls['password'].touched && !accountSignup.controls['password'].valid"
+            >
+              <ion-text class="ion-padding-start"> 9 characters long </ion-text>
+            </p>
+            <p
+              ion-text
+              class="text08"
+              *ngIf="accountSignup.controls['password'].touched && !accountSignup.controls['password'].valid"
+            >
+              <ion-text class="ion-padding-start">
+                Special characters
+              </ion-text>
+            </p>
+            <p
+              ion-text
+              class="text08"
+              *ngIf="accountSignup.controls['password'].touched && !accountSignup.controls['password'].valid"
+            >
+              <ion-text class="ion-padding-start"> Upper-case </ion-text>
+            </p>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item fill="outline">
+              <ion-label position="floating">Re-enter(Password):</ion-label>
+              <ion-input
+                type="password"
+                inputMode="text"
+                placeholder="Re-enter your Password"
+                required="true"
+                formControlName="confirmPassword"
+                clearOnEdit="false"
+              ></ion-input>
+              <ion-icon name="key" color="primary" slot="end"></ion-icon>
+            </ion-item>
+            <p ion-text class="text08" *ngIf="passwordMatchError">
+              <ion-text class="ion-padding-start">
+                Password does not match
+              </ion-text>
+            </p>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item fill="outline">
+              <ion-label position="floating">Phone Number:</ion-label>
+              <ion-input
+                type="tel"
+                inputMode="tel"
+                placeholder="Enter Phone Number"
+                formControlName="phone"
+                value="number"
+                autocomplete="tel"
+                clearOnEdit="false"
+              ></ion-input>
+              <ion-icon name="call" color="primary" slot="end"></ion-icon>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-button
+              expand="block"
+              (click)="signUp()"
+              [disabled]="accountSignup.invalid"
+              >Sign Up</ion-button
+            >
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col
+            size-md="6"
+            size-lg="5"
+            size-xs="12"
+            class="ion-text-end"
+            routerLink="/account/login"
+          >
+            <ion-label>Log in instead?</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </ion-grid>
+  </form>
 </ion-content>
+<!-- <div class="container">
+    <input class="password" onchange="" type="password" placeholder="Enter your password" />
+    <i class="fas fa-eye" id="showHide"></i>
+    <p id="capitals">
+      <i class="fas fa-times"></i>
+      <i class="fas fa-check"></i>
+      <span>Capital letters</span>
+    </p>
+    <p id="characters">
+      <i class="fas fa-times"></i>
+      <i class="fas fa-check"></i>
+      <span>Special characters</span>
+    </p>
+    <p id="numbers">
+      <i class="fas fa-times"></i>
+      <i class="fas fa-check"></i>
+      <span>Using numbers</span>
+    </p>
+    <p id="more8">
+      <i class="fas fa-times"></i>
+      <i class="fas fa-check"></i>
+      <span>8+ characters</span>
+    </p>
+  </div> -->

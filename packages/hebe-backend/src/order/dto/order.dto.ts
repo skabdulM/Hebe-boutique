@@ -9,11 +9,11 @@ export class OrderDto {
 
   @IsNumber()
   @IsNotEmpty()
-  phone: number;
+  phone: string;
 
   @IsNumber()
   @IsOptional()
-  phone2?: number;
+  phone2?: string;
 
   @IsString()
   @IsNotEmpty()

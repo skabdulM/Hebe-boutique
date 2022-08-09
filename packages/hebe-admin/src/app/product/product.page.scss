@@ -1,0 +1,16 @@
+ion-list {
+  --ion-background-color: transparent !important;
+  /* --ion-border-color: transparent !important; */
+}
+ion-card {
+  //mat card
+  --background-color: #a7ffeb;
+  border-radius: 15px;
+  border-style: initial;
+  // box-shadow:3px
+  box-shadow: 2px 6px 15px 2px #888888;
+}
+.img {
+  height: 200px;
+  width: 100%;
+}
