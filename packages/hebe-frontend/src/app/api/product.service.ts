@@ -7,7 +7,7 @@ import { Products } from '../interface/product';
 })
 export class ProductService {
   constructor(private http: HttpClient) {}
-  url = 'http://localhost:3000';
+  url = 'https://hebe-app-backend.herokuapp.com';
 
   getAllProduct() {
     return this.http.get<Products[]>(this.url + '/product/getallProducts');

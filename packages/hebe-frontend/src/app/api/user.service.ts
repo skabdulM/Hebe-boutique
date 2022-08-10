@@ -12,8 +12,8 @@ export class UserService {
 
   jwt = localStorage.getItem('jwt_token');
 
-  // url = 'https://hebe-app-backend.herokuapp.com';
-  url = 'http://localhost:3000';
+  // url = 'http://localhost:3000';
+  url = 'https://hebe-app-backend.herokuapp.com';
 
   signUp(data: SingUp) {
     const url: string = this.url + '/auth/signup';
