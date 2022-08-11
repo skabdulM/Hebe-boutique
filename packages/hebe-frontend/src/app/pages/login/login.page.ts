@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { StorageService } from 'src/app/api/storage.service';
 import { UserService } from 'src/app/api/user.service';
 import { SignIn } from 'src/app/interface/signIn';
 
@@ -14,9 +15,13 @@ export class LoginPage implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private storage: StorageService
   ) {}
 
+  showLoader: boolean;
+  passwordType: string = 'password';
+  passwordIcon: string = 'eye-off';
   accountLogin: FormGroup = new FormGroup({
     email: new FormControl('', [
       Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),
@@ -31,14 +36,21 @@ export class LoginPage implements OnInit {
     ]),
   });
 
-  ngOnInit() {
-    if (localStorage.getItem('jwt_token') != null) {
-      this.router.navigate(['/account']);
-    }
-  }
+  ngOnInit() {}
 
-  passwordType: string = 'password';
-  passwordIcon: string = 'eye-off';
+  ionViewWillEnter() {
+    // this.hideProgressBar();
+    this.storage
+      .getItem('jwt_token')
+      .then((data) => {
+        if (data) {
+          this.router.navigate(['/account']);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   hideShowPassword() {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
@@ -46,13 +58,15 @@ export class LoginPage implements OnInit {
   }
 
   signIn() {
+    this.showProgressBar();
     const signIn: SignIn = {
       email: this.accountLogin.controls['email'].value,
       password: this.accountLogin.controls['password'].value,
     };
     this.userService.signIn(signIn).subscribe(
       (data: any) => {
-        localStorage.setItem('jwt_token', data.access_token);
+        this.storage.setItem('jwt_token', data.access_token);
+        this.hideProgressBar();
         this.router.navigate(['/account']);
       },
       (error) => {
@@ -66,6 +80,15 @@ export class LoginPage implements OnInit {
       header: msg,
       buttons: ['OK'],
     });
+    this.hideProgressBar();
     await alert.present();
+  }
+
+  showProgressBar() {
+    this.showLoader = true;
+  }
+
+  hideProgressBar() {
+    this.showLoader = false;
   }
 }

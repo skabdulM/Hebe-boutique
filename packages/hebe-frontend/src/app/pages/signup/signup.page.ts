@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StorageService } from 'src/app/api/storage.service';
 import { UserService } from 'src/app/api/user.service';
 import { SingUp } from 'src/app/interface/signUp';
 import { CustomValidators } from './confirm-password.validator';
@@ -11,17 +12,14 @@ import { CustomValidators } from './confirm-password.validator';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
-  
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private storage: StorageService
+  ) {}
+
   passwordType: string = 'password';
   passwordIcon: string = 'eye-off';
-  
-  constructor(private userService: UserService, private router: Router) {}
-
-  ngOnInit() {
-    if (localStorage.getItem('jwt_token') != null) {
-      this.router.navigate(['/account']);
-    }
-  }
   accountSignup: FormGroup = new FormGroup(
     {
       firstName: new FormControl('', [
@@ -60,11 +58,26 @@ export class SignupPage implements OnInit {
     [CustomValidators.MatchValidator('password', 'confirmPassword')]
   );
 
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    this.storage
+      .getItem('jwt_token')
+      .then((data) => {
+        if (data) {
+          this.router.navigate(['/account']);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   hideShowPassword() {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
     this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
   }
-  
+
   signUp() {
     const signUpInfo: SingUp = {
       email: this.accountSignup.controls['email'].value,
@@ -75,7 +88,7 @@ export class SignupPage implements OnInit {
     };
     this.userService.signUp(signUpInfo).subscribe(
       (data: any) => {
-        localStorage.setItem('jwt_token', data.access_token);
+        this.storage.setItem('jwt_token', data.access_token);
         this.router.navigate(['/account']);
       },
       (error) => {
@@ -83,7 +96,7 @@ export class SignupPage implements OnInit {
       }
     );
   }
-  
+
   get passwordMatchError() {
     return (
       this.accountSignup.getError('mismatch') &&

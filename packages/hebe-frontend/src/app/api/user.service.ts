@@ -3,15 +3,23 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SingUp } from '../interface/signUp';
 import { SignIn } from '../interface/signIn';
 import { UpdateUser } from '../interface/updateUser';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private storage: StorageService) {}
 
-  jwt = localStorage.getItem('jwt_token');
-
+  jwt_token: string = '';
+  jwt = this.storage
+    .getItem('jwt_token')
+    .then((data) => {
+      this.jwt_token = data;
+    })
+    .catch((error: any) => {
+      console.log(error);
+    });
   // url = 'http://localhost:3000';
   url = 'https://hebe-app-backend.herokuapp.com';
 
@@ -36,13 +44,16 @@ export class UserService {
 
   getUser() {
     const url: string = this.url + '/users/me';
-    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.jwt);
+    let headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + this.jwt_token
+    );
     return this.http.get(url, { headers: headers });
   }
 
   updateUser(data: UpdateUser) {
     const url: string = this.url + '/users/editUser';
-    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.jwt);
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' +  this.jwt_token);
     return this.http.patch(url, data, { headers: headers });
   }
 }

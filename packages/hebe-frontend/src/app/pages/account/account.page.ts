@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StorageService } from 'src/app/api/storage.service';
 import { UserService } from 'src/app/api/user.service';
 import { UpdateUser } from 'src/app/interface/updateUser';
 
@@ -10,7 +11,11 @@ import { UpdateUser } from 'src/app/interface/updateUser';
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private storage: StorageService
+  ) {}
   account: FormGroup = new FormGroup({
     firstName: new FormControl('', [
       Validators.pattern('[a-zA-Z][a-zA-Z ]+'),
@@ -65,11 +70,11 @@ export class AccountPage implements OnInit {
           phone: data.phone,
           address: data.address,
         });
-        this.account.markAsPristine()
+        this.account.markAsPristine();
       },
       (error: any) => {
         if (error.error.statusCode == 401) {
-          localStorage.clear();
+          this.storage.clear();
           this.router.navigate(['/account/login']);
         } else {
           console.log(error.error);
@@ -79,8 +84,7 @@ export class AccountPage implements OnInit {
   }
 
   logout() {
-    localStorage.clear();
-    window.sessionStorage.clear();
+    this.storage.clear();
     this.router.navigate(['/account/login']);
   }
 }
