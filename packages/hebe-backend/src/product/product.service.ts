@@ -50,10 +50,10 @@ export class ProductService {
 
   async getProducts() {
     const products = await this.prisma.products.findMany({
-      include:{
-        category:true,
-        brand:true
-      }
+      include: {
+        category: true,
+        brand: true,
+      },
     });
     // {take:3}       //only takes 3
     return products;
@@ -78,8 +78,17 @@ export class ProductService {
         },
       },
       include: {
-        category: true,
-        brand: true,
+        category: {
+          select: {
+            name: true,
+          },
+        },
+        brand: {
+          select: {
+            name: true,
+          },
+        },
+        tags:true
       },
     });
     return product;
@@ -91,8 +100,17 @@ export class ProductService {
         id: productId,
       },
       include: {
-        category: true,
-        brand: true,
+        category: {
+          select: {
+            name: true,
+          },
+        },
+        brand: {
+          select: {
+            name: true,
+          },
+        },
+        tags:true
       },
     });
     return product;

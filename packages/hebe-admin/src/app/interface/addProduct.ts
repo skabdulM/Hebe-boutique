@@ -4,5 +4,5 @@ export interface AddProduct {
   productPrice: number;
   productImg: string;
   category: string;
-  brand?: string;
+  brand: string;
 }

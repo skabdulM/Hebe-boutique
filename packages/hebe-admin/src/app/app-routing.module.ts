@@ -23,11 +23,11 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
-  { path: '***', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'orders',
     loadChildren: () => import('./pages/orders/orders.module').then( m => m.OrdersPageModule)
   },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 
 @NgModule({

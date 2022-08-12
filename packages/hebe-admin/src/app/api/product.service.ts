@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Serverurl } from './url';
 import { AddProduct } from '../interface/addProduct';
+import { AddTag } from '../interface/addTag';
+import { UpdateProduct } from '../interface/updateProduct';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +19,32 @@ export class ProductService {
       headers: headers,
     });
   }
+
+  addProductTag(data: AddTag) {
+    const jwt = localStorage.getItem('jwt_token');
+    const url: string = Serverurl + '/tags/addTag';
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
+    return this.http.post<AddProduct[]>(url, data, {
+      headers: headers,
+    });
+  }
+
   getAllProduct() {
     return this.http.get(Serverurl + '/product/getallProducts');
   }
+
   getProductById(id: string) {
-    return this.http.get(Serverurl + '/product/'+id);
+    return this.http.get(Serverurl + '/product/' + id);
+  }
+
+  updateProduct(id: string, data: UpdateProduct) {
+    const jwt = localStorage.getItem('jwt_token');
+    const url: string = Serverurl + '/product/updateProduct/' + id;
+    let headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + jwt
+    );
+    return this.http.patch(url, data, { headers: headers });
   }
 
   deleteProduct(id: string) {

@@ -1,20 +1,155 @@
-<ion-content [fullscreen]="true">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-sm>
-        <ion-img src="https://picsum.photos/200/300"></ion-img>
-      </ion-col>
-      <ion-col size="12" size-sm>
+<ion-content>
+  <form [formGroup]="productForm">
+    <ion-grid>
+      <ion-list>
         <ion-row>
-          <ion-title>{{product.productName}} </ion-title>
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item>
+              <ion-label position="floating">Product Name</ion-label>
+              <ion-input
+                type="text"
+                inputmode="text"
+                placeholder="Product Name"
+                formControlName="productName"
+                minlength="4"
+                maxlength="50"
+                required="true"
+                spellcheck="true"
+                clearInput
+              ></ion-input>
+            </ion-item>
+          </ion-col>
         </ion-row>
         <ion-row>
-          <ion-title>{{product.productPrice}} </ion-title>
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item>
+              <ion-label position="floating">Product Description:</ion-label>
+              <ion-textarea
+                type="text"
+                inputmode="text"
+                minlength="10"
+                maxlength="300"
+                placeholder="Enter Product Description here..."
+                required="true"
+                formControlName="productDescription"
+                spellcheck="true"
+                wrap="hard"
+                rows="5"
+              >
+              </ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item>
+              <ion-label position="floating">Product Price:</ion-label>
+              <ion-input
+                type="number"
+                inputmode="numeric"
+                required="true"
+                formControlName="productPrice"
+                placeholder="Product Price in rupees"
+                min="1"
+                >₹</ion-input
+              >
+            </ion-item>
+          </ion-col>
         </ion-row>
         <ion-row>
-          <ion-title>{{product.productDescription}} </ion-title>
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item>
+              <ion-label position="floating">Product Image Link</ion-label>
+              <ion-input
+                type="text"
+                inputmode="text"
+                placeholder="Link"
+                formControlName="productImage"
+                minlength="4"
+                maxlength="50"
+                required="true"
+                spellcheck="true"
+                clearInput
+              ></ion-input>
+            </ion-item>
+          </ion-col>
         </ion-row>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        <ion-row>
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item>
+              <ion-label position="floating">Product Category</ion-label>
+              <ion-input
+                type="text"
+                inputmode="text"
+                placeholder="Link"
+                formControlName="productCategory"
+                minlength="4"
+                maxlength="50"
+                required="true"
+                spellcheck="true"
+                clearInput
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-item>
+              <ion-label position="floating">Product Brand</ion-label>
+              <ion-input
+                type="text"
+                inputmode="text"
+                placeholder="Link"
+                formControlName="productBrand"
+                minlength="2"
+                maxlength="50"
+                required="true"
+                spellcheck="true"
+                clearInput
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <form [formGroup]="tagForm">
+              <ion-item>
+                <ion-label position="floating">Product Tag</ion-label>
+                <ion-input
+                  type="text"
+                  inputmode="text"
+                  placeholder="Add Tags"
+                  formControlName="productTag"
+                  minlength="2"
+                  maxlength="50"
+                  required="true"
+                  spellcheck="true"
+                  clearInput
+                ></ion-input>
+                <ion-button (click)="addTag(productId)" slot="end"
+                  >Add tag</ion-button
+                >
+              </ion-item>
+            </form>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="productForm.dirty">
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-button expand="block" (click)="updateProduct(productId)" [disabled]="productForm.invalid"
+              >Update Product</ion-button
+            >
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-title>Tags</ion-title>
+            <ion-label *ngFor="let tag of tags"
+              >{{tag.tagName}}<br
+            /></ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </ion-grid>
+  </form>
 </ion-content>

@@ -5,38 +5,45 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () =>
+      import('./pages/home/home.module').then((m) => m.HomePageModule),
   },
   {
     path: 'account',
-    loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule)
+    loadChildren: () =>
+      import('./pages/account/account.module').then((m) => m.AccountPageModule),
   },
   {
     path: 'account/login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () =>
+      import('./pages/login/login.module').then((m) => m.LoginPageModule),
   },
   {
     path: 'account/signup',
-    loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)
+    loadChildren: () =>
+      import('./pages/signup/signup.module').then((m) => m.SignupPageModule),
   },
   {
     path: 'account/orders',
-    loadChildren: () => import('./pages/orders/orders.module').then( m => m.OrdersPageModule)
+    loadChildren: () =>
+      import('./pages/orders/orders.module').then((m) => m.OrdersPageModule),
   },
   {
     path: 'product',
-    loadChildren: () => import('./pages/product/product.module').then( m => m.ProductPageModule)
+    loadChildren: () =>
+      import('./pages/product/product.module').then((m) => m.ProductPageModule),
   },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
