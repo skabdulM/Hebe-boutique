@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { LoginService } from '../api/login.service';
-import { SignIn } from '../interface/signIn';
+import { SignIn } from 'src/app/interface/signIn';
+import { LoginService } from '../../api/login.service';
 
 @Component({
   selector: 'app-login',
@@ -41,8 +41,6 @@ export class LoginPage implements OnInit {
     if (localStorage.getItem('jwt_token') != null) {
       this.userInfo();
     }
-    this.hideProgressBar();
-    
   }
 
   signIn() {
@@ -73,7 +71,6 @@ export class LoginPage implements OnInit {
           this.router.navigate(['/home']);
         } else {
           this.presentAlert('Unauthorized');
-          this.hideProgressBar();
           this.logout();
         }
       },
@@ -90,9 +87,19 @@ export class LoginPage implements OnInit {
   async presentAlert(msg: string) {
     const alert = await this.alertController.create({
       header: msg,
-      buttons: ['OK'],
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.hideProgressBar();
+          },
+        },
+      ],
     });
     await alert.present();
+    await alert.onDidDismiss().then(() => {
+      this.hideProgressBar();
+    });
   }
 
   showProgressBar() {
@@ -113,5 +120,4 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/login']);
   }
   // location.reload();
-
 }

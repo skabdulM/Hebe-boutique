@@ -1,4 +1,9 @@
 <ion-content>
+  <ion-progress-bar
+    id="loading"
+    *ngIf="showLoader"
+    type="indeterminate"
+  ></ion-progress-bar>
   <form [formGroup]="account">
     <ion-grid class="grid">
       <ion-list>

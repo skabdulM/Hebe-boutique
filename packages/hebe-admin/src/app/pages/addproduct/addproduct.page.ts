@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ProductService } from '../api/product.service';
-import { AddProduct } from '../interface/addProduct';
+import { ProductService } from 'src/app/api/product.service';
+import { AddProduct } from 'src/app/interface/addProduct';
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.page.html',
-  styleUrls: ['./product.page.scss'],
+  selector: 'app-addproduct',
+  templateUrl: './addproduct.page.html',
+  styleUrls: ['./addproduct.page.scss'],
 })
-export class ProductPage implements OnInit {
+export class AddproductPage implements OnInit {
   constructor(private productService: ProductService) {}
 
   products: any = [];

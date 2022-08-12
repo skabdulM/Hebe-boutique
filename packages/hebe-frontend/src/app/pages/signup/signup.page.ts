@@ -18,6 +18,7 @@ export class SignupPage implements OnInit {
     private storage: StorageService
   ) {}
 
+  showLoader: boolean;
   passwordType: string = 'password';
   passwordIcon: string = 'eye-off';
   accountSignup: FormGroup = new FormGroup(
@@ -58,9 +59,7 @@ export class SignupPage implements OnInit {
     [CustomValidators.MatchValidator('password', 'confirmPassword')]
   );
 
-  ngOnInit() {}
-
-  ionViewWillEnter() {
+  ngOnInit() {
     this.storage
       .getItem('jwt_token')
       .then((data) => {
@@ -79,6 +78,7 @@ export class SignupPage implements OnInit {
   }
 
   signUp() {
+    this.showProgressBar()
     const signUpInfo: SingUp = {
       email: this.accountSignup.controls['email'].value,
       password: this.accountSignup.controls['password'].value,
@@ -89,6 +89,7 @@ export class SignupPage implements OnInit {
     this.userService.signUp(signUpInfo).subscribe(
       (data: any) => {
         this.storage.setItem('jwt_token', data.access_token);
+        this.hideProgressBar()
         this.router.navigate(['/account']);
       },
       (error) => {
@@ -102,5 +103,13 @@ export class SignupPage implements OnInit {
       this.accountSignup.getError('mismatch') &&
       this.accountSignup.get('confirmPassword')?.touched
     );
+  }
+  
+  showProgressBar() {
+    this.showLoader = true;
+  }
+
+  hideProgressBar() {
+    this.showLoader = false;
   }
 }

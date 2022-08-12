@@ -14,12 +14,12 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.fetchProducts();
   }
+  
   products: any = [];
   fetchProducts() {
     this.productService.getAllProduct().subscribe((data) => {
       this.products = data;
       console.log(data);
-      
     });
   }
 }

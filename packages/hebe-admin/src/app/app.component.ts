@@ -7,6 +7,15 @@ import { LoginService } from './api/login.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  public appPages = [
+    { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
+    { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
+    { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
+    { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
+    { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
+    { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
+  ];
+  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   jwt = localStorage.getItem('jwt_token');
   userDetails: any = {};
   constructor(private router: Router, private loginService: LoginService) {}
@@ -29,12 +38,10 @@ export class AppComponent {
         }
       },
       (error: any) => {
-        if (error.error.statusCode == 401) {
+        if (error) {
           localStorage.clear();
           this.router.navigate(['/login']);
-        } else {
         }
-        
       }
     );
   }

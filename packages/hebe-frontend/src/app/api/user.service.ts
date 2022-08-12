@@ -4,6 +4,7 @@ import { SingUp } from '../interface/signUp';
 import { SignIn } from '../interface/signIn';
 import { UpdateUser } from '../interface/updateUser';
 import { StorageService } from './storage.service';
+import { Serverurl } from './url';
 
 @Injectable({
   providedIn: 'root',
@@ -20,11 +21,10 @@ export class UserService {
     .catch((error: any) => {
       console.log(error);
     });
-  // url = 'http://localhost:3000';
-  url = 'https://hebe-app-backend.herokuapp.com';
+
 
   signUp(data: SingUp) {
-    const url: string = this.url + '/auth/signup';
+    const url: string = Serverurl + '/auth/signup';
     return this.http.post<SingUp[]>(url, {
       email: data.email,
       password: data.password,
@@ -32,10 +32,11 @@ export class UserService {
       lastName: data.lastName,
       phone: data.phone,
     });
+    
   }
-
+  
   signIn(data: SignIn) {
-    const url: string = this.url + '/auth/signin';
+    const url: string = Serverurl + '/auth/signin';
     return this.http.post<SignIn[]>(url, {
       email: data.email,
       password: data.password,
@@ -43,7 +44,7 @@ export class UserService {
   }
 
   getUser() {
-    const url: string = this.url + '/users/me';
+    const url: string = Serverurl + '/users/me';
     let headers = new HttpHeaders().set(
       'Authorization',
       'Bearer ' + this.jwt_token
@@ -52,7 +53,7 @@ export class UserService {
   }
 
   updateUser(data: UpdateUser) {
-    const url: string = this.url + '/users/editUser';
+    const url: string = Serverurl + '/users/editUser';
     let headers = new HttpHeaders().set('Authorization', 'Bearer ' +  this.jwt_token);
     return this.http.patch(url, data, { headers: headers });
   }

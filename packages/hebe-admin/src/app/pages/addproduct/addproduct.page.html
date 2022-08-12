@@ -121,8 +121,11 @@
           size-xs="12"
           *ngFor="let product of products"
         >
-          <ion-card>
-            <ion-img [src]="product.productImg" height="10px"></ion-img>
+          <ion-card
+            [routerLink]='"/product/"+product.id'
+            routerLinkActive="selected"
+          >
+            <!-- <ion-img [src]="product.productImg" height="10px"></ion-img> -->
             <ion-card-header>
               <ion-card-subtitle>
                 <strong>₹{{product.productPrice}}</strong></ion-card-subtitle

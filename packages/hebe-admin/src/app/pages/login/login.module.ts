@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginPageRoutingModule } from './login-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginPage } from './login.page';
-import { LoginService } from '../api/login.service';
+import { LoginService } from '../../api/login.service';
 
 @NgModule({
   imports: [

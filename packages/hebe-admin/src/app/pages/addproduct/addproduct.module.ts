@@ -4,23 +4,23 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
-
-import { ProductPageRoutingModule } from './product-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
-import { ProductPage } from './product.page';
-import { ProductService } from '../api/product.service';
+import { AddproductPageRoutingModule } from './addproduct-routing.module';
+
+import { AddproductPage } from './addproduct.page';
+import { ProductService } from '../../api/product.service';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProductPageRoutingModule,
+    AddproductPageRoutingModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
-  declarations: [ProductPage],
+  declarations: [AddproductPage],
   providers:[ProductService]
 })
-export class ProductPageModule {}
+export class AddproductPageModule {}

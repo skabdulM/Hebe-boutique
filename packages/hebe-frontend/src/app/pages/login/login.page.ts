@@ -36,20 +36,17 @@ export class LoginPage implements OnInit {
     ]),
   });
 
-  ngOnInit() {}
-
-  ionViewWillEnter() {
-    // this.hideProgressBar();
+  ngOnInit() {
     this.storage
-      .getItem('jwt_token')
-      .then((data) => {
-        if (data) {
-          this.router.navigate(['/account']);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    .getItem('jwt_token')
+    .then((data) => {
+      if (data) {
+        this.router.navigate(['/account']);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   hideShowPassword() {
