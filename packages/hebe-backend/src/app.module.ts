@@ -10,7 +10,6 @@ import { CartModule } from './cart/cart.module';
 import { CommentController } from './comment/comment.controller';
 import { CommentService } from './comment/comment.service';
 import { CommentModule } from './comment/comment.module';
-import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -23,7 +22,6 @@ import { TagsModule } from './tags/tags.module';
     }),
     CartModule,
     CommentModule,
-    TagsModule,
   ],
   controllers: [OrderController, CommentController],
   providers: [OrderService, CommentService],

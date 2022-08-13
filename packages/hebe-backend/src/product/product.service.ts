@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { ProductDto, UpdateProductDto } from './dto';
+import { addProductTag, ProductDto, UpdateProductDto } from './dto';
 
 @Injectable()
 export class ProductService {
@@ -32,15 +32,19 @@ export class ProductService {
             },
           },
         },
-        include: {
-          category: true,
-          // category: {
-          //   select: {
-          //     name: true,
-          //   },
-          // },
-          brand: true,
-        },
+        // include: {
+        //   category: {
+        //     select: {
+        //       name: true,
+        //     },
+        //   },
+        //   brand: {
+        //     select: {
+        //       name: true,
+        //     },
+        //   },
+        //   tags: true,
+        // },
       })
       .catch((error) => {
         return error;
@@ -53,6 +57,7 @@ export class ProductService {
       include: {
         category: true,
         brand: true,
+        tags: true,
       },
     });
     // {take:3}       //only takes 3
@@ -88,10 +93,63 @@ export class ProductService {
             name: true,
           },
         },
-        tags:true
+        tags: true,
       },
     });
     return product;
+  }
+
+  async addProductTag(dto: addProductTag) {
+    const tag = await this.prisma.products.update({
+      where: {
+        id: dto.productId,
+      },
+      data: {
+        tags: {
+          connectOrCreate: {
+            where: {
+              tagName: dto.tagName,
+            },
+            create: {
+              tagName: dto.tagName,
+            },
+          },
+        },
+      },
+      include: {
+        category: {
+          select: {
+            name: true,
+          },
+        },
+        brand: {
+          select: {
+            name: true,
+          },
+        },
+        tags: true,
+      },
+    });
+    return tag;
+  }
+
+  async removeTag(dto: addProductTag) {
+    const tag = await this.prisma.products.update({
+      where: {
+        id: dto.productId,
+      },
+      data: {
+        tags: {
+          disconnect: {
+            tagName: dto.tagName,
+          },
+        },
+      },
+      include: {
+        tags: true,
+      },
+    });
+    return tag;
   }
 
   async getProductByid(productId: string) {
@@ -110,7 +168,7 @@ export class ProductService {
             name: true,
           },
         },
-        tags:true
+        tags: true,
       },
     });
     return product;

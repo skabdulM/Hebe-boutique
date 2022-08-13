@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Products } from '../interface/product';
 import { Serverurl } from './url';
 
@@ -11,5 +11,9 @@ export class ProductService {
 
   getAllProduct() {
     return this.http.get<Products[]>(Serverurl + '/product/getallProducts');
+  }
+  
+  getProductById(id: string) {
+    return this.http.get(Serverurl + '/product/' + id);
   }
 }

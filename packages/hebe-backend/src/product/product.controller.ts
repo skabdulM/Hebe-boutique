@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { Roles } from '../auth/decorator';
 import { JwtGuard, RolesGuard } from '../auth/guard';
-import { ProductDto, UpdateProductDto } from './dto';
+import { addProductTag, ProductDto, UpdateProductDto } from './dto';
 import { ProductService } from './product.service';
 
 @Controller('product')
@@ -35,6 +35,24 @@ export class ProductController {
     @Body() dto: UpdateProductDto,
   ) {
     return this.productService.updateProduct(productId, dto);
+  }
+
+  @Roles('MANAGER','ADMIN')
+  @UseGuards(JwtGuard, RolesGuard)
+  @Patch('addProductTag')
+  updateProductTag(
+    @Body() dto: addProductTag,
+  ) {
+    return this.productService.addProductTag( dto);
+  }
+
+  @Roles('MANAGER','ADMIN')
+  @UseGuards(JwtGuard, RolesGuard)
+  @Patch('removeTag')
+  removeTag(
+    @Body() dto: addProductTag,
+  ) {
+    return this.productService.removeTag( dto);
   }
 
   @Get('getallProducts')

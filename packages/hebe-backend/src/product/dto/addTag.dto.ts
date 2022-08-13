@@ -1,13 +1,13 @@
-import {  IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+} from 'class-validator';
 
-export class AddTags {
-
+export class addProductTag {
   @IsString()
   @IsNotEmpty()
   tagName: string;
-
   @IsString()
   @IsNotEmpty()
   productId: string;
-
 }

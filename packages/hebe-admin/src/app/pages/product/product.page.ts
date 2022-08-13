@@ -62,8 +62,23 @@ export class ProductPage implements OnInit {
     };
     this.productService.addProductTag(tag).subscribe(
       (data: any) => {
-        this.tags.push(data);
+        this.tags = data.tags;
         this.tagForm.reset();
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  removeTag(tagName: string, productId: string) {
+    const tag: AddTag = {
+      tagName:tagName,
+      productId: productId,
+    };
+    this.productService.removeTag(tag).subscribe(
+      (data: any) => {
+        this.tags = data.tags;
       },
       (error: any) => {
         console.log(error);

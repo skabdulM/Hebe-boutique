@@ -22,9 +22,18 @@ export class ProductService {
 
   addProductTag(data: AddTag) {
     const jwt = localStorage.getItem('jwt_token');
-    const url: string = Serverurl + '/tags/addTag';
+    const url: string = Serverurl + '/product/addProductTag';
     let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
-    return this.http.post<AddProduct[]>(url, data, {
+    return this.http.patch<AddProduct[]>(url, data, {
+      headers: headers,
+    });
+  }
+
+  removeTag(data: AddTag) {
+    const jwt = localStorage.getItem('jwt_token');
+    const url: string = Serverurl + '/product/removeTag';
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
+    return this.http.patch<AddProduct[]>(url, data, {
       headers: headers,
     });
   }

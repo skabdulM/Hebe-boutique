@@ -104,10 +104,8 @@ model ProductComments {
   product Products? @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
-//for later
 model Tags {
-  id         Int       @id @default(autoincrement())
-  tagName    String
-  Products   Products? @relation(fields: [productsId], references: [id])
-  productsId String?
+  id       Int        @id @default(autoincrement())
+  tagName  String     @unique
+  Products Products[] 
 }

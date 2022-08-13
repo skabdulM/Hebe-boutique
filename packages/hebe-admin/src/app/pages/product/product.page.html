@@ -136,7 +136,10 @@
         </ion-row>
         <ion-row *ngIf="productForm.dirty">
           <ion-col size-md="6" size-lg="5" size-xs="12">
-            <ion-button expand="block" (click)="updateProduct(productId)" [disabled]="productForm.invalid"
+            <ion-button
+              expand="block"
+              (click)="updateProduct(productId)"
+              [disabled]="productForm.invalid"
               >Update Product</ion-button
             >
           </ion-col>
@@ -144,9 +147,16 @@
         <ion-row>
           <ion-col size-md="6" size-lg="5" size-xs="12">
             <ion-title>Tags</ion-title>
-            <ion-label *ngFor="let tag of tags"
-              >{{tag.tagName}}<br
-            /></ion-label>
+            <ion-list>
+              <ion-item *ngFor="let tag of tags">
+                <ion-label
+                  >{{tag.tagName}}<ion-icon
+                    name="close-circle-outline"
+                    (click)="removeTag(tag.tagName,productId)"
+                  ></ion-icon
+                ></ion-label>
+              </ion-item>
+            </ion-list>
           </ion-col>
         </ion-row>
       </ion-list>
