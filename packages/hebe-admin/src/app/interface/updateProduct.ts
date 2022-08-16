@@ -3,7 +3,5 @@ export interface UpdateProduct {
     productDescription: string;
     productPrice: number;
     productImg: string;
-    category: string;
-    brand: string;
   }
   

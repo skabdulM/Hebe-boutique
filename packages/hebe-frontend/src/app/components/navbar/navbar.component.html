@@ -1,7 +1,82 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-nav class="title">
-      <ion-title class="title">HEBE. </ion-title>
-    </ion-nav>
-  </ion-toolbar>
-</ion-header>
+<ion-row class="header ion-align-items-center">
+  <ion-col size="2" class="ion-align-items-center">
+    <ion-title class="title" routerLink="/home">HEBE. </ion-title>
+  </ion-col>
+  <ion-col size="8" class="ion-text-left">
+    <ion-button fill="clear" color="dark" routerLink="/home"> Home </ion-button>
+    <ion-button
+      #productbtn
+      (mouseenter)="dropdown = true"
+      (mouseleave)="hideDropdown($event)"
+      fill="clear"
+      color="dark"
+      routerLink="/shop"
+    >
+      Shop
+      <ion-icon
+        slot="end"
+        [name]="dropdown ? 'chevron-down' : 'chevron-up'"
+      ></ion-icon>
+    </ion-button>
+    <div
+      *ngIf="dropdown"
+      class="dropdown"
+      (mouseleave)="dropdown = false"
+      #dropdownbox
+    >
+    <ion-item
+      (click)="dropdown = false"
+      lines="none"
+      [routerLink]="'/shop/' + 'Accessories'"
+      routerLinkActive="selected"
+    >
+      Accessories
+    </ion-item>
+    <ion-item
+      (click)="dropdown = false"
+      lines="none"
+      [routerLink]="'/shop/' + 'Bottomwear'"
+      routerLinkActive="selected"
+    >
+      Bottomwear
+    </ion-item>
+    <ion-item
+      (click)="dropdown = false"
+      lines="none"
+      [routerLink]="'/shop/' + 'Footwear'"
+      routerLinkActive="selected"
+    >
+      Footwear
+    </ion-item>
+      <ion-item
+        (click)="dropdown = false"
+        lines="none"
+        [routerLink]="'/shop/' + 'Topwear'"
+        routerLinkActive="selected"
+      >
+        Topwear
+      </ion-item>
+      <ion-item
+        (click)="dropdown = false"
+        lines="none"
+        [routerLink]="'/shop/' + 'Wearables'"
+        routerLinkActive="selected"
+      >
+        Wearables
+      </ion-item>
+    </div>
+    <ion-button fill="clear" color="dark"> Search </ion-button>
+    <ion-button fill="clear" color="dark"> About </ion-button>
+  </ion-col>
+  <ion-fab-button size="small" class="ion-text-right" routerLink="/account"
+    ><ion-icon name="person-outline"></ion-icon
+  ></ion-fab-button>
+  <ion-fab-button size="small" class="ion-text-right"
+    ><ion-icon name="cart-outline"></ion-icon
+  ></ion-fab-button>
+
+  <!-- <ion-col size="2" class="ion-text-right "> -->
+  <!-- <ion-button fill="clear" color="dark" > -->
+  <!-- </ion-button> -->
+  <!-- </ion-col> -->
+</ion-row>

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { addProductTag, ProductDto, UpdateProductDto } from './dto';
+import { addProductCategory } from './dto/addCategory';
 
 @Injectable()
 export class ProductService {
@@ -14,10 +15,10 @@ export class ProductService {
           category: {
             connectOrCreate: {
               where: {
-                name: dto.category,
+                name: dto.category.toLowerCase(),
               },
               create: {
-                name: dto.category,
+                name: dto.category.toLowerCase(),
               },
             },
           },
@@ -71,16 +72,16 @@ export class ProductService {
       },
       data: {
         ...dto,
-        category: {
-          connectOrCreate: {
-            where: {
-              name: dto.category,
-            },
-            create: {
-              name: dto.category,
-            },
-          },
-        },
+        // category: {
+        //   connectOrCreate: {
+        //     where: {
+        //       name: dto.category,
+        //     },
+        //     create: {
+        //       name: dto.category,
+        //     },
+        //   },
+        // },
       },
       include: {
         category: {
@@ -108,10 +109,43 @@ export class ProductService {
         tags: {
           connectOrCreate: {
             where: {
-              tagName: dto.tagName,
+              tagName: dto.tagName.toLowerCase(),
             },
             create: {
-              tagName: dto.tagName,
+              tagName: dto.tagName.toLowerCase(),
+            },
+          },
+        },
+      },
+      include: {
+        category: {
+          select: {
+            name: true,
+          },
+        },
+        brand: {
+          select: {
+            name: true,
+          },
+        },
+        tags: true,
+      },
+    });
+    return tag;
+  }
+  async addProductCategory(dto: addProductCategory) {
+    const tag = await this.prisma.products.update({
+      where: {
+        id: dto.productId,
+      },
+      data: {
+        category: {
+          connectOrCreate: {
+            where: {
+              name: dto.name.toLowerCase(),
+            },
+            create: {
+              name: dto.name.toLowerCase(),
             },
           },
         },
@@ -141,7 +175,7 @@ export class ProductService {
       data: {
         tags: {
           disconnect: {
-            tagName: dto.tagName,
+            tagName: dto.tagName.toLowerCase(),
           },
         },
       },
@@ -150,6 +184,24 @@ export class ProductService {
       },
     });
     return tag;
+  }
+  async removeCategory(dto: addProductCategory) {
+    const category = await this.prisma.products.update({
+      where: {
+        id: dto.productId,
+      },
+      data: {
+        category: {
+          disconnect: {
+            name: dto.name.toLowerCase(),
+          },
+        },
+      },
+      include: {
+        category: true,
+      },
+    });
+    return category;
   }
 
   async getProductByid(productId: string) {
@@ -172,6 +224,44 @@ export class ProductService {
       },
     });
     return product;
+  }
+
+  async getallcatergory() {
+    return await this.prisma.category.findMany({
+      select: {
+        name: true,
+      },
+    });
+  }
+  async getBycatergoryName(categoryName:string) {
+    return await this.prisma.category.findMany({
+      where: {
+        name: categoryName.toLowerCase(),
+      },
+      select: {
+        products: {
+          select: {
+            id: true,
+            createdAt: true,
+            updatedAt: true,
+            productName: true,
+            productDescription: true,
+            productImg: true,
+            productPrice: true,
+            category: {
+              select: {
+                name: true,
+              },
+            },
+            brand: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
   }
 
   async deleteProduct(productId: string) {

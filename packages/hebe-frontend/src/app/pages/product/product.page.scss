@@ -1,8 +1,23 @@
 .price {
   color: grey;
-  font-size: 22px;
+  font-size: large;
 }
-.img{
-  width: 100%;
-  height: 80%;
+
+@media only screen and (min-width: 700px) {
+  .img {
+    margin-top: 5%;
+    padding: 0 3% 0 5%;
+  }
+  .buttons{
+    width: 49%;
+  }
 }
+.brand {
+  font-size: medium;
+  font-weight: bold;
+}
+.heading {
+  font-size: x-large;
+  font-weight: bold;
+}
+

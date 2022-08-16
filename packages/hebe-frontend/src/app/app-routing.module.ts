@@ -37,6 +37,14 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/product/product.module').then((m) => m.ProductPageModule),
   },
+  {
+    path: 'shop',
+    loadChildren: () => import('./pages/shop/shop.module').then( m => m.ShopPageModule)
+  },
+  {
+    path: 'shop/:id',
+    loadChildren: () => import('./pages/shop/shop.module').then( m => m.ShopPageModule)
+  },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 

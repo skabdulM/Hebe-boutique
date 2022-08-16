@@ -1,8 +1,9 @@
 .image {
-  background-image: linear-gradient(rgba(20, 0, 0, 0.151), rgba(19, 0, 0, 0.144)),
-    url(../../../assets/2593168.png);
+  background-image: url(../../../assets/backgrnd.png);
+  // height: 75%;
+  width: 100%;
   height: 100%;
-  background-position: center;
+  background-position: left;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
@@ -11,15 +12,78 @@
 .image-text {
   text-align: left;
   position: absolute;
-  font-family: Montserrat, sans-serif;
-  bottom: 10%;
-  left: 5%;
-   // top: 70%;
-  // transform: translate(-50%, -50%);
-  // color: #1B130D;
+  bottom: 20%;
+  left: 10%;
+  // width: 40%;
 }
 .ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+ion-card {
+  background-color: transparent;
+  box-shadow: none;
+  text-align: center;
+  color: azure;
+}
+// ion-content {
+//   --ion-background-color: #caafa8;
+// }
+h1 {
+  font-size: 40px;
+  margin-top: 3%;
+  letter-spacing: 5px;
+  font-family: "Domine";
+  font-weight: bold;
+}
+h6 {
+  color: #5f00d4;
+  font-weight: bold;
+}
+.title_buttons {
+  margin-top: 3%;
+  margin-right: 10px;
+  width: 30%;
+}
+p {
+  font-size: medium;
+}
+.svgcol {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2%;
+  margin-right: 2%;
+}
+.svgimg {
+  width: 20%;
+}
+.svglabel {
+  display: flex;
+  font-family: "Domine";
+  flex-direction: column;
+  justify-content: center;
+}
+h4 {
+  font-size: larger;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding-left: 10px;
+}
+.hint {
+  padding-left: 10px;
+}
+@media (min-width: 990px) {
+  .svgcol {
+    border-right: rgba(61, 56, 56, 0.37) 0.5px solid;
+  }
+  .image-text {
+    width: 40%;
+  }
+}
+@media (max-width: 990px) {
+  .svgcol {
+    border-bottom: rgba(61, 56, 56, 0.37) 0.5px solid;
+  }
+ 
 }

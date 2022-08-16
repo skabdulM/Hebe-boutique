@@ -4,8 +4,7 @@
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  // --ion-color-primary: #3880ff;
-  --ion-color-primary: #769fcd;
+  --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
@@ -77,12 +76,16 @@
   --ion-color-light-tint: #f5f6f9;
 
   // background color
-  --ion-background-color: #f7fbfc;
-  --ion-font-family: Montserrat, -apple-system, BlinkMacSystemFont,
+  // --ion-background-color: #CAAFA8;
+
+  --ion-font-family: "Poppins", Montserrat, -apple-system, BlinkMacSystemFont,
     "Helvetica Neue", "Roboto", sans-serif;
 }
 ion-button {
-  --background: #769fcd;
+  --background: #5f00d4;
+}
+ion-fab-button {
+  --background: #5f00d4;
 }
 /*
 @media (prefers-color-scheme: dark) {

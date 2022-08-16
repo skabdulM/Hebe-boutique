@@ -4,6 +4,7 @@ import { Serverurl } from './url';
 import { AddProduct } from '../interface/addProduct';
 import { AddTag } from '../interface/addTag';
 import { UpdateProduct } from '../interface/updateProduct';
+import { AddCategory } from '../interface/addCategory';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,24 @@ export class ProductService {
   removeTag(data: AddTag) {
     const jwt = localStorage.getItem('jwt_token');
     const url: string = Serverurl + '/product/removeTag';
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
+    return this.http.patch<AddProduct[]>(url, data, {
+      headers: headers,
+    });
+  }
+
+  addProductCategory(data: AddCategory) {
+    const jwt = localStorage.getItem('jwt_token');
+    const url: string = Serverurl + '/product/addProductCategory';
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
+    return this.http.patch<AddProduct[]>(url, data, {
+      headers: headers,
+    });
+  }
+
+  removeCategory(data: AddCategory) {
+    const jwt = localStorage.getItem('jwt_token');
+    const url: string = Serverurl + '/product/removeCategory';
     let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
     return this.http.patch<AddProduct[]>(url, data, {
       headers: headers,

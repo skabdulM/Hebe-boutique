@@ -18,6 +18,8 @@ export class LoginService {
 
   getUser() {
     const jwt = localStorage.getItem('jwt_token');
+    console.log(jwt);
+    
     const url: string = Serverurl + '/users/me';
     let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
     return this.http.get(url, { headers: headers });

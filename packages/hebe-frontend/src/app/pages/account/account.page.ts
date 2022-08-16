@@ -45,7 +45,18 @@ export class AccountPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
-    this.userInfo();
+    this.storage
+      .getItem('jwt_token')
+      .then((data) => {
+        if (data == null) {
+          this.router.navigate(['/account/login']);
+        } else {
+          this.userInfo();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   updateUser() {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/api/product.service';
+import { AddCategory } from 'src/app/interface/addCategory';
 import { AddTag } from 'src/app/interface/addTag';
 import { UpdateProduct } from 'src/app/interface/updateProduct';
 
@@ -21,15 +22,17 @@ export class ProductPage implements OnInit {
     productDescription: new FormControl('', [Validators.required]),
     productPrice: new FormControl('', [Validators.pattern('[0-9]{2,4}')]),
     productImage: new FormControl('', [Validators.required]),
-    productCategory: new FormControl('', [Validators.required]),
-    productBrand: new FormControl('', [Validators.required]),
+    productBrand: new FormControl(''),
   });
   tagForm: FormGroup = new FormGroup({
     productTag: new FormControl('', [Validators.required]),
   });
+  category: FormGroup = new FormGroup({
+    productCategory: new FormControl('', [Validators.required]),
+  });
   productId: string;
   tags = [];
-
+  categories = [];
   ngOnInit() {
     this.fetchProduct(this.activatedRoute.snapshot.paramMap.get('id'));
     this.productId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -43,10 +46,11 @@ export class ProductPage implements OnInit {
           productDescription: data.productDescription,
           productPrice: data.productPrice,
           productImage: data.productImg,
-          productCategory: data.category[0].name,
           productBrand: data.brand.name,
         });
         this.tags = data.tags;
+        this.categories = data.category;
+        console.log(this.categories);
         this.productForm.markAsPristine();
       },
       (error: any) => {
@@ -70,15 +74,45 @@ export class ProductPage implements OnInit {
       }
     );
   }
-
   removeTag(tagName: string, productId: string) {
     const tag: AddTag = {
-      tagName:tagName,
+      tagName: tagName,
       productId: productId,
     };
     this.productService.removeTag(tag).subscribe(
       (data: any) => {
         this.tags = data.tags;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  addCategory(productId: string) {
+    const category: AddCategory = {
+      name: this.category.controls['productCategory'].value,
+      productId: productId,
+    };
+    this.productService.addProductCategory(category).subscribe(
+      (data: any) => {
+        this.categories = data.category;
+        this.category.reset();
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  removeCategory(name: string, productId: string) {
+    const tag: AddCategory = {
+      name: name,
+      productId: productId,
+    };
+    this.productService.removeCategory(tag).subscribe(
+      (data: any) => {
+        this.categories = data.category;
       },
       (error: any) => {
         console.log(error);
@@ -92,8 +126,6 @@ export class ProductPage implements OnInit {
       productDescription: this.productForm.controls['productDescription'].value,
       productPrice: parseInt(this.productForm.controls['productPrice'].value),
       productImg: this.productForm.controls['productImage'].value,
-      category: this.productForm.controls['productCategory'].value,
-      brand: this.productForm.controls['productBrand'].value,
     };
     this.productService.updateProduct(productId, updateProduct).subscribe(
       () => this.fetchProduct(this.productId),

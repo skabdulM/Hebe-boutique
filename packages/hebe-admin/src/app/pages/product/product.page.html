@@ -77,12 +77,13 @@
         </ion-row>
         <ion-row>
           <ion-col size-md="6" size-lg="5" size-xs="12">
+            <form [formGroup]="category">
             <ion-item>
               <ion-label position="floating">Product Category</ion-label>
               <ion-input
                 type="text"
                 inputmode="text"
-                placeholder="Link"
+                placeholder="Category"
                 formControlName="productCategory"
                 minlength="4"
                 maxlength="50"
@@ -90,7 +91,11 @@
                 spellcheck="true"
                 clearInput
               ></ion-input>
+              <ion-button (click)="addCategory(productId)" slot="end"
+                  >Add Category</ion-button
+                >
             </ion-item>
+          </form>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -98,15 +103,8 @@
             <ion-item>
               <ion-label position="floating">Product Brand</ion-label>
               <ion-input
-                type="text"
-                inputmode="text"
-                placeholder="Link"
                 formControlName="productBrand"
-                minlength="2"
-                maxlength="50"
-                required="true"
-                spellcheck="true"
-                clearInput
+                readonly="true"
               ></ion-input>
             </ion-item>
           </ion-col>
@@ -153,6 +151,19 @@
                   >{{tag.tagName}}<ion-icon
                     name="close-circle-outline"
                     (click)="removeTag(tag.tagName,productId)"
+                  ></ion-icon
+                ></ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+          <ion-col size-md="6" size-lg="5" size-xs="12">
+            <ion-title>Category</ion-title>
+            <ion-list>
+              <ion-item *ngFor="let category of categories">
+                <ion-label
+                  >{{category.name}}<ion-icon
+                    name="close-circle-outline"
+                    (click)="removeCategory(category.name,productId)"
                   ></ion-icon
                 ></ion-label>
               </ion-item>
