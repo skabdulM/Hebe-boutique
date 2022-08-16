@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { StorageService } from 'src/app/api/storage.service';
 import { UserService } from 'src/app/api/user.service';
 import { SingUp } from 'src/app/interface/signUp';
@@ -15,6 +16,7 @@ export class SignupPage implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
+    private alertController: AlertController,
     private storage: StorageService
   ) {}
 
@@ -93,7 +95,7 @@ export class SignupPage implements OnInit {
         this.router.navigate(['/account']);
       },
       (error) => {
-        console.log(error);
+        this.presentAlert(error.error.message);
       }
     );
   }
@@ -103,6 +105,15 @@ export class SignupPage implements OnInit {
       this.accountSignup.getError('mismatch') &&
       this.accountSignup.get('confirmPassword')?.touched
     );
+  }
+
+  async presentAlert(msg: string) {
+    const alert = await this.alertController.create({
+      header: msg,
+      buttons: ['OK'],
+    });
+    this.hideProgressBar();
+    await alert.present();
   }
   
   showProgressBar() {
