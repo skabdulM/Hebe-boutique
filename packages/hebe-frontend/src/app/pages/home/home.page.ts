@@ -16,7 +16,7 @@ export class HomePage implements OnInit {
   @ViewChild('productbtn', { read: ElementRef })productbtn: ElementRef;
  
   ngOnInit() {
-    this.fetchProducts();
+    // this.fetchProducts();
   }
   
   products: any = [];
