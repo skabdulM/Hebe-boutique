@@ -1,5 +1,4 @@
-
-.header{
+.header {
   display: none;
 }
 @media (min-width: 990px) {
@@ -7,12 +6,15 @@
     display: contents;
     display: flex;
     background: #fff;
-    padding-left: 10%;
-    padding-right: 10%;
-    border: #EAEAEA 1.5px solid;
+    padding-left: 8.5%;
+    padding-right: 8.5%;
+    border: #eaeaea 1.5px solid;
+  }
+  ion-header {
+    display: none;
   }
 }
-ion-row{
+ion-row {
   height: 5em;
 }
 .title {
@@ -22,10 +24,10 @@ ion-row{
   padding-left: 10%;
   font-size: x-large;
 }
-  .title:hover {
-    color: #4e00ad;
-    cursor: pointer;
-  }
+.title:hover {
+  color: #4e00ad;
+  cursor: pointer;
+}
 
 .dropdown {
   // width: 136px;
@@ -41,11 +43,20 @@ ion-row{
   }
 }
 
-ion-button{
+ion-button {
   font-size: small;
   font-weight: 600;
 }
-ion-fab-button{
+ion-fab-button {
   margin-left: 5px;
-cursor: pointer;
+  cursor: pointer;
+}
+.title2 {
+  letter-spacing: 4px;
+  font-weight: bolder;
+  color: #5f00d4;
+  font-size: x-large;
+}
+.nav {
+  display: flex;
 }

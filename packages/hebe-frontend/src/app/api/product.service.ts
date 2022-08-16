@@ -16,7 +16,11 @@ export class ProductService {
   getProductById(id: string) {
     return this.http.get(Serverurl + '/product/' + id);
   }
+
   getProductByCategory(categoryName:string) {
     return this.http.get(Serverurl + '/product/category/' + categoryName);
+  }
+  getAllCategory() {
+    return this.http.get(Serverurl + '/product/category' );
   }
 }
