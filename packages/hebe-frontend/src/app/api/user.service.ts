@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SingUp } from '../interface/signUp';
 import { SignIn } from '../interface/signIn';
 import { UpdateUser } from '../interface/updateUser';
-import { StorageService } from './storage.service';
+import { StorageService } from '../services/storage.service';
 import { Serverurl } from './url';
 
 @Injectable({

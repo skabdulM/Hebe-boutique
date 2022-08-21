@@ -43,11 +43,22 @@ export class AddproductPage implements OnInit {
     );
   }
 
+  // fetchProducts() {
+  //   this.productService.getAllProduct().subscribe((data) => {
+  //     this.products = data;
+  //     console.log(data);
+  //   });
+  // }
   fetchProducts() {
-    this.productService.getAllProduct().subscribe((data) => {
-      this.products = data;
-      console.log(data);
-    });
+    this.productService
+      .getProducts(0, 10000,1000)
+      .subscribe((data: any) => {
+        // let lastProduct = data[data.length - 1];
+        this.products = data;
+        // this.cursor = lastProduct.id;
+        // this.totalresults = this.products.length;
+      });
+    // this.getCount();
   }
 
   deleteProduct(id: string) {

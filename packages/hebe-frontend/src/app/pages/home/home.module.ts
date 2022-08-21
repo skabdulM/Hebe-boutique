@@ -15,9 +15,9 @@ import { ProductService } from 'src/app/api/product.service';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   declarations: [HomePage],
-  providers: [ProductService]
+  providers: [ProductService],
 })
 export class HomePageModule {}

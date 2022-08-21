@@ -1,89 +1,46 @@
-<ion-row class="header ion-align-items-center">
-  <ion-col size="2" class="ion-align-items-center">
-    <ion-title class="title" routerLink="/home">HEBE. </ion-title>
-  </ion-col>
-  <ion-col size="8" class="ion-text-left">
-    <ion-button fill="clear" color="dark" routerLink="/home"> Home </ion-button>
-    <ion-button
-      #productbtn
-      (mouseenter)="dropdown = true"
-      (mouseleave)="hideDropdown($event)"
-      fill="clear"
-      color="dark"
-      routerLink="/shop"
-    >
-      Shop
-      <ion-icon
-        slot="end"
-        [name]="dropdown ? 'chevron-down' : 'chevron-up'"
-      ></ion-icon>
-    </ion-button>
-    <div
-      *ngIf="dropdown"
-      class="dropdown"
-      (mouseleave)="dropdown = false"
-      #dropdownbox
-    >
-      <ion-item
-        (click)="dropdown = false"
-        lines="none"
-        [routerLink]="'/shop/' + 'Accessories'"
-        routerLinkActive="selected"
+<ion-toolbar class="header">
+  <ion-nav class="nav">
+    <ion-title class="title">HEBE. </ion-title>
+    <div class="items">
+      <ion-label routerLink="/home">Home</ion-label>
+      <ion-label style="display: flex; align-items: center" routerLink="/shop"
+        >Shop
+        <ion-icon slot="end" id="hover-trigger" name="chevron-down"></ion-icon>
+      </ion-label>
+      <ion-popover
+        trigger="hover-trigger"
+        triggerAction="hover"
+        alignment="center"
+        size="auto"
+        dismiss-on-select="true"
+        style="--min-width: 60%; --box-shadow: none; --offset-y: 2em;--offset-x:-4em"
       >
-        Accessories
-      </ion-item>
-      <ion-item
-        (click)="dropdown = false"
-        lines="none"
-        [routerLink]="'/shop/' + 'Bottomwear'"
-        routerLinkActive="selected"
-      >
-        Bottomwear
-      </ion-item>
-      <ion-item
-        (click)="dropdown = false"
-        lines="none"
-        [routerLink]="'/shop/' + 'Footwear'"
-        routerLinkActive="selected"
-      >
-        Footwear
-      </ion-item>
-      <ion-item
-        (click)="dropdown = false"
-        lines="none"
-        [routerLink]="'/shop/' + 'Topwear'"
-        routerLinkActive="selected"
-      >
-        Topwear
-      </ion-item>
-      <ion-item
-        (click)="dropdown = false"
-        lines="none"
-        [routerLink]="'/shop/' + 'Wearables'"
-        routerLinkActive="selected"
-      >
-        Wearables
-      </ion-item>
+        <ng-template>
+          <ion-grid class="ion-no-padding">
+            <ion-row>
+              <ion-col
+                class="ion-no-padding ion-text-center"
+                size-md="6"
+                size-lg="3"
+                size-xs="12"
+                *ngFor="let category of categories"
+              >
+                <ion-item
+                  lines="none"
+                  [routerLink]="'/shop/' + category"
+                  routerLinkActive="selected"
+                >
+                  {{ category | titlecase }}
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ng-template>
+      </ion-popover>
+      <ion-label>About</ion-label>
+      <ion-icon class="icon" name="search-outline"></ion-icon>
+      <ion-icon class="icon" name="person-outline" routerLink="/account"></ion-icon>
+      <ion-icon class="icon" name="cart-outline"></ion-icon>
     </div>
-    <ion-button fill="clear" color="dark"> Search </ion-button>
-    <ion-button fill="clear" color="dark"> About </ion-button>
-  </ion-col>
-  <ion-fab-button size="small" class="ion-text-right" routerLink="/account"
-    ><ion-icon name="person-outline"></ion-icon
-  ></ion-fab-button>
-  <ion-fab-button size="small" class="ion-text-right"
-    ><ion-icon name="cart-outline"></ion-icon
-  ></ion-fab-button>
-
-  <!-- <ion-col size="2" class="ion-text-right "> -->
-  <!-- <ion-button fill="clear" color="dark" > -->
-  <!-- </ion-button> -->
-  <!-- </ion-col> -->
-</ion-row>
-<ion-header>
-  <ion-toolbar>
-    <ion-nav class="nav ion-text-center ion-align-items-center">
-      <ion-title class="title2">HEBE. </ion-title>
-    </ion-nav>
-  </ion-toolbar>
-</ion-header>
+  </ion-nav>
+</ion-toolbar>

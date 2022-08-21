@@ -1,62 +1,82 @@
-.header {
+ion-header {
   display: none;
 }
-@media (min-width: 990px) {
-  .header {
-    display: contents;
-    display: flex;
-    background: #fff;
-    padding-left: 8.5%;
-    padding-right: 8.5%;
-    border: #eaeaea 1.5px solid;
-  }
+@media only screen and (min-width: 890px) {
   ion-header {
-    display: none;
+    display: contents;
   }
-}
-ion-row {
-  height: 5em;
-}
-.title {
-  letter-spacing: 4px;
-  font-weight: bolder;
-  color: #5f00d4;
-  padding-left: 10%;
-  font-size: x-large;
-}
-.title:hover {
-  color: #4e00ad;
-  cursor: pointer;
-}
+  .title {
+    letter-spacing: 4px;
+    font-weight: bolder;
+    color: #5f00d4;
+    padding-left: 10%;
+    font-size: x-large;
+  }
+  ion-label {
+    padding-right: 50px;
+    font-size: medium;
+    cursor: pointer;
+  }
+  ion-label:hover {
+    color: #5f00d4;
+  }
+  .icon {
+    font-size: x-large;
+    padding-left: 30px;
+    --ionicon-stroke-width: 45px;
+    cursor: pointer;
+  }
+  ion-icon:hover {
+    color: #5f00d4;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-bottom: #eaeaea 1.5px solid;
+  }
 
-.dropdown {
-  // width: 136px;
-  // height: 150px;
-  background: #fff;
-  position: absolute;
-  top: 4em;
-  left: 87px;
-  z-index: 1;
+  .header {
+    --min-height: 5em;
+  }
+  .items {
+    display: flex;
+    align-items: center;
+    padding-right: 10%;
+  }
   ion-item:hover {
     --ion-item-color: #5f00d4;
     cursor: pointer;
   }
+  .ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  
+  }
 }
+@media only screen and (max-width: 890px) {
+  ion-header {
+    display: contents;
+  }
+  .items {
+    display: none;
+  }
+  .title {
+    letter-spacing: 4px;
+    font-weight: bolder;
+    color: #5f00d4;
+    font-size: x-large;
+  }
 
-ion-button {
-  font-size: small;
-  font-weight: 600;
-}
-ion-fab-button {
-  margin-left: 5px;
-  cursor: pointer;
-}
-.title2 {
-  letter-spacing: 4px;
-  font-weight: bolder;
-  color: #5f00d4;
-  font-size: x-large;
-}
-.nav {
-  display: flex;
+  .header {
+    --min-height: 4em;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
+    border-bottom: #eaeaea 1.5px solid;
+  }
 }

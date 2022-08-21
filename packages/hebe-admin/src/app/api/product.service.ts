@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Serverurl } from './url';
 import { AddProduct } from '../interface/addProduct';
 import { AddTag } from '../interface/addTag';
@@ -57,8 +57,23 @@ export class ProductService {
     });
   }
 
-  getAllProduct() {
-    return this.http.get(Serverurl + '/product/getallProducts');
+  getProducts(
+    greaterthan: number,
+    lessthan: number,
+    take: number,
+    cursor?: string
+  ) {
+    let params = new HttpParams();
+    params = params.append('greaterthan', greaterthan);
+    params = params.append('lessthan', lessthan);
+    params = params.append('take', take);
+    if (cursor) {
+      params = params.append('cursor', cursor);
+    }
+    const url = Serverurl + '/product/getproducts';
+    return this.http.get(url, {
+      params: params,
+    });
   }
 
   getProductById(id: string) {

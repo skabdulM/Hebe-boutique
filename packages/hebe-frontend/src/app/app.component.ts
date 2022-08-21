@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ProductService } from './api/product.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(private productService: ProductService) {}
+  categories = [];
+  ngOnInit() {
+    this.getCategoriesName();
+  }
+
+  getCategoriesName() {
+    this.productService.getcategorynames().subscribe((data: any) => {
+      data.forEach((element) => {
+        this.categories.push(element.name);
+      });
+      this.categories.sort();
+    });
+  }
 }

@@ -8,8 +8,10 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
+import { Products } from '@prisma/client';
 import { Roles } from '../auth/decorator';
 import { JwtGuard, RolesGuard } from '../auth/guard';
 import { addProductTag, ProductDto, UpdateProductDto } from './dto';
@@ -45,6 +47,23 @@ export class ProductController {
     return this.productService.addProductTag(dto);
   }
 
+  @Get('search')
+  searchTag(
+    @Query('searchQuery') searchQuery: string,
+    @Query('greaterthan') greaterthan: number,
+    @Query('lessthan') lessthan: number,
+    @Query('take') take: number,
+    @Query('cursor') cursor?: string,
+  ) {
+    return this.productService.search({
+      searchQuery,
+      greaterthan,
+      lessthan,
+      take:Number(take),
+      cursor: { id: cursor },
+    });
+  }
+
   @Roles('MANAGER', 'ADMIN')
   @UseGuards(JwtGuard, RolesGuard)
   @Patch('addProductCategory')
@@ -66,19 +85,45 @@ export class ProductController {
     return this.productService.removeCategory(dto);
   }
 
-  @Get('getallProducts')
-  async getProducts() {
-    return this.productService.getProducts();
+  @Get('getproducts')
+  async getproducts(
+    @Query('greaterthan') greaterthan: number,
+    @Query('lessthan') lessthan: number,
+    @Query('take') take: number,
+    @Query('cursor') cursor?: string,
+  ): Promise<Products[]> {
+    return this.productService.getProducts({
+      greaterthan,
+      lessthan,
+      take: Number(take),
+      cursor: { id: cursor },
+    });
+  }
+ 
+  @Get('getproducts/count')
+  async getProductscount(
+    @Query('searchQuery') searchQuery?: string,
+    @Query('greaterthan') greaterthan?: number,
+    @Query('lessthan') lessthan?: number,
+  ) {
+    return this.productService.searchcount({
+      searchQuery,
+      greaterthan,
+      lessthan,
+    });
+  }
+
+  @Get('getproducts/sortprice/:gt/:lt')
+  async sortProductprice(
+    @Param('gt') greaterthan: number,
+    @Param('lt') lessthan: number,
+  ) {
+    return this.productService.sortPrice(greaterthan, lessthan);
   }
 
   @Get('category')
   async getallcatergory() {
-    return this.productService.getallcatergory();
-  }
-
-  @Get('category/:id')
-  async getBycatergoryName(@Param('id') categoryName: string) {
-    return this.productService.getBycatergoryName(categoryName);
+    return this.productService.getcategorynames();
   }
 
   @Get(':id')
@@ -92,5 +137,11 @@ export class ProductController {
   @Delete(':id')
   deleteProduct(@Param('id') productId: string) {
     return this.productService.deleteProduct(productId);
+  }
+
+  // to delete disconnected values in tags and categories
+  @Delete('categories/deletenull')
+  async deletenullCateforiesandTags() {
+    return this.productService.deletenullCateforiesandTags();
   }
 }

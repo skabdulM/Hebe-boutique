@@ -1,4 +1,4 @@
-<ion-content fullscreen="true">
+<ion-content>
   <div class="image">
     <div class="image-text">
       <h6>TOP SALE ON THIS WEEK</h6>
@@ -6,7 +6,8 @@
       <ion-button
         class="title_buttons"
         shape="round"
-        routerLink="/shop"
+        routerDirection="forward"
+        [routerLink]="['/shop']"
         size="large"
       >
         <p>Shop Now</p>
@@ -52,7 +53,7 @@
     <ion-list>
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-text-center">
-          <h1>Categories</h1>
+          <h1>Main Categories</h1>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -62,7 +63,7 @@
           size-xs="12"
           style="display: flex; justify-content: center"
         >
-          <ion-card routerLink="/shop/accessories" routerLinkActive="selected">
+          <ion-card routerLink="/shop/accessories">
             <ion-img
               class="cropped-image fill-image"
               src="../../../assets/retail-black-friday-small-banner-2-opt.jpg"
@@ -80,7 +81,7 @@
           size-xs="12"
           style="display: flex; justify-content: center"
         >
-          <ion-card routerLink="/shop/bags" routerLinkActive="selected">
+          <ion-card routerLink="/shop/bags">
             <ion-img
               class="cropped-image fill-image"
               src="../../../assets/baner-flat-fashion-7.jpg"
@@ -97,7 +98,7 @@
           size-xs="12"
           style="display: flex; justify-content: center"
         >
-          <ion-card routerLink="/shop/bottomwear" routerLinkActive="selected">
+          <ion-card routerLink="/shop/bottomwear">
             <ion-img
               class="cropped-image fill-image"
               src="../../../assets/bottom.jpg"
@@ -115,7 +116,7 @@
           size-xs="12"
           style="display: flex; justify-content: center"
         >
-          <ion-card routerLink="/shop/footwear" routerLinkActive="selected">
+          <ion-card routerLink="/shop/footwear">
             <ion-img
               class="cropped-image fill-image"
               src="../../../assets/footwear2.jpg"
@@ -132,7 +133,7 @@
           size-xs="12"
           style="display: flex; justify-content: center"
         >
-          <ion-card routerLink="/shop/topwear" routerLinkActive="selected">
+          <ion-card routerLink="/shop/topwear">
             <ion-img
               class="cropped-image fill-image"
               src="../../../assets/top2.jpg"
@@ -150,7 +151,7 @@
           size-xs="12"
           style="display: flex; justify-content: center"
         >
-          <ion-card routerLink="/shop/wearables" routerLinkActive="selected">
+          <ion-card routerLink="/shop/wearables">
             <ion-img
               class="cropped-image fill-image"
               src="../../../assets/watch-accessories.jpeg"

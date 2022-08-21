@@ -11,7 +11,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, MenuComponent, FooterComponent],
+  declarations: [AppComponent, MenuComponent, FooterComponent, NavbarComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

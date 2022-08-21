@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { StorageService } from 'src/app/api/storage.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/api/user.service';
 import { SingUp } from 'src/app/interface/signUp';
 import { CustomValidators } from './confirm-password.validator';
