@@ -56,6 +56,7 @@ export class ProductService {
                 some: {
                   tagName: {
                     startsWith: searchQuery ? searchQuery : undefined,
+                    contains: searchQuery,
                     mode: 'insensitive',
                   },
                 },
@@ -66,6 +67,7 @@ export class ProductService {
                 some: {
                   name: {
                     startsWith: searchQuery ? searchQuery : undefined,
+                    contains: searchQuery,
                     mode: 'insensitive',
                   },
                 },
@@ -74,7 +76,16 @@ export class ProductService {
             {
               productName: {
                 startsWith: searchQuery ? searchQuery : undefined,
+                contains: searchQuery,
                 mode: 'insensitive',
+              },
+            },
+            {
+              brand: {
+                name: {
+                  equals: searchQuery ? searchQuery : undefined,
+                  mode: 'insensitive',
+                },
               },
             },
           ],
@@ -175,6 +186,7 @@ export class ProductService {
     return tag;
   }
 
+  //use every instead of some if search have issues can read prisma docs  https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#atomic-number-operations
   async search(params: {
     searchQuery: string;
     greaterthan: number;
@@ -196,6 +208,7 @@ export class ProductService {
                 some: {
                   tagName: {
                     startsWith: searchQuery,
+                    contains: searchQuery,
                     mode: 'insensitive',
                   },
                 },
@@ -206,6 +219,7 @@ export class ProductService {
                 some: {
                   name: {
                     startsWith: searchQuery,
+                    contains: searchQuery,
                     mode: 'insensitive',
                   },
                 },
@@ -214,7 +228,17 @@ export class ProductService {
             {
               productName: {
                 startsWith: searchQuery,
+                contains: searchQuery,
                 mode: 'insensitive',
+              },
+            },
+            {
+              brand: {
+                name: {
+                  equals: searchQuery,
+                  // startsWith:searchQuery,
+                  mode: 'insensitive',
+                },
               },
             },
           ],
@@ -240,6 +264,7 @@ export class ProductService {
                 some: {
                   tagName: {
                     startsWith: searchQuery,
+                    contains: searchQuery,
                     mode: 'insensitive',
                   },
                 },
@@ -250,6 +275,7 @@ export class ProductService {
                 some: {
                   name: {
                     startsWith: searchQuery,
+                    contains: searchQuery,
                     mode: 'insensitive',
                   },
                 },
@@ -258,7 +284,18 @@ export class ProductService {
             {
               productName: {
                 startsWith: searchQuery,
+                contains: searchQuery,
                 mode: 'insensitive',
+              },
+            },
+            {
+              brand: {
+                name: {
+                  equals: searchQuery,
+                  // startsWith: searchQuery,
+                  contains: searchQuery,
+                  mode: 'insensitive',
+                },
               },
             },
           ],
@@ -335,6 +372,21 @@ export class ProductService {
 
   async getcategorynames() {
     return await this.prisma.category.findMany({
+      where: {
+        NOT: [
+          {
+            products: {
+              none: {},
+            },
+          },
+        ],
+      },
+      select: { name: true },
+    });
+  }
+
+  async getBrandnames() {
+    return await this.prisma.brands.findMany({
       where: {
         NOT: [
           {

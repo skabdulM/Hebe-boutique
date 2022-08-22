@@ -82,4 +82,8 @@ export class ProductService {
   getcategorynames() {
     return this.http.get(Serverurl + '/product/category');
   }
+  
+  getbrandnames() {
+    return this.http.get(Serverurl + '/product/brand');
+  }
 }

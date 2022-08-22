@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/api/product.service';
-import { IonInfiniteScroll, LoadingController } from '@ionic/angular';
-import { IonLoaderService } from 'src/app/services/ion-loader.service';
+import { IonInfiniteScroll } from '@ionic/angular';
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.page.html',
@@ -27,6 +26,7 @@ export class ShopPage implements OnInit {
   hidden: boolean = true;
   spinner: boolean;
   categories = [];
+  brands = [];
   products = [];
 
   ngOnInit() {
@@ -38,6 +38,7 @@ export class ShopPage implements OnInit {
       this.fetchProducts();
     }
     this.getCategoriesName();
+    this.getbrandnames();
   }
 
   loadData(event) {
@@ -87,7 +88,11 @@ export class ShopPage implements OnInit {
   }
 
   localSort(event?: any) {
-    this.sort = event.detail.value;
+    if (event) {
+      this.sort = event.detail.value;
+    } else {
+      console.log('AWdawd');
+    }
     if (this.sort == 'asc') {
       this.products.sort((a, b) => a.productPrice - b.productPrice);
     } else if (this.sort == 'desc') {
@@ -96,6 +101,8 @@ export class ShopPage implements OnInit {
       this.products.sort(
         (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
       );
+    } else {
+      console.log('awfwa');
     }
   }
 
@@ -103,10 +110,23 @@ export class ShopPage implements OnInit {
     this.productService
       .getProducts(this.min, this.max, this.take)
       .subscribe(async (data: any) => {
-        let lastProduct = data[data.length - 1];
+        this.hidden = true;
         this.products = data;
-        this.cursor = lastProduct.id;
-        this.totalresults = this.products.length;
+        if (this.products != null) {
+          this.totalresults = this.products.length;
+          if (this.totalresults != 0) {
+            let lastProduct = data[data.length - 1];
+            this.cursor = lastProduct.id;
+            this.localSort();
+          } else {
+            this.hidden = false;
+          }
+        }
+        // if any error then use this else block
+        // else {
+        //     this.totalresults = 0;
+        //     this.hidden = false;
+        //   }
         this.spinner = false;
       });
     this.getCount();
@@ -118,6 +138,15 @@ export class ShopPage implements OnInit {
         this.categories.push(element.name);
       });
       this.categories.sort();
+    });
+  }
+
+  getbrandnames() {
+    this.productService.getbrandnames().subscribe((data: any) => {
+      data.forEach((element) => {
+        this.brands.push(element.name);
+      });
+      this.brands.sort();
     });
   }
 
@@ -152,6 +181,7 @@ export class ShopPage implements OnInit {
             if (this.totalresults != 0) {
               let lastProduct = data[data.length - 1];
               this.cursor = lastProduct.id;
+              this.localSort();
             } else {
               this.hidden = false;
             }

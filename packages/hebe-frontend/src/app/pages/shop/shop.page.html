@@ -1,11 +1,11 @@
-<!-- <ion-split-pane when="sm" contentId="main-content"> -->
-<ion-split-pane contentId="main-content">
-  <ion-menu contentId="main-content" type="push">
+<!-- <ion-split-pane  contentId="main-content"> -->
+<ion-split-pane when="sm" contentId="main-content">
+  <ion-menu contentId="main-content" type="push" class="menu">
     <ion-content>
-      <ion-list id="inbox-list">
+      <ion-list id="inbox-list" class="list">
         <ion-list-header>
           <ion-searchbar
-          class="searchbar"
+            class="searchbar"
             #query
             animated
             placeholder="Search Product"
@@ -14,42 +14,74 @@
             type="search"
             (keyup.enter)="search(query.value)"
           >
-          </ion-searchbar
-        ></ion-list-header>
-        <ion-title style="margin-top: 5%">Filter By Price</ion-title>
+          </ion-searchbar>
+        </ion-list-header>
+        <ion-title style="margin-top: 10%; font-size: large"
+          >Filter By Price</ion-title
+        >
         <ion-range
+          class="range"
           [dualKnobs]="true"
           [value]="{ lower: 300, upper: 10000} "
           (ionChange)="range($event)"
           [min]="300"
           [max]="10000"
         ></ion-range>
-        <div style="display: flex; align-items: center">
-          <ion-button
-            style="padding-left: 5%"
-            shape="round"
-            type="submit"
-            (click)="search(query.value)"
+        <div class="pricerange">
+          <ion-button shape="round" type="submit" (click)="search(query.value)"
             >Search</ion-button
-          ><ion-label style="padding-left: 3%"
+          >
+          <ion-label
             >Price: {{ min | currency: "INR":"symbol":"2.0"}} — {{ max |
             currency: "INR":"symbol":"2.0"}}</ion-label
           >
         </div>
-        <ion-title style="margin-top: 5%">Filter by Category</ion-title>
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of categories">
-          <ion-item
-            style="margin-left: 5%; margin-right: 5%"
-            class="categorynames"
-            (click)="search(p)"
-            lines="none"
-            button
-            shape="round"
-            detail="false"
-          >
-            <ion-label>{{ p| titlecase}}</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
+        <ion-title class="filterBy">Filter by</ion-title>
+        <ion-accordion-group expand="inset">
+          <ion-accordion>
+            <ion-item slot="header">
+              <ion-label>Categories</ion-label>
+            </ion-item>
+            <ion-list slot="content">
+              <ion-menu-toggle
+                auto-hide="false"
+                *ngFor="let category of categories"
+              >
+                <ion-item
+                  style="margin-left: 5%; margin-right: 5%"
+                  class="categorynames"
+                  (click)="search(category)"
+                  lines="none"
+                  button
+                  shape="round"
+                  detail="false"
+                >
+                  <ion-label> {{ category | titlecase}} </ion-label>
+                </ion-item>
+              </ion-menu-toggle>
+            </ion-list>
+          </ion-accordion>
+          <ion-accordion>
+            <ion-item slot="header">
+              <ion-label>Brands</ion-label>
+            </ion-item>
+            <ion-list slot="content">
+              <ion-menu-toggle auto-hide="false" *ngFor="let brand of brands">
+                <ion-item
+                  style="margin-left: 5%; margin-right: 5%"
+                  class="categorynames"
+                  (click)="search(brand)"
+                  lines="none"
+                  button
+                  shape="round"
+                  detail="false"
+                >
+                  <ion-label> {{ brand | titlecase}} </ion-label>
+                </ion-item>
+              </ion-menu-toggle>
+            </ion-list>
+          </ion-accordion>
+        </ion-accordion-group>
       </ion-list>
     </ion-content>
   </ion-menu>
@@ -64,13 +96,16 @@
             </ion-button>
           </ion-menu-toggle>
           <!-- <ion-buttons slot="start"> -->
-            <ion-back-button defaultHref="home" routerDirection="back"></ion-back-button>
+          <ion-back-button
+            defaultHref="home"
+            routerDirection="back"
+          ></ion-back-button>
           <!-- </ion-buttons> -->
         </ion-buttons>
-        <ion-title size="small" 
+        <ion-label size="small"
           >Showing all {{this.totalresults}} results of {{count}}
-        </ion-title>
-        <ion-item slot="end" style="padding-right: 5%">
+        </ion-label>
+        <ion-item slot="end" class="dropdown">
           <ion-select
             interface="popover"
             placeholder="Sort by"
@@ -89,47 +124,47 @@
     </ion-header>
     <ion-content>
       <ion-spinner *ngIf="spinner" name="lines-small"></ion-spinner>
-      <ion-grid *ngIf="!spinner">
+      <ion-grid *ngIf="!spinner" class="grid">
         <ion-row class="ion-justify-content-center ion-align-items-center">
           <ion-col size-lg="5" size-xs="12" class="ion-text-center">
             <h1 id="product" [hidden]="hidden">No products available</h1>
           </ion-col>
         </ion-row>
         <ion-row>
+          <!-- <ion-img class="img-wrapper" [src]="product.productImg"  alt="Image not availabel"></ion-img> -->
           <ion-col
-            size-md="6"
-            size-lg="3"
-            size-xs="12"
-            style="width: 100%; min-width: 300px;"
+            sizeLg="4"
+            sizeMd="4"
+            sizeXs="12"
+            style="width: 100%; min-width: 230px;"
             *ngFor="let product of products"
           >
-            <ion-card
-              [routerLink]='"/product/"+product.id'
-              routerLinkActive="selected"
-              class="card"
-            >
-              <ion-img
-                class="cropped-image fill-image"
-                [src]="product.productImg"
-                alt="Image not availabel"
-              ></ion-img>
-              <ion-card-header>
-                <ion-label>
-                  <!-- <ion-note class="brandName">{{product.brand.name }}</ion-note> -->
-                  <ion-card-title class="ellipsis"
-                    >{{product.productName}}</ion-card-title
-                  >
-                </ion-label>
-              </ion-card-header>
-              <ion-card-content>
-                <h3 class="price">
-                  {{product.productPrice | currency: "INR":"symbol":"2.0" }}
-                </h3>
-              </ion-card-content>
-            </ion-card>
+          <ion-card
+          [routerLink]='"/product/"+product.id'
+          routerLinkActive="selected"
+          class="card"
+          >
+          <ion-img
+            class="cropped-image fill-image"
+            [src]="product.productImg"
+            alt="Image not availabel"
+          ></ion-img>
+            <ion-card-header>
+              <ion-label>
+                <!-- <ion-note class="brandName">{{product.brand.name }}</ion-note> -->
+                <ion-card-title class="ellipsis"
+                  >{{product.productName}}</ion-card-title
+                >
+              </ion-label>
+            </ion-card-header>
+            <ion-card-content>
+              <h3 class="price">
+                {{product.productPrice | currency: "INR":"symbol":"2.0" }}
+              </h3>
+            </ion-card-content>
+          </ion-card>
           </ion-col>
         </ion-row>
-
         <ion-infinite-scroll
           threshold="100px"
           (ionInfinite)="loadData($event)"

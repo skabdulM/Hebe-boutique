@@ -125,6 +125,11 @@ export class ProductController {
   async getallcatergory() {
     return this.productService.getcategorynames();
   }
+  
+  @Get('brand')
+  async getBrandnames() {
+    return this.productService.getBrandnames();
+  }
 
   @Get(':id')
   getProductByid(@Param('id') productId: string) {
