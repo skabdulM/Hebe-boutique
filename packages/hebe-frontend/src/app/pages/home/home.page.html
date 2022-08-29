@@ -1,4 +1,7 @@
-<ion-content>
+<ion-header #header class="ion-no-border">
+  <app-navbar></app-navbar>
+</ion-header>
+<ion-content scrollEvents="true" [appHideHeader]="header">
   <div class="image">
     <div class="image-text">
       <h6>TOP SALE ON THIS WEEK</h6>
@@ -50,7 +53,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-list>
+    <ion-list style="margin-left: 10%; margin-right: 10%">
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-text-center">
           <h1>Main Categories</h1>
@@ -164,5 +167,59 @@
         </ion-col>
       </ion-row>
     </ion-list>
+  </ion-grid>
+  <ion-spinner *ngIf="spinner" name="lines-small"></ion-spinner>
+  <ion-grid *ngIf="!spinner" class="grid">
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size-lg="5" size-xs="12" class="ion-text-center">
+        <h1 style="color: #fd346e">Most Viewed Products</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-left: 10%; margin-right: 10%">
+      <ion-col
+        size-md="6"
+        size-lg="3"
+        size-xs="12"
+        style="display: flex; justify-content: center"
+        *ngFor="let product of products"
+      >
+        <ion-card
+          [routerLink]='"/product/"+product.id'
+          routerLinkActive="selected"
+          class="card"
+        >
+          <ion-img
+            class="cropped-image fill-image"
+            [src]="product.productImg"
+            alt="Image not availabel"
+          ></ion-img>
+          <ion-card-header style="padding-bottom: 2%">
+            <ion-label>
+              <ion-card-title class="ellipsis"
+                >{{product.productName}}</ion-card-title
+              >
+            </ion-label>
+          </ion-card-header>
+          <ion-card-content>
+            <h3 class="price">
+              {{product.productPrice | currency: "INR":"symbol":"2.0" }}
+            </h3>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size-lg="5" size-xs="12" class="ion-text-center">
+        <ion-button
+          class="title_buttons"
+          shape="round"
+          routerDirection="forward"
+          [routerLink]="['/shop']"
+          size="large"
+        >
+          <p style="font-size: medium">Shop Now</p>
+        </ion-button>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>

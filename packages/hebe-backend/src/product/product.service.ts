@@ -185,8 +185,8 @@ export class ProductService {
     });
     return tag;
   }
-
-  //use every instead of some if search have issues can read prisma docs  https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#atomic-number-operations
+  //use prisma search defined in the docs here https://www.prisma.io/docs/concepts/components/prisma-client/full-text-search
+  //use every instead of some if search have issues, can read prisma docs  https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#atomic-number-operations
   async search(params: {
     searchQuery: string;
     greaterthan: number;
@@ -367,6 +367,16 @@ export class ProductService {
         tags: true,
       },
     });
+    await this.prisma.products.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        views: {
+          increment: 1,
+        },
+      },
+    });
     return product;
   }
 
@@ -404,9 +414,10 @@ export class ProductService {
     greaterthan: number;
     lessthan: number;
     take: number;
+    views?: any;
     cursor?: Prisma.ProductsWhereUniqueInput;
   }): Promise<Products[]> {
-    const { greaterthan, lessthan, take, cursor } = params;
+    const { greaterthan, lessthan, take, views, cursor } = params;
     if (cursor.id) {
       return this.prisma.products.findMany({
         take,
@@ -435,6 +446,9 @@ export class ProductService {
               },
             },
           ],
+        },
+        orderBy: {
+          views: views ? views : undefined,
         },
       });
     }

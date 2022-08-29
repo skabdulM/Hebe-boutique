@@ -70,7 +70,7 @@ export class ShopPage implements OnInit {
         });
     } else {
       this.productService
-        .getProducts(this.min, this.max, this.take, this.cursor)
+        .getProducts({greaterthan: this.min,lessthan: this.max,take: this.take,cursor:this.cursor})
         .subscribe((data: any) => {
           data.forEach((element) => {
             this.products.push(element);
@@ -90,8 +90,6 @@ export class ShopPage implements OnInit {
   localSort(event?: any) {
     if (event) {
       this.sort = event.detail.value;
-    } else {
-      console.log('AWdawd');
     }
     if (this.sort == 'asc') {
       this.products.sort((a, b) => a.productPrice - b.productPrice);
@@ -101,14 +99,12 @@ export class ShopPage implements OnInit {
       this.products.sort(
         (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
       );
-    } else {
-      console.log('awfwa');
     }
   }
 
   fetchProducts() {
     this.productService
-      .getProducts(this.min, this.max, this.take)
+      .getProducts( {greaterthan: this.min,lessthan: this.max,take: this.take})
       .subscribe(async (data: any) => {
         this.hidden = true;
         this.products = data;

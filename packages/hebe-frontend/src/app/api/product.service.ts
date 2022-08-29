@@ -9,19 +9,26 @@ import { Serverurl } from './url';
 export class ProductService {
   constructor(private http: HttpClient) {}
 
-  getProducts(
-    greaterthan: number,
-    lessthan: number,
-    take: number,
-    cursor?: string
-  ) {
+  getProducts(query: {
+    greaterthan: number;
+    lessthan: number;
+    take: number;
+    views?: string;
+    cursor?: string;
+  }) {
+    const { greaterthan, lessthan, take, views, cursor } = query;
     let params = new HttpParams();
     params = params.append('greaterthan', greaterthan);
     params = params.append('lessthan', lessthan);
     params = params.append('take', take);
+    if (views) {
+      params = params.append('views', views);
+    }
     if (cursor) {
       params = params.append('cursor', cursor);
     }
+    console.log(params);
+    
     const url = Serverurl + '/product/getproducts';
     return this.http.get(url, {
       params: params,
@@ -70,9 +77,6 @@ export class ProductService {
     }
     params = params.append('greaterthan', greaterthan);
     params = params.append('lessthan', lessthan);
-
-    console.log(params);
-
     const url = Serverurl + '/product/getproducts/count';
     return this.http.get(url, {
       params: params,
@@ -82,7 +86,7 @@ export class ProductService {
   getcategorynames() {
     return this.http.get(Serverurl + '/product/category');
   }
-  
+
   getbrandnames() {
     return this.http.get(Serverurl + '/product/brand');
   }

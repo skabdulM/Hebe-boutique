@@ -8,6 +8,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HomePage } from './home.page';
 import { ProductService } from 'src/app/api/product.service';
+import { SharedDirectivesModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ProductService } from 'src/app/api/product.service';
     IonicModule,
     HomePageRoutingModule,
     HttpClientModule,
+    SharedDirectivesModule,
   ],
   declarations: [HomePage],
   providers: [ProductService],

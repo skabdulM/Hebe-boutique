@@ -1,4 +1,9 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { AddCartProductDto } from './dto';
 import { EditCartProductDto } from './dto/editCartProduct.dto';
@@ -22,8 +27,7 @@ export class CartService {
         userId,
       },
     });
-  }
-
+  } 
   /*
       for just addto cart do this
        async addtoCart(userId: string, dto: AddCartProductDto) {
@@ -52,6 +56,17 @@ export class CartService {
 */
   async addtoCart(userId: string, dto: AddCartProductDto) {
     let product: AddCartProductDto;
+
+    await this.prisma.products
+      .findUniqueOrThrow({
+        where: {
+          id: dto.productId,
+        },
+      })
+      .catch((error) => {
+        throw new BadRequestException('product not found');
+      });
+
     await this.prisma.cart
       .findFirst({
         where: {
@@ -62,28 +77,33 @@ export class CartService {
       .then((data) => {
         product = data;
       })
-      .catch((error) => {})
-      .finally(() => {});
-
+      .catch((error) => {
+        throw error;
+      });
+      
     if (!product) {
       await this.prisma.cart
         .create({
           data: {
             userId,
+            product: {
+              connect: {
+                id: dto.productId,
+              },
+            },
             ...dto,
           },
         })
         .then((data) => {
           product = data;
           console.log(product);
-          
         })
-        .catch((error) => {})
-        .finally(() => {});
+        .catch((error) => {
+          throw error;
+        });
     } else {
-      throw new ForbiddenException('product Already exists');
+      throw new ConflictException('product already exists')
     }
-    return product;
   }
 
   async editCartProductbyid(

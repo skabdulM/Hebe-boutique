@@ -90,12 +90,14 @@ export class ProductController {
     @Query('greaterthan') greaterthan: number,
     @Query('lessthan') lessthan: number,
     @Query('take') take: number,
+    @Query('views') views?: string,
     @Query('cursor') cursor?: string,
   ): Promise<Products[]> {
     return this.productService.getProducts({
       greaterthan,
       lessthan,
       take: Number(take),
+      views,
       cursor: { id: cursor },
     });
   }

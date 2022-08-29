@@ -10,33 +10,19 @@ import { Products } from 'src/app/interface/product';
 })
 export class HomePage implements OnInit {
   constructor(private productService: ProductService) {}
-  @Input() title: string;
-  dropdown = false;
- 
-  @ViewChild('productbtn', { read: ElementRef })productbtn: ElementRef;
- 
-  ngOnInit() {
-    // this.fetchProducts();
-  }
-  
+  spinner: boolean;
   products: any = [];
-  fetchProducts() {
-    this.productService.getcategorynames().subscribe((data) => {
-      this.products = data;
-      console.log(data);
-    });
+
+  ngOnInit() {
+    this.fetchProducts();
   }
-  hideDropdown(event) {
-    const xTouch = event.clientX;
-    const yTouch = event.clientY;
-    
-    const rect = this.productbtn.nativeElement.getBoundingClientRect();
-    const topBoundary = rect.top+2;
-    const leftBoundary = rect.left+2;
-    const rightBoundary = rect.right-2;
- 
-    if (xTouch < leftBoundary || xTouch > rightBoundary || yTouch < topBoundary) {      
-      this.dropdown = false;
-    }
+
+  fetchProducts() {
+    this.productService
+      .getProducts({ greaterthan: 0, lessthan: 10000, take: 8, views: 'desc' })
+      .subscribe((data) => {
+        this.products = data;
+        console.log(data);
+      });
   }
 }
