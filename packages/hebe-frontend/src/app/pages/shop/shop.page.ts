@@ -54,9 +54,10 @@ export class ShopPage implements OnInit {
         .searchproduct(this.filter, this.min, this.max, this.take, this.cursor)
         .subscribe((data: any) => {
           if (data.length !== 0) {
-            data.forEach((element) => {
-              this.products.push(element);
-            });
+            // data.forEach((element) => {
+            //   this.products.push(element);
+            // });
+            this.products = this.products.concat(data);
             let lastProduct = data[data.length - 1];
             this.cursor = lastProduct.id;
             this.totalresults = this.products.length;
@@ -67,14 +68,20 @@ export class ShopPage implements OnInit {
           } else if (this.totalresults == 0) {
             this.hidden = false;
           }
-        });
+        })
     } else {
       this.productService
-        .getProducts({greaterthan: this.min,lessthan: this.max,take: this.take,cursor:this.cursor})
+        .getProducts({
+          greaterthan: this.min,
+          lessthan: this.max,
+          take: this.take,
+          cursor: this.cursor,
+        })
         .subscribe((data: any) => {
-          data.forEach((element) => {
-            this.products.push(element);
-          });
+          // data.forEach((element) => {
+          //   this.products.push(element);
+          // });
+          this.products = this.products.concat(data);
           let lastProduct = this.products[this.products.length - 1];
           this.cursor = lastProduct.id;
           this.totalresults = this.products.length;
@@ -104,7 +111,11 @@ export class ShopPage implements OnInit {
 
   fetchProducts() {
     this.productService
-      .getProducts( {greaterthan: this.min,lessthan: this.max,take: this.take})
+      .getProducts({
+        greaterthan: this.min,
+        lessthan: this.max,
+        take: this.take,
+      })
       .subscribe(async (data: any) => {
         this.hidden = true;
         this.products = data;

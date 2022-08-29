@@ -218,7 +218,6 @@ export class ProductService {
               category: {
                 some: {
                   name: {
-                    startsWith: searchQuery,
                     contains: searchQuery,
                     mode: 'insensitive',
                   },
@@ -236,7 +235,7 @@ export class ProductService {
               brand: {
                 name: {
                   equals: searchQuery,
-                  // startsWith:searchQuery,
+                  contains: searchQuery,
                   mode: 'insensitive',
                 },
               },
@@ -251,7 +250,6 @@ export class ProductService {
             },
           ],
         },
-        orderBy: { productName: 'asc' },
       });
       return search;
     } else {
@@ -274,7 +272,6 @@ export class ProductService {
               category: {
                 some: {
                   name: {
-                    startsWith: searchQuery,
                     contains: searchQuery,
                     mode: 'insensitive',
                   },
@@ -292,7 +289,6 @@ export class ProductService {
               brand: {
                 name: {
                   equals: searchQuery,
-                  // startsWith: searchQuery,
                   contains: searchQuery,
                   mode: 'insensitive',
                 },
@@ -308,7 +304,6 @@ export class ProductService {
             },
           ],
         },
-        orderBy: { productName: 'asc' },
       });
       return search;
     }
