@@ -320,13 +320,9 @@ export class ProductService {
             },
           ],
         },
-<<<<<<< Updated upstream
-        orderBy: { productName: 'asc' },
-=======
         include: {
           variations: true,
         },
->>>>>>> Stashed changes
       });
       return search;
     } else {
@@ -383,13 +379,10 @@ export class ProductService {
             },
           ],
         },
-<<<<<<< Updated upstream
-        orderBy: { productName: 'asc' },
-=======
+
         include: {
           variations: true,
         },
->>>>>>> Stashed changes
       });
       return search;
     }
@@ -541,7 +534,7 @@ export class ProductService {
         },
         include: {
           variations: true,
-          brand:true
+          brand: true,
         },
         orderBy: {
           views: views ? views : undefined,
