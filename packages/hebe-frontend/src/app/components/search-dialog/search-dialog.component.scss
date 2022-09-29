@@ -1,0 +1,42 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: #caafa8;
+  justify-content: space-between;
+  min-height: 8rem;
+  flex-wrap: wrap;
+}
+
+.logo {
+  width: 8rem;
+  cursor: pointer;
+  min-height: 5rem;
+}
+#logo {
+  font-size: xxx-large;
+  font-size: 3.5rem;
+  font-family: "chloe";
+  float: left;
+  color: white;
+  cursor: pointer;
+}
+.justify-center{
+    display: flex;
+    justify-content: center;
+}
+
+.input {
+  --placeholder-color: white;
+  --placeholder-font-weight: 300;
+  --placeholder-opacity: 0.6;
+}
+
+.input-item {
+  --border-color: white;
+  --highlight-color-focused: white;
+  --padding-start: 0px;
+  --highlight-color-valid: white;
+  --highlight-color-invalid: white;
+  --inner-padding-end: 0;
+}

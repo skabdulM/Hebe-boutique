@@ -1,0 +1,44 @@
+.login-title {
+  font-family: "chloe";
+  font-size: xx-large;
+}
+.pointer {
+  cursor: pointer;
+}
+.labels {
+  font-size: small;
+  font-weight: 300;
+}
+.list {
+  display: grid;
+  gap: 2rem;
+}
+.input-item {
+  --border-color: white;
+  --highlight-color-focused: white;
+  --padding-start: 0px;
+  --highlight-color-valid: white;
+  --highlight-color-invalid: white;
+  --inner-padding-end: 0;
+}
+.input {
+  --placeholder-color: white;
+  --placeholder-font-weight: 300;
+  --placeholder-opacity: 0.6;
+  font-weight: 300;
+}
+.title_buttons {
+  font-weight: 300;
+  color: #d1b9b3;
+  --background: white;
+  --box-shadow: none;
+  --border-radius: 0;
+  font-size: small;
+}
+
+.title_buttons[disabled] {
+  opacity: 1;
+}
+.section-1 {
+  min-height: 140vh;
+}

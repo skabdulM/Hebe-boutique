@@ -8,7 +8,6 @@ import { LoginService } from './api/login.service';
 })
 export class AppComponent {
   constructor(private router: Router, private loginService: LoginService) {}
-  jwt = localStorage.getItem('jwt_token');
   userDetails: any = {};
 
   ngOnInit() {
@@ -23,16 +22,17 @@ export class AppComponent {
           this.userDetails.roles == 'ADMIN' ||
           this.userDetails.roles == 'MANAGER'
         ) {
-          this.router.navigate(['/home']);
+          // this.router.navigate(['/home']);
         } else {
           this.logout();
         }
       },
       (error: any) => {
-        if (error) {
-          localStorage.clear();
-          this.router.navigate(['/login']);
-        }
+        // if (error) {
+        //   localStorage.clear();
+        //   this.router.navigate(['/login']);
+        // }
+        this.logout()
       }
     );
   }

@@ -16,6 +16,11 @@ export class UpdateProductDto {
   @IsString()
   @IsOptional()
   productImg?: string;
+
+  @IsNumber()
+  @IsOptional()
+  productDiscount?: number;
+
   
   // @IsString()
   // @IsOptional()

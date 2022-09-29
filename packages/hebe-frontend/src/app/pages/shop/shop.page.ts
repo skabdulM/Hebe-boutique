@@ -1,18 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductService } from 'src/app/api/product.service';
+import { ProductService } from 'src/app/services/product.service';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.page.html',
   styleUrls: ['./shop.page.scss'],
 })
 export class ShopPage implements OnInit {
-  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  // @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private appComponent: AppComponent
   ) {}
 
   cursor: string;
@@ -22,23 +24,21 @@ export class ShopPage implements OnInit {
   count: number = 0;
   min: number = 300;
   max: number = 10000;
-  take = 12;
+  take = 6;
   hidden: boolean = true;
   spinner: boolean;
-  categories = [];
-  brands = [];
+  categories = this.appComponent.categories;
+  brands = this.appComponent.brands;
   products = [];
 
   ngOnInit() {
     this.spinner = true;
-    const categoryName = this.activatedRoute.snapshot.paramMap.get('id');
-    if (categoryName != null) {
-      this.search(categoryName);
+    const searchQuery = this.activatedRoute.snapshot.paramMap.get('id');
+    if (searchQuery != null) {
+      this.search(searchQuery);
     } else {
       this.fetchProducts();
     }
-    this.getCategoriesName();
-    this.getbrandnames();
   }
 
   loadData(event) {
@@ -48,6 +48,32 @@ export class ShopPage implements OnInit {
     }, 500);
   }
 
+  @HostListener('ionScroll') onScroll() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show-text');
+        } else {
+          entry.target.classList.remove('show-text');
+        }
+      });
+    });
+    const hidden = document.querySelectorAll('.hidden-text');
+    hidden.forEach((el) => observer.observe(el));
+
+    const listObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show-list');
+        } else {
+          entry.target.classList.remove('show-list');
+        }
+      });
+    });
+    const hiddenList = document.querySelectorAll('.hidden-list');
+    hiddenList.forEach((el) => listObserver.observe(el));
+  }
+  
   loadMoreresults() {
     if (this.filter) {
       this.productService
@@ -108,6 +134,7 @@ export class ShopPage implements OnInit {
       .subscribe(async (data: any) => {
         this.hidden = true;
         this.products = data;
+        console.log(this.products);
         if (this.products != null) {
           this.totalresults = this.products.length;
           if (this.totalresults != 0) {
@@ -126,24 +153,6 @@ export class ShopPage implements OnInit {
         this.spinner = false;
       });
     this.getCount();
-  }
-
-  getCategoriesName() {
-    this.productService.getcategorynames().subscribe((data: any) => {
-      data.forEach((element) => {
-        this.categories.push(element.name);
-      });
-      this.categories.sort();
-    });
-  }
-
-  getbrandnames() {
-    this.productService.getbrandnames().subscribe((data: any) => {
-      data.forEach((element) => {
-        this.brands.push(element.name);
-      });
-      this.brands.sort();
-    });
   }
 
   getCount(query?: string) {
@@ -171,6 +180,7 @@ export class ShopPage implements OnInit {
         .subscribe((data: any) => {
           this.filter = query;
           this.products = data;
+          console.log(this.products);
           this.hidden = true;
           if (this.products != null) {
             this.totalresults = this.products.length;
@@ -193,4 +203,5 @@ export class ShopPage implements OnInit {
       this.fetchProducts();
     }
   }
+
 }

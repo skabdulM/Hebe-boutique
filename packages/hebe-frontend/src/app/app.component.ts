@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductService } from './api/product.service';
+import { ProductService } from './services/product.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +8,11 @@ import { ProductService } from './api/product.service';
 })
 export class AppComponent {
   constructor(private productService: ProductService) {}
-  categories = [];
+  public categories = [];
+  public brands = [];
   ngOnInit() {
     this.getCategoriesName();
+    this.getbrandnames();
   }
 
   getCategoriesName() {
@@ -19,6 +21,15 @@ export class AppComponent {
         this.categories.push(element.name);
       });
       this.categories.sort();
+    });
+  }
+
+  getbrandnames() {
+    this.productService.getbrandnames().subscribe((data: any) => {
+      data.forEach((element) => {
+        this.brands.push(element.name);
+      });
+      this.brands.sort();
     });
   }
 }

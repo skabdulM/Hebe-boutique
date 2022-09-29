@@ -1,114 +1,255 @@
 <ion-content>
-  <form [formGroup]="productForm">
+  <form [formGroup]="productForm" (ngSubmit)="updateProduct(productId)">
     <ion-grid>
       <ion-list>
-        <ion-row>
-          <ion-col size-md="6" size-lg="5" size-xs="12">
-            <ion-item>
-              <ion-label position="floating">Product Name</ion-label>
-              <ion-input
-                type="text"
-                inputmode="text"
-                placeholder="Product Name"
-                formControlName="productName"
-                minlength="4"
-                maxlength="50"
-                required="true"
-                spellcheck="true"
-                clearInput
-              ></ion-input>
-            </ion-item>
-          </ion-col>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col size-md="6" size-lg="7" size-xs="12" class="ion-text-center">
+            <ion-card style="padding: 2% 5% 2% 5%">
+              <!-- <ion-row>
+          <ion-col size-md="6" size-lg="5" size-xs="12"> -->
+              <ion-item>
+                <ion-label position="floating">Product Name</ion-label>
+                <ion-input
+                  type="text"
+                  inputmode="text"
+                  placeholder="Product Name"
+                  formControlName="productName"
+                  minlength="4"
+                  maxlength="50"
+                  required="true"
+                  spellcheck="true"
+                  clearInput
+                ></ion-input>
+              </ion-item>
+              <!-- </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size-md="6" size-lg="5" size-xs="12">
-            <ion-item>
-              <ion-label position="floating">Product Description:</ion-label>
-              <ion-textarea
-                type="text"
-                inputmode="text"
-                minlength="10"
-                maxlength="300"
-                placeholder="Enter Product Description here..."
-                required="true"
-                formControlName="productDescription"
-                spellcheck="true"
-                wrap="hard"
-                rows="5"
-              >
-              </ion-textarea>
-            </ion-item>
-          </ion-col>
+          <ion-col size-md="6" size-lg="5" size-xs="12"> -->
+              <ion-item>
+                <ion-label position="floating">Product Description:</ion-label>
+                <ion-textarea
+                  type="text"
+                  inputmode="text"
+                  minlength="10"
+                  placeholder="Enter Product Description here..."
+                  required="true"
+                  formControlName="productDescription"
+                  spellcheck="true"
+                  wrap="soft"
+                  autoGrow="true"
+                >
+                </ion-textarea>
+              </ion-item>
+              <!-- </ion-col>
         </ion-row>
+        <ion-row>
+          <ion-col size-md="6" size-lg="5" size-xs="12"> -->
+              <ion-item>
+                <ion-label position="floating">Product Price:</ion-label>
+                <ion-input
+                  type="number"
+                  inputmode="numeric"
+                  required="true"
+                  formControlName="productPrice"
+                  placeholder="Product Price in rupees"
+                  min="1"
+                  >₹</ion-input
+                >
+              </ion-item>
+              <!-- </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-md="6" size-lg="5" size-xs="12"> -->
+              <ion-item>
+                <ion-label position="floating">Product Discount:</ion-label>
+                <ion-input
+                  type="number"
+                  inputmode="numeric"
+                  formControlName="productDiscount"
+                  placeholder="Product Discount in percentage"
+                  min="1"
+                  max="99"
+                ></ion-input>
+              </ion-item>
+              <!-- </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-md="6" size-lg="5" size-xs="12"> -->
+              <ion-item>
+                <ion-label position="floating">Product Image Link</ion-label>
+                <ion-input
+                  type="text"
+                  inputmode="text"
+                  placeholder="Link"
+                  formControlName="productImage"
+                  minlength="4"
+                  required="true"
+                  spellcheck="true"
+                  clearInput
+                ></ion-input>
+              </ion-item>
+              <!-- </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-md="6" size-lg="5" size-xs="12"> -->
+              <ion-item>
+                <ion-label position="floating">Product Brand</ion-label>
+                <ion-input
+                  formControlName="productBrand"
+                  readonly="true"
+                ></ion-input>
+              </ion-item>
+              <!-- </ion-col>
+        </ion-row>
+        <ion-row >
+          <ion-col size-md="6" size-lg="5" size-xs="12"> -->
+              <ion-button
+                *ngIf="productForm.dirty"
+                class="float-right"
+                type="submit"
+                (click)="updateProduct(productId)"
+                [disabled]="productForm.invalid"
+                >Update Product
+              </ion-button>
+              <ion-button class="float-right" (click)="addcategory=true">
+                Add Category
+              </ion-button>
+              <ion-button class="float-right" (click)="addtag=true">
+                Add Tag
+              </ion-button>
+              <ion-button class="float-right" (click)="add_variation=true">
+                Add Variation
+              </ion-button>
+              <!-- </ion-col>
+        </ion-row> -->
+            </ion-card>
+            <ion-card
+              style="padding: 2% 5% 2% 5%"
+              *ngIf="addcategory || addtag || add_variation"
+            >
+              <ion-icon
+              (click)="addcategory =false ;addtag=false; add_variation=false"
+                style="font-size: 1.3rem; cursor: pointer"
+                class="float-right"
+                name="close-circle-outline"
+              ></ion-icon>
+              <form [formGroup]="categoryForm">
+                <ion-item *ngIf="addcategory" class="input-button">
+                  <ion-label position="floating">Product Category</ion-label>
+                  <ion-input
+                    type="text"
+                    inputmode="text"
+                    placeholder="Category"
+                    formControlName="productCategory"
+                    minlength="4"
+                    maxlength="50"
+                    required="true"
+                    spellcheck="true"
+                    clearInput
+                  >
+                  </ion-input>
+                  <ion-button (click)="addCategory(productId)" slot="end">
+                    Add Category
+                  </ion-button>
+                </ion-item>
+              </form>
+              <form [formGroup]="tagForm">
+                <ion-item *ngIf="addtag" class="input-button">
+                  <ion-label position="floating">Product Tag</ion-label>
+                  <ion-input
+                    type="text"
+                    inputmode="text"
+                    placeholder="Add Tags"
+                    formControlName="productTag"
+                    minlength="2"
+                    maxlength="50"
+                    required="true"
+                    spellcheck="true"
+                    clearInput
+                  ></ion-input>
+                  <ion-button (click)="addTag(productId)" slot="end">
+                    Add tag
+                  </ion-button>
+                </ion-item>
+              </form>
+              <form [formGroup]="variation">
+                <ion-list *ngIf="add_variation">
+                  <ion-item>
+                    <ion-label position="floating">Product Size</ion-label>
+                    <ion-input
+                      type="text"
+                      inputmode="text"
+                      placeholder="Product Size"
+                      formControlName="productSize"
+                      minlength="1"
+                      maxlength="4"
+                      required="true"
+                      clearInput
+                    ></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="floating">Product Color</ion-label>
+                    <ion-input
+                      type="text"
+                      inputmode="text"
+                      placeholder="Product Color"
+                      formControlName="productColor"
+                      minlength="1"
+                      maxlength="8"
+                      clearInput
+                    ></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="floating">Product Quantity</ion-label>
+                    <ion-input
+                      type="number"
+                      inputmode="numeric"
+                      placeholder="Product Quantity"
+                      formControlName="productQuantity"
+                      min="1"
+                      required="true"
+                      clearInput
+                    ></ion-input>
+                  </ion-item>
 
-        <ion-row>
-          <ion-col size-md="6" size-lg="5" size-xs="12">
-            <ion-item>
-              <ion-label position="floating">Product Price:</ion-label>
-              <ion-input
-                type="number"
-                inputmode="numeric"
-                required="true"
-                formControlName="productPrice"
-                placeholder="Product Price in rupees"
-                min="1"
-                >₹</ion-input
-              >
-            </ion-item>
+                  <ion-button
+                    class="float-right"
+                    [disabled]="variation.invalid"
+                    (click)="addVariation(productId)"
+                  >
+                    Add variation
+                  </ion-button>
+                </ion-list>
+              </form>
+            </ion-card>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col size-md="6" size-lg="5" size-xs="12">
-            <ion-item>
-              <ion-label position="floating">Product Image Link</ion-label>
-              <ion-input
-                type="text"
-                inputmode="text"
-                placeholder="Link"
-                formControlName="productImage"
-                minlength="4"
-                required="true"
-                spellcheck="true"
-                clearInput
-              ></ion-input>
-            </ion-item>
-          </ion-col>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="addcategory">
           <ion-col size-md="6" size-lg="5" size-xs="12">
-            <form [formGroup]="category">
-            <ion-item>
-              <ion-label position="floating">Product Category</ion-label>
-              <ion-input
-                type="text"
-                inputmode="text"
-                placeholder="Category"
-                formControlName="productCategory"
-                minlength="4"
-                maxlength="50"
-                required="true"
-                spellcheck="true"
-                clearInput
-              ></ion-input>
-              <ion-button (click)="addCategory(productId)" slot="end"
+            <form [formGroup]="categoryForm">
+              <ion-item>
+                <ion-label position="floating">Product Category</ion-label>
+                <ion-input
+                  type="text"
+                  inputmode="text"
+                  placeholder="Category"
+                  formControlName="productCategory"
+                  minlength="4"
+                  maxlength="50"
+                  required="true"
+                  spellcheck="true"
+                  clearInput
+                ></ion-input>
+                <ion-button (click)="addCategory(productId)" slot="end"
                   >Add Category</ion-button
                 >
-            </ion-item>
-          </form>
+              </ion-item>
+            </form>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col size-md="6" size-lg="5" size-xs="12">
-            <ion-item>
-              <ion-label position="floating">Product Brand</ion-label>
-              <ion-input
-                formControlName="productBrand"
-                readonly="true"
-              ></ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
+        <ion-row *ngIf="addtag">
           <ion-col size-md="6" size-lg="5" size-xs="12">
             <form [formGroup]="tagForm">
               <ion-item>
@@ -131,44 +272,72 @@
             </form>
           </ion-col>
         </ion-row>
-        <ion-row *ngIf="productForm.dirty">
+        <table *ngIf="categories.length>=1">
+          <tr>
+            <th style="width: 5%">Sr no.</th>
+            <th>Category Name</th>
+            <th style="width: 4%">Remove</th>
+          </tr>
+          <tbody>
+            <tr *ngFor="let category of categories; let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{category.name}}</td>
+              <td>
+                <ion-icon
+                  name="close-circle-outline"
+                  (click)="removeCategory(category.name,productId)"
+                ></ion-icon>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table *ngIf="tags.length>=1">
+          <tr>
+            <th style="width: 5%">Sr no.</th>
+            <th>Tag Name</th>
+            <th style="width: 4%">Remove</th>
+          </tr>
+          <tbody>
+            <tr *ngFor="let tag of tags; let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{tag.tagName}}</td>
+              <td>
+                <ion-icon
+                  name="close-circle-outline"
+                  (click)="removeTag(tag.tagName,productId)"
+                ></ion-icon>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <tr>
+            <th style="width: 5%">Sr no.</th>
+            <th>Variation Name</th>
+            <th>Variation Color</th>
+            <th>Variation Quantity</th>
+            <th style="width: 10%">Edit</th>
+          </tr>
+          <tbody>
+            <tr *ngFor="let variation of variations;let i= index">
+              <td>{{ i+1 }}</td>
+              <td>{{variation.productSize}}</td>
+              <td>{{variation.productColor?variation.productColor:"null"}}</td>
+              <td>{{variation.productQuantity}}</td>
+              <td>
+                <ion-icon
+                  name="create-outline"
+                  (click)="changed(variation.productSize,variation.productColor,variation.productQuantity)"
+                ></ion-icon>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <ion-row>
           <ion-col size-md="6" size-lg="5" size-xs="12">
-            <ion-button
-              expand="block"
-              (click)="updateProduct(productId)"
-              [disabled]="productForm.invalid"
-              >Update Product</ion-button
-            >
+   
           </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size-md="6" size-lg="5" size-xs="12">
-            <ion-title>Tags</ion-title>
-            <ion-list>
-              <ion-item *ngFor="let tag of tags">
-                <ion-label
-                  >{{tag.tagName}}<ion-icon
-                    name="close-circle-outline"
-                    (click)="removeTag(tag.tagName,productId)"
-                  ></ion-icon
-                ></ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-          <ion-col size-md="6" size-lg="5" size-xs="12">
-            <ion-title>Category</ion-title>
-            <ion-list>
-              <ion-item *ngFor="let category of categories">
-                <ion-label
-                  >{{category.name}}<ion-icon
-                    name="close-circle-outline"
-                    (click)="removeCategory(category.name,productId)"
-                  ></ion-icon
-                ></ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-        </ion-row>
+        </ion-row> -->
       </ion-list>
     </ion-grid>
   </form>

@@ -32,8 +32,8 @@
                     required="true"
                     formControlName="productDescription"
                     spellcheck="true"
-                    wrap="hard"
-                    rows="5"
+                    wrap="soft"
+                    autoGrow="true"
                   >
                   </ion-textarea>
                 </ion-item>
@@ -48,6 +48,17 @@
                     min="1"
                     >₹</ion-input
                   >
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating">Product Discount:</ion-label>
+                  <ion-input
+                    type="number"
+                    inputmode="numeric"
+                    formControlName="productDiscount"
+                    placeholder="Product Discount in percentage"
+                    min="1"
+                    max="100"
+                  ></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label position="floating">Product Image Link</ion-label>
@@ -81,12 +92,49 @@
                   <ion-input
                     type="text"
                     inputmode="text"
-                    placeholder="Brand Name. Note!! you cannot change brand later"
+                    placeholder="Brand Name. Note!! you cannot change or add brand name later"
                     formControlName="productBrand"
                     minlength="2"
                     maxlength="50"
-                    required="true"
                     spellcheck="true"
+                    clearInput
+                  >
+                  </ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating">Product Size</ion-label>
+                  <ion-input
+                    type="text"
+                    inputmode="text"
+                    placeholder="Product Size"
+                    formControlName="productSize"
+                    minlength="1"
+                    maxlength="4"
+                    required="true"
+                    clearInput
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating">Product Color</ion-label>
+                  <ion-input
+                    type="text"
+                    inputmode="text"
+                    placeholder="Product Color"
+                    formControlName="productColor"
+                    minlength="1"
+                    maxlength="8"
+                    clearInput
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating">Product Quantity</ion-label>
+                  <ion-input
+                    type="number"
+                    inputmode="numeric"
+                    placeholder="Product Quantity"
+                    formControlName="productQuantity"
+                    min="1"
+                    required="true"
                     clearInput
                   ></ion-input>
                 </ion-item>
@@ -105,63 +153,40 @@
       </ion-row>
     </ion-list>
   </ion-grid>
-  <ion-grid>
-    <ion-list>
-      <ion-row class="ion-justify-content-center ion-align-items-center">
-        <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-text-center">
-          <h1>Products</h1>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col
-          size-md="6"
-          size-lg="3"
-          size-xs="12"
-          *ngFor="let product of products"
-        >
-          <ion-card
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-text-center">
+      <h1>Products</h1>
+    </ion-col>
+  </ion-row>
+  <table>
+    <tr>
+      <th>Product Name</th>
+      <th>Product Description</th>
+      <th>Product Price</th>
+      <th>Product Discount</th>
+      <th style="width: 5%">Edit</th>
+      <th style="width: 3%">Delete Product</th>
+    </tr>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.productName }}</td>
+        <td>{{ product.productDescription }}</td>
+        <td>{{ product.productPrice }}</td>
+        <td>{{ product.productDiscount?product.productDiscount:"null" }}</td>
+        <td>
+          <ion-icon
+            name="create-outline"
             [routerLink]='"/product/"+product.id'
-            routerLinkActive="selected"
-          >
-            <!-- <ion-img [src]="product.productImg" height="10px"></ion-img> -->
-            <ion-card-header>
-              <ion-card-subtitle>
-                <strong>₹{{product.productPrice}}</strong></ion-card-subtitle
-              >
-              <ion-card-title>{{product.productName}}</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              {{product.productDescription}}
-              <ion-icon
-                name="trash-bin"
-                slot="end"
-                (click)="deleteProduct(product.id)"
-              ></ion-icon>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-      <!-- <ion-row class="ion-justify-content-center">
-        <ion-col size-md="6" size-lg="5" size-xs="12" offset-4>
-          <ion-card *ngFor="let product of products">
-            <ion-card-header>
-              <img src="https://picsum.photos/200/300" />
-              <ion-card-subtitle></ion-card-subtitle>
-              <ion-card-title>{{product.productName}}</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              Founded in 1829 on an isthmus between Lake Monona and Lake
-              Mendota, Madison was named the capital of the Wisconsin Territory
-              in 1836.
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row> -->
-      <!-- <ion-row class="ion-justify-content-center">
-        <ion-col size-md="6" size-lg="5" size-xs="12">
-          <ion-button expand="block" routerLink="/signup">Create Account</ion-button>
-        </ion-col>
-      </ion-row> -->
-    </ion-list>
-  </ion-grid>
+          ></ion-icon>
+        </td>
+        <td>
+          <ion-icon
+            name="trash-bin"
+            slot="end"
+            (click)="deleteProduct(product.id)"
+          ></ion-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </ion-content>

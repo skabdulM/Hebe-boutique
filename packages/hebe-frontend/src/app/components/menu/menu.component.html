@@ -1,28 +1,58 @@
-<ion-fab
-  vertical="bottom"
-  horizontal="center"
-  slot="fixed"
-  class="animated fadeInDown"
->
-  <ion-fab-button  (click)="togglePopupMenu()">
-    <ion-ripple-effect></ion-ripple-effect>
-    <ion-icon name="apps"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
-<div class="popup-menu" (click)="togglePopupMenu()">
-  <div class="popup-menu-overlay" [ngClass]="{ in: openMenu }"></div>
-  <div class="popup-menu-panel" [ngClass]="{ in: openMenu }">
-    <div class="popup-menu-item" routerLink="/account">
-      <ion-icon name="person" slot="middle" size="large"></ion-icon>
-      <span>Account</span>
-    </div>
-    <div class="popup-menu-item" routerLink="/home">
-      <ion-icon name="home" slot="middle" size="large"></ion-icon>
-      <span>Home</span>
-    </div>
-    <div class="popup-menu-item" routerLink="account/login">
-      <ion-icon name="cart" slot="middle" size="large"></ion-icon>
-      <span>Cart</span>
-    </div>
-  </div>
-</div>
+<ion-content class="menu">
+  <ion-button
+    id="trigger-button"
+    expand="full"
+    class="button"
+    (click)="presentPopover($event)"
+    >Menu
+    <ion-icon
+      slot="icon-only"
+      name="menu-outline"
+      style="color: #d3bdb7; padding-right: 3px"
+    ></ion-icon>
+  </ion-button>
+  <ion-popover
+    #popover
+    [isOpen]="isOpen"
+    (didDismiss)="isOpen = false"
+    alignment="center"
+    side="top"
+    class="popover"
+    dismiss-on-select="true"
+    show-backdrop="false"
+    size="cover"
+  >
+    <ng-template>
+      <ion-content>
+        <ion-list lines="none">
+          <ion-item class="ion-text-center">
+            <ion-label class="cursor" (click)="openModal()">
+              Search
+            </ion-label>
+          </ion-item>
+          <ion-item class="ion-text-center">
+            <ion-label class="cursor" [routerLink]="['/home']">
+              Home
+            </ion-label>
+          </ion-item>
+          <ion-item class="ion-text-center">
+            <ion-label class="cursor" [routerLink]="['/shop']">Shop</ion-label>
+          </ion-item>
+          <ion-item class="ion-text-center">
+            <ion-label class="cursor" [routerLink]="['/shop']">Cart </ion-label>
+          </ion-item>
+          <ion-item class="ion-text-center">
+            <ion-label class="cursor" [routerLink]="['/shop']"
+              >About Us</ion-label
+            >
+          </ion-item>
+          <ion-item class="ion-text-center">
+            <ion-label class="cursor" [routerLink]="['/account']"
+              >Account</ion-label
+            >
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+</ion-content>

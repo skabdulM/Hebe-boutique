@@ -6,7 +6,9 @@ import { IonicModule } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { AccountPageRoutingModule } from './account-routing.module';
 import { AccountPage } from './account.page';
-import { UserService } from 'src/app/api/user.service';
+import { UserService } from 'src/app/services/user.service';
+import { SharedDirectivesModule } from 'src/app/shared/shared.module';
+import { SearchPage } from '../search/search.page';
 
 @NgModule({
   imports: [
@@ -16,8 +18,9 @@ import { UserService } from 'src/app/api/user.service';
     AccountPageRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SharedDirectivesModule,
   ],
   declarations: [AccountPage],
-  providers: [UserService],
+  providers: [UserService, SearchPage],
 })
 export class AccountPageModule {}

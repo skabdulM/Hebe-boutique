@@ -68,7 +68,8 @@
   --ion-color-medium-tint: #9d9fa6;
 
   /** light **/
-  --ion-color-light: #f4f5f8;
+  // --ion-color-light: #f4f5f8;
+  --ion-color-light: white;
   --ion-color-light-rgb: 244, 245, 248;
   --ion-color-light-contrast: #000000;
   --ion-color-light-contrast-rgb: 0, 0, 0;
@@ -76,18 +77,22 @@
   --ion-color-light-tint: #f5f6f9;
 
   // background color
-  // --ion-background-color: #CAAFA8;
+  --ion-background-color: #CAAFA8;
 
-  --ion-font-family: "Poppins", Montserrat, -apple-system, BlinkMacSystemFont,
+  --ion-font-family:  Montserrat, -apple-system, BlinkMacSystemFont,
     "Helvetica Neue", "Roboto", sans-serif;
 }
 ion-button {
-  --background: #5f00d4;
+  // --background: #5f00d4;
 }
 ion-fab-button {
-  --background: #5f00d4;
+  // --background: #5f00d4;
 }
 
+@font-face {
+  font-family: chloe;
+  src: url(../assets/Chloe-Regular.otf);
+}
 /*
 @media (prefers-color-scheme: dark) {
 

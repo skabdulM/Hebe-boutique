@@ -1,82 +1,128 @@
-ion-header {
-  display: none;
+.navbar {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: #caafa8;
+  font-family: "montserrat", sans-serif;
+  justify-content: space-around;
+  // justify-content: space-evenly;
 }
-@media only screen and (min-width: 890px) {
-  ion-header {
-    display: contents;
-  }
-  .title {
-    letter-spacing: 4px;
-    font-weight: bolder;
-    color: #5f00d4;
-    margin-left: 11%;
-    font-size: x-large;
-  }
-  ion-label {
-    padding-right: 50px;
-    font-size: medium;
-    cursor: pointer;
-  }
-  ion-label:hover {
-    color: #5f00d4;
-  }
-  .icon {
-    font-size: x-large;
-    padding-left: 30px;
-    --ionicon-stroke-width: 45px;
-    cursor: pointer;
-  }
-  ion-icon:hover {
-    color: #5f00d4;
-  }
-  .nav {
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    border-bottom: #eaeaea 1.5px solid;
-  }
 
-  .header {
-    --min-height: 5em;
-  }
-  .items {
-    display: flex;
-    align-items: center;
-    padding-right: 16.5%;
-  }
-  ion-item:hover {
-    --ion-item-color: #5f00d4;
-    cursor: pointer;
-  }
-  .ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  
-  }
+.dropbtn {
+  border: none;
+  outline: none;
+  margin: 2rem 1.5rem 2rem 1.5rem;
+  background-color: inherit;
+  color: white;
 }
-@media only screen and (max-width: 890px) {
-  ion-header {
-    display: contents;
-  }
-  .items {
+.navbar ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.underline {
+  background-image: linear-gradient(white, white);
+  background-size: 0% 0.09rem;
+  background-repeat: no-repeat;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  padding-bottom: 6.5px;
+  background-position: left bottom;
+  transition: background-size 0.3s ease;
+}
+
+li:hover .underline {
+  background-size: 100% 0.09rem;
+  padding-bottom: 6.5px;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #caafa8;
+  color: white;
+  width: 100%;
+  left: 0;
+  z-index: 1;
+  padding-top: 1.3rem;
+  padding-bottom: 1rem;
+}
+
+.dropdown-content::content .underline {
+  background-size: 100% 0.09rem;
+  padding-bottom: 6.5px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.grid {
+  max-height: 20rem;
+  overflow: auto;
+  /* hide scrollbar after adding in scss */
+}
+
+.logo {
+  width: 8rem;
+  cursor: pointer;
+}
+#logo {
+  font-size: xxx-large;
+  font-size: 3.5rem;
+  font-family: "chloe";
+  float: left;
+  color: white;
+  cursor: pointer;
+}
+
+.icons {
+  display: flex;
+  gap: 1rem;
+  color: white;
+  font-size: 28px;
+  --ionicon-stroke-width: 1rem;
+}
+.icons:hover {
+  cursor: pointer;
+}
+.dropunderline {
+  background-image: linear-gradient(white, white);
+  background-size: 0% 0.09rem;
+  background-repeat: no-repeat;
+  text-transform: uppercase;
+  font-size: x-small;
+  letter-spacing: 2px;
+  background-position: left bottom;
+  transition: background-size 0.4s ease;
+}
+
+.list:hover .dropunderline {
+  background-size: 100% 0.09rem;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .navbar ul {
     display: none;
   }
-  .title {
-    letter-spacing: 4px;
-    font-weight: bolder;
-    color: #5f00d4;
-    font-size: x-large;
+  .navbar .icons {
+    display: none;
   }
-
-  .header {
-    --min-height: 4em;
+  .navbar {
+    height: 5rem;
+    align-items: center;
   }
-  .nav {
+  .logo {
+    width: 100%;
     display: flex;
     align-items: center;
-    overflow: hidden;
-    text-align: center;
-    border-bottom: #eaeaea 1.5px solid;
+    justify-content: center;
   }
 }

@@ -3,6 +3,7 @@ import {
   ConflictException,
   ForbiddenException,
   Injectable,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { AddCartProductDto } from './dto';
@@ -12,12 +13,16 @@ import { EditCartProductDto } from './dto/editCartProduct.dto';
 export class CartService {
   constructor(private prisma: PrismaService) {}
 
-  getCartProducts(userId: string) {
-    return this.prisma.cart.findMany({
-      where: {
-        userId,
-      },
-    });
+  async getCartProducts(userId: string) {
+    return await this.prisma.cart
+      .findMany({
+        where: {
+          userId,
+        },
+      })
+      .catch((error) => {
+        throw new UnauthorizedException();
+      });
   }
 
   getCartProductsbyId(userId: string, cartproductId: number) {
@@ -27,7 +32,7 @@ export class CartService {
         userId,
       },
     });
-  } 
+  }
   /*
       for just addto cart do this
        async addtoCart(userId: string, dto: AddCartProductDto) {
@@ -55,12 +60,12 @@ export class CartService {
 }
 */
   async addtoCart(userId: string, dto: AddCartProductDto) {
-    let product: AddCartProductDto;
+    let product: any;
 
-    await this.prisma.products
+    await this.prisma.productVariations
       .findUniqueOrThrow({
         where: {
-          id: dto.productId,
+          id: dto.id,
         },
       })
       .catch((error) => {
@@ -70,7 +75,12 @@ export class CartService {
     await this.prisma.cart
       .findFirst({
         where: {
-          productId: dto.productId,
+          // productId: dto.productId,
+          product: {
+            every: {
+              id: dto.id,
+            },
+          },
           userId,
         },
       })
@@ -80,7 +90,7 @@ export class CartService {
       .catch((error) => {
         throw error;
       });
-      
+
     if (!product) {
       await this.prisma.cart
         .create({
@@ -88,10 +98,9 @@ export class CartService {
             userId,
             product: {
               connect: {
-                id: dto.productId,
+                id: dto.id,
               },
             },
-            ...dto,
           },
         })
         .then((data) => {
@@ -102,7 +111,7 @@ export class CartService {
           throw error;
         });
     } else {
-      throw new ConflictException('product already exists')
+      throw new ConflictException('product already exists');
     }
   }
 
@@ -137,7 +146,6 @@ export class CartService {
       },
     });
 
-    // check if user owns the bookmark
     if (!product || product.userId !== userId)
       throw new ForbiddenException('Access to resources denied');
 

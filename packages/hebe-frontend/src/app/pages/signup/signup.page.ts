@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
-import { UserService } from 'src/app/api/user.service';
+import { UserService } from 'src/app/services/user.service';
 import { SingUp } from 'src/app/interface/signUp';
 import { CustomValidators } from './confirm-password.validator';
 
@@ -62,16 +62,6 @@ export class SignupPage implements OnInit {
   );
 
   ngOnInit() {
-    this.storage
-      .getItem('jwt_token')
-      .then((data) => {
-        if (data) {
-          this.router.navigate(['/account']);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }
 
   hideShowPassword() {

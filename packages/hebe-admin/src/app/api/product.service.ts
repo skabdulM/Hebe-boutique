@@ -5,6 +5,7 @@ import { AddProduct } from '../interface/addProduct';
 import { AddTag } from '../interface/addTag';
 import { UpdateProduct } from '../interface/updateProduct';
 import { AddCategory } from '../interface/addCategory';
+import { AddVariation } from '../interface/addvariation';
 
 @Injectable({
   providedIn: 'root',
@@ -21,11 +22,20 @@ export class ProductService {
     });
   }
 
+  addProductVariation(data: AddVariation) {
+    const jwt = localStorage.getItem('jwt_token');
+    const url: string = Serverurl + '/product/addvariation';
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
+    return this.http.patch(url, data, {
+      headers: headers,
+    });
+  }
+
   addProductTag(data: AddTag) {
     const jwt = localStorage.getItem('jwt_token');
     const url: string = Serverurl + '/product/addProductTag';
     let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
-    return this.http.patch<AddProduct[]>(url, data, {
+    return this.http.patch(url, data, {
       headers: headers,
     });
   }
@@ -34,7 +44,7 @@ export class ProductService {
     const jwt = localStorage.getItem('jwt_token');
     const url: string = Serverurl + '/product/removeTag';
     let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
-    return this.http.patch<AddProduct[]>(url, data, {
+    return this.http.patch(url, data, {
       headers: headers,
     });
   }
@@ -43,7 +53,7 @@ export class ProductService {
     const jwt = localStorage.getItem('jwt_token');
     const url: string = Serverurl + '/product/addProductCategory';
     let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
-    return this.http.patch<AddProduct[]>(url, data, {
+    return this.http.patch(url, data, {
       headers: headers,
     });
   }
@@ -52,7 +62,7 @@ export class ProductService {
     const jwt = localStorage.getItem('jwt_token');
     const url: string = Serverurl + '/product/removeCategory';
     let headers = new HttpHeaders().set('Authorization', 'Bearer ' + jwt);
-    return this.http.patch<AddProduct[]>(url, data, {
+    return this.http.patch(url, data, {
       headers: headers,
     });
   }

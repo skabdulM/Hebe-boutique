@@ -4,12 +4,10 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MenuComponent } from './components/menu/menu.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedDirectivesModule } from './shared/shared.module';
 @NgModule({
-  declarations: [AppComponent, MenuComponent, FooterComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

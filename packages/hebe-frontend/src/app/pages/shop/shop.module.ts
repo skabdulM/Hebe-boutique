@@ -9,6 +9,8 @@ import { ShopPageRoutingModule } from './shop-routing.module';
 import { ShopPage } from './shop.page';
 import { SharedDirectivesModule } from 'src/app/shared/shared.module';
 import { NavbarComponent } from 'src/app/components/navbar/navbar.component';
+import { ProductService } from 'src/app/services/product.service';
+import { SearchPage } from '../search/search.page';
 
 @NgModule({
   imports: [
@@ -19,5 +21,6 @@ import { NavbarComponent } from 'src/app/components/navbar/navbar.component';
     SharedDirectivesModule,
   ],
   declarations: [ShopPage],
+  providers: [ProductService, SearchPage],
 })
 export class ShopPageModule {}

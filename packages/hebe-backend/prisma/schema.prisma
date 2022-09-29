@@ -33,16 +33,16 @@ model Products {
 
   productName        String
   productDescription String
-  productPrice       Decimal @db.Money
+  productPrice       Float             //@db.Money
   productImg         String
+  productDiscount    Int?
+  views              Int                 @default(0)
+  variations         ProductVariations[]
   brandsId           Int?
-  views              Int     @default(0)
-
-  brand    Brands?           @relation(fields: [brandsId], references: [id])
-  comments ProductComments[] //
-  category Category[]
-  tags     Tags[]
-  cart     Cart[]
+  brand              Brands?             @relation(fields: [brandsId], references: [id], onDelete: SetNull)
+  comments           ProductComments[] //
+  category           Category[]
+  tags               Tags[]
 }
 
 model Orders {
@@ -56,10 +56,11 @@ model Orders {
   phone2          String?
   shippingAddress String
   paynmentId      String
-  status          Boolean @default(false)
+  status          Boolean             @default(false)
   products        Json
-  totalAmount     Decimal
-  user            Users   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  totalAmount     Float
+  user            Users               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product         ProductVariations[]
 }
 
 model Cart {
@@ -67,9 +68,9 @@ model Cart {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  productId String
-  product         Products[]
-  productQuantity Int        @default(1)
+  product ProductVariations[]
+
+  productQuantity Int @default(1)
 
   user   Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
@@ -91,6 +92,19 @@ enum Role {
   USER
   MANAGER
   ADMIN
+}
+
+model ProductVariations {
+  id              String  @id @default(uuid())
+  productSize     String
+  productColor    String?
+  productQuantity Int
+
+  Products   Products @relation(fields: [productsId], references: [id], onDelete: Cascade)
+  productsId String
+
+  cart     Cart[]
+  Orders   Orders[]
 }
 
 model ProductComments {

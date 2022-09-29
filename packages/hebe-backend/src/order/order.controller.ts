@@ -22,7 +22,7 @@ export class OrderController {
     return this.orderService.order(userId, dto);
   }
 
-  @Roles('MANAGER','ADMIN')
+  @Roles('MANAGER', 'ADMIN')
   @UseGuards(RolesGuard)
   @Patch('update/:id')
   updateorderStatus(
@@ -36,8 +36,8 @@ export class OrderController {
   getuserOrders(@GetUser('id') userId: string) {
     return this.orderService.getuserOrders(userId);
   }
-  
-  @Roles('MANAGER','ADMIN')
+
+  @Roles('MANAGER', 'ADMIN')
   @UseGuards(RolesGuard)
   @Get('allOrders')
   getallorders() {

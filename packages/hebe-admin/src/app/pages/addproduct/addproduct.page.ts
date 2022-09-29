@@ -16,9 +16,13 @@ export class AddproductPage implements OnInit {
     productName: new FormControl('', [Validators.required]),
     productDescription: new FormControl('', [Validators.required]),
     productPrice: new FormControl('', [Validators.pattern('[0-9]{2,4}')]),
+    productDiscount: new FormControl(''),
     productImage: new FormControl('', [Validators.required]),
     productCategory: new FormControl('', [Validators.required]),
-    productBrand: new FormControl('', [Validators.required]),
+    productBrand: new FormControl(''),
+    productSize: new FormControl('', [Validators.required]),
+    productColor: new FormControl(''),
+    productQuantity: new FormControl('', [Validators.pattern('[0-9]{1,8}')]),
   });
 
   ngOnInit() {
@@ -31,10 +35,21 @@ export class AddproductPage implements OnInit {
       productDescription:
         this.addProductForm.controls['productDescription'].value,
       productPrice: this.addProductForm.controls['productPrice'].value,
+      productDiscount: this.addProductForm.controls['productDiscount'].value
+        ? this.addProductForm.controls['productDiscount'].value
+        : null,
       productImg: this.addProductForm.controls['productImage'].value,
       category: this.addProductForm.controls['productCategory'].value,
-      brand: this.addProductForm.controls['productBrand'].value,
+      brand: this.addProductForm.controls['productBrand'].value
+        ? this.addProductForm.controls['productBrand'].value
+        : null,
+      productSize: this.addProductForm.controls['productSize'].value,
+      productColor: this.addProductForm.controls['productColor'].value
+        ? this.addProductForm.controls['productColor'].value
+        : null,
+      productQuantity: this.addProductForm.controls['productQuantity'].value,
     };
+    console.log(product);
     this.productService.addProduct(product).subscribe(
       () => this.fetchProducts(),
       (error) => {
@@ -50,14 +65,12 @@ export class AddproductPage implements OnInit {
   //   });
   // }
   fetchProducts() {
-    this.productService
-      .getProducts(0, 10000,1000)
-      .subscribe((data: any) => {
-        // let lastProduct = data[data.length - 1];
-        this.products = data;
-        // this.cursor = lastProduct.id;
-        // this.totalresults = this.products.length;
-      });
+    this.productService.getProducts(0, 10000, 1000).subscribe((data: any) => {
+      // let lastProduct = data[data.length - 1];
+      this.products = data;
+      // this.cursor = lastProduct.id;
+      // this.totalresults = this.products.length;
+    });
     // this.getCount();
   }
 

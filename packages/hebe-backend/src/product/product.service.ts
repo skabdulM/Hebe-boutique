@@ -1,8 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma, Products } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
-import { addProductTag, ProductDto, UpdateProductDto } from './dto';
+import {
+  addProductTag,
+  AddProductVariation,
+  ProductDto,
+  UpdateProductDto,
+} from './dto';
 import { addProductCategory } from './dto/addCategory';
+import { UpdateProductVariation } from './dto/updateVariation.dto';
 
 @Injectable()
 export class ProductService {
@@ -12,7 +22,13 @@ export class ProductService {
     const product = await this.prisma.products
       .create({
         data: {
-          ...dto,
+          productName: dto.productName,
+          productDescription: dto.productDescription,
+          productPrice: dto.productPrice,
+          productImg: dto.productImg,
+          productDiscount: dto.productDiscount
+            ? dto.productDiscount
+            : undefined,
           category: {
             connectOrCreate: {
               where: {
@@ -23,20 +39,60 @@ export class ProductService {
               },
             },
           },
-          brand: {
-            connectOrCreate: {
-              where: {
-                name: dto.brand.toLowerCase(),
-              },
-              create: {
-                name: dto.brand.toLowerCase(),
-              },
+          brand: dto.brand
+            ? {
+                connectOrCreate: {
+                  where: {
+                    name: dto.brand.toLowerCase(),
+                  },
+                  create: {
+                    name: dto.brand.toLowerCase(),
+                  },
+                },
+              }
+            : undefined,
+          variations: {
+            create: {
+              productSize: dto.productSize.toUpperCase(),
+              productQuantity: dto.productQuantity,
+              productColor: dto.productColor
+                ? dto.productColor.toUpperCase()
+                : undefined,
             },
           },
         },
       })
       .catch((error) => {
-        return error;
+        throw new BadRequestException(error);
+      });
+    return product;
+  }
+
+  async updateProduct(productId: string, dto: UpdateProductDto) {
+    const product = await this.prisma.products
+      .update({
+        where: {
+          id: productId,
+        },
+        data: {
+          ...dto,
+        },
+        include: {
+          category: {
+            select: {
+              name: true,
+            },
+          },
+          brand: {
+            select: {
+              name: true,
+            },
+          },
+          tags: true,
+        },
+      })
+      .catch((error) => {
+        throw new BadRequestException(error);
       });
     return product;
   }
@@ -127,64 +183,77 @@ export class ProductService {
     });
   }
 
-  async updateProduct(productId: string, dto: UpdateProductDto) {
-    const product = await this.prisma.products.update({
-      where: {
-        id: productId,
-      },
-      data: {
-        ...dto,
-      },
-      include: {
-        category: {
-          select: {
-            name: true,
-          },
-        },
-        brand: {
-          select: {
-            name: true,
-          },
-        },
-        tags: true,
-      },
-    });
-    return product;
-  }
-
   async addProductTag(dto: addProductTag) {
-    const tag = await this.prisma.products.update({
-      where: {
-        id: dto.productId,
-      },
-      data: {
-        tags: {
-          connectOrCreate: {
-            where: {
-              tagName: dto.tagName.toLowerCase(),
+    const tag = await this.prisma.products
+      .update({
+        where: {
+          id: dto.productId,
+        },
+        data: {
+          tags: {
+            connectOrCreate: {
+              where: {
+                tagName: dto.tagName.toLowerCase(),
+              },
+              create: {
+                tagName: dto.tagName.toLowerCase(),
+              },
             },
-            create: {
-              tagName: dto.tagName.toLowerCase(),
+          },
+        },
+        include: {
+          category: {
+            select: {
+              name: true,
             },
           },
-        },
-      },
-      include: {
-        category: {
-          select: {
-            name: true,
+          brand: {
+            select: {
+              name: true,
+            },
           },
+          tags: true,
         },
-        brand: {
-          select: {
-            name: true,
-          },
-        },
-        tags: true,
-      },
-    });
+      })
+      .catch((error) => {
+        throw new BadRequestException(error);
+      });
     return tag;
   }
+
+  async addProductVariation(dto: AddProductVariation) {
+    const variation = await this.prisma.productVariations
+      .create({
+        data: {
+          productsId: dto.productId,
+          productSize: dto.productSize.toUpperCase(),
+          productColor: dto.productColor,
+          productQuantity: dto.productQuantity,
+        },
+      })
+      .catch((error) => {
+        throw new BadRequestException(error);
+      });
+    return variation;
+  }
+
+  async updateProductVariation(dto: UpdateProductVariation) {
+    const variation = await this.prisma.productVariations
+      .update({
+        where: {
+          id: dto.id,
+        },
+        data: {
+          ...dto,
+        },
+      })
+      .catch((error) => {
+        console.log(error);
+        throw new BadRequestException(error);
+      });
+    return variation;
+  }
+
   //use prisma search defined in the docs here https://www.prisma.io/docs/concepts/components/prisma-client/full-text-search
   //use every instead of some if search have issues, can read prisma docs  https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#atomic-number-operations
   async search(params: {
@@ -251,7 +320,13 @@ export class ProductService {
             },
           ],
         },
+<<<<<<< Updated upstream
         orderBy: { productName: 'asc' },
+=======
+        include: {
+          variations: true,
+        },
+>>>>>>> Stashed changes
       });
       return search;
     } else {
@@ -308,7 +383,13 @@ export class ProductService {
             },
           ],
         },
+<<<<<<< Updated upstream
         orderBy: { productName: 'asc' },
+=======
+        include: {
+          variations: true,
+        },
+>>>>>>> Stashed changes
       });
       return search;
     }
@@ -349,34 +430,42 @@ export class ProductService {
   }
 
   async getProductByid(productId: string) {
-    const product = await this.prisma.products.findUnique({
-      where: {
-        id: productId,
-      },
-      include: {
-        category: {
-          select: {
-            name: true,
+    const product = await this.prisma.products
+      .findUnique({
+        where: {
+          id: productId,
+        },
+        include: {
+          category: {
+            select: {
+              name: true,
+            },
           },
-        },
-        brand: {
-          select: {
-            name: true,
+          brand: {
+            select: {
+              name: true,
+            },
           },
+          tags: true,
+          variations: true,
         },
-        tags: true,
-      },
-    });
-    await this.prisma.products.update({
-      where: {
-        id: productId,
-      },
-      data: {
-        views: {
-          increment: 1,
-        },
-      },
-    });
+      })
+      .then(async (data) => {
+        await this.prisma.products.update({
+          where: {
+            id: productId,
+          },
+          data: {
+            views: {
+              increment: 1,
+            },
+          },
+        });
+        return data;
+      })
+      .catch((error) => {
+        throw new NotFoundException('product Not found', error);
+      });
     return product;
   }
 
@@ -433,6 +522,9 @@ export class ProductService {
             },
           ],
         },
+        include: {
+          variations: true,
+        },
       });
     } else {
       return this.prisma.products.findMany({
@@ -447,6 +539,10 @@ export class ProductService {
             },
           ],
         },
+        include: {
+          variations: true,
+          brand:true
+        },
         orderBy: {
           views: views ? views : undefined,
         },
@@ -458,6 +554,14 @@ export class ProductService {
     await this.prisma.products.delete({
       where: {
         id: productId,
+      },
+    });
+  }
+
+  async deleteProductVariation(variationId: string) {
+    return await this.prisma.productVariations.delete({
+      where: {
+        id: variationId,
       },
     });
   }
@@ -477,26 +581,30 @@ export class ProductService {
         },
       },
     });
-
     return [nullCategories, nullTags];
   }
 
+  //change name of addproducttag and replace to product tag
   async removeTag(dto: addProductTag) {
-    const tag = await this.prisma.products.update({
-      where: {
-        id: dto.productId,
-      },
-      data: {
-        tags: {
-          disconnect: {
-            tagName: dto.tagName.toLowerCase(),
+    const tag = await this.prisma.products
+      .update({
+        where: {
+          id: dto.productId,
+        },
+        data: {
+          tags: {
+            disconnect: {
+              tagName: dto.tagName.toLowerCase(),
+            },
           },
         },
-      },
-      include: {
-        tags: true,
-      },
-    });
+        include: {
+          tags: true,
+        },
+      })
+      .catch((error) => {
+        throw new BadRequestException(error);
+      });
     return tag;
   }
 

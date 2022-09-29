@@ -27,8 +27,6 @@ export class ProductService {
     if (cursor) {
       params = params.append('cursor', cursor);
     }
-    console.log(params);
-    
     const url = Serverurl + '/product/getproducts';
     return this.http.get(url, {
       params: params,

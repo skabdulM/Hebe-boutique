@@ -26,7 +26,7 @@ export class HideHeaderDirective implements OnInit {
 
   @HostListener('ionScroll', ['$event']) onContentScroll($event) {
     const scrollTop = $event.detail.scrollTop;
-    let newPostion = scrollTop / 3;
+    let newPostion = scrollTop / 1;
     // let newOpacity = 1 - newPostion / this.toolbar.clientHeight;
 
     if (newPostion < -this.toolbarHeight) {
@@ -38,5 +38,4 @@ export class HideHeaderDirective implements OnInit {
       // this.renderer.setStyle(this.toolbar, 'opacity', newOpacity);
     });
   }
-  
 }

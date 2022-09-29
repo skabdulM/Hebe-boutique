@@ -1,23 +1,46 @@
-ion-item {
-  padding-bottom: 5px;
-}
-/* --ion-grid-width{
-    width: 10px;
-} */
-.end {
-  float: right;
-}
-@media only screen and (min-width: 700px) {
-  .grid {
-    margin-left: 10%;
-  }
-}
-.title {
-  margin-left: 5%;
+.login-title {
+  font-family: "chloe";
+  font-size: xx-large;
 }
 
-h1 {
-  display: inline-block;
-  border-bottom: 2px solid black;
-  padding-bottom: 1.5%;
+.pointer {
+  cursor: pointer;
+}
+
+.section-1 {
+  min-height: 140vh;
+}
+
+.labels {
+  font-size: small;
+  font-weight: 300;
+}
+
+.input-item {
+  --border-color: white;
+  --highlight-color-focused: white;
+  --padding-start: 0px;
+  --highlight-color-valid: white;
+  --highlight-color-invalid: white;
+  --inner-padding-end: 0;
+}
+
+.input {
+  --placeholder-color: white;
+  --placeholder-font-weight: 300;
+  --placeholder-opacity: 0.6;
+  font-weight: 300;
+}
+
+.title_buttons {
+  font-weight: 300;
+  color: #d1b9b3;
+  --background: white;
+  --box-shadow: none;
+  --border-radius: 0;
+  font-size: small;
+}
+
+.title_buttons[disabled] {
+  opacity: 1;
 }

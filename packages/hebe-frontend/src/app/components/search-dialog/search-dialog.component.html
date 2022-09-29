@@ -1,0 +1,64 @@
+<ion-header class="ion-no-border">
+  <nav class="navbar">
+    <ion-col sizeLg="2" class="justify-center">
+      <div class="logo" [routerLink]="['/home']">
+        <label
+          class="typewrite"
+          id="logo"
+          data-period="2000"
+          data-type='[ "hebe." ]'
+        >
+          <span class="wrap"></span>
+        </label>
+      </div>
+    </ion-col>
+    <ion-col sizeLg="2" class="justify-center">
+      <div class="icons">
+        <ion-icon (click)="cancel()" size="large" name="close-outline">
+        </ion-icon>
+      </div>
+    </ion-col>
+  </nav>
+</ion-header>
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Welcome</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()">Confirm</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+<ion-content>
+  <form [formGroup]="searchForm">
+    <ion-row class="ion-justify-content-center hidden-text">
+      <ion-col size-md="6" size-lg="4" size-xs="10" sizeSm="7">
+        <ion-item class="input-item">
+          <ion-input
+            size="large"
+            placeholder="Search Our Store"
+            color="light"
+            type="search"
+            inputmode="search"
+            class="input"
+            formControlName="searchQuery"
+            (keyup.enter)="confirm()"
+            (onsubmit)="confirm()"
+            minlength="1"
+            min="1"
+            required="true"
+            >
+          </ion-input
+          ><ion-icon
+            (click)="confirm()"
+            color="light"
+            size="large"
+            name="search-outline"
+          ></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { FooterComponent } from './footer.component';
+import { SearchDialogComponent } from './search-dialog.component';
 
-describe('FooterComponent', () => {
-  let component: FooterComponent;
-  let fixture: ComponentFixture<FooterComponent>;
+describe('SearchDialogComponent', () => {
+  let component: SearchDialogComponent;
+  let fixture: ComponentFixture<SearchDialogComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FooterComponent ],
+      declarations: [ SearchDialogComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FooterComponent);
+    fixture = TestBed.createComponent(SearchDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

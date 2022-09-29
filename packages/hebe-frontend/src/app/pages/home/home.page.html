@@ -1,213 +1,105 @@
-<ion-header #header class="ion-no-border">
-  <app-navbar></app-navbar>
-</ion-header>
-<ion-content scrollEvents="true" [appHideHeader]="header">
+<!-- <ion-content scrollEvents="true" [appHideHeader]="header"> -->
+<ion-content scrollEvents="true">
+  <ion-header class="ion-no-border">
+    <app-navbar></app-navbar>
+  </ion-header>
   <div class="image">
     <div class="image-text">
-      <h6>TOP SALE ON THIS WEEK</h6>
-      <h1>Explore Amazing Fashionable Blazers this Shadi Season</h1>
-      <ion-button
-        class="title_buttons"
-        shape="round"
-        routerDirection="forward"
-        [routerLink]="['/shop']"
-        size="large"
-      >
-        <p>Shop Now</p>
-      </ion-button>
-      <ion-button
-        class="title_buttons"
-        shape="round"
-        size="large"
-        color="danger"
-      >
-        <p>Learn More</p>
-      </ion-button>
+      <h1 class="hero-title">Hebe Boutique</h1>
+      <div class="subtitle">
+        <h1 class="hero-title-subtitle">End of season sale</h1>
+        <ion-button
+          class="title_buttons"
+          routerDirection="forward"
+          [routerLink]="['/shop']"
+        >
+          Shop Now
+        </ion-button>
+      </div>
     </div>
   </div>
-  <ion-grid>
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size-lg="3" size-xs="12" class="svgcol">
-        <ion-img class="svgimg" src="../../../assets/van.png"></ion-img>
-        <ion-label class="svglabel">
-          <h4>Free Shipping</h4>
-          <p class="hint">On all order over 500</p>
-        </ion-label>
-      </ion-col>
-      <ion-col size-lg="3" size-xs="12" class="svgcol">
-        <ion-img
-          class="svgimg"
-          src="../../../assets/customer-service.png"
-        ></ion-img>
-        <ion-label class="svglabel">
-          <h4>Dedicated Support</h4>
-          <p class="hint">Quick response 24/7</p>
-        </ion-label>
-      </ion-col>
-      <ion-col size-lg="3" size-xs="12" class="svgcol" style="border: none">
-        <ion-img class="svgimg" src="../../../assets/money.png"></ion-img>
-        <ion-label class="svglabel">
-          <h4>Money Back Guarantee</h4>
-          <p class="hint">Worry free shopping</p>
-        </ion-label>
-      </ion-col>
-    </ion-row>
-
-    <ion-list style="margin-left: 10%; margin-right: 10%">
-      <ion-row class="ion-justify-content-center ion-align-items-center">
-        <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-text-center">
-          <h1>Main Categories</h1>
-        </ion-col>
-      </ion-row>
+  <ion-grid style="padding: 0">
+    <section>
       <ion-row>
-        <ion-col
-          size-md="6"
-          size-lg="4"
-          size-xs="12"
-          style="display: flex; justify-content: center"
-        >
-          <ion-card routerLink="/shop/accessories">
-            <ion-img
-              class="cropped-image fill-image"
-              src="../../../assets/retail-black-friday-small-banner-2-opt.jpg"
+        <div class="section1 ion-text-center ion-align-items-center">
+          <ion-text class="hidden-text section1-text">
+            <em style="color: #333029">
+              Curators of ethical fashion and New Zealand designed.</em
             >
-            </ion-img>
-            <ion-label class="card-text"
-              >Accessories <br />
-              <ion-note class="card-hint">View all</ion-note>
-            </ion-label>
-          </ion-card>
-        </ion-col>
+            &nbsp;Hebe is a destination concept store and online haven for
+            style-seekers. A fashion selection lovingly handpicked for you,
+            sealed with personal touch.
+          </ion-text>
+        </div>
+      </ion-row>
+    </section>
+    <section>
+      <ion-col class="ion-text-center">
+        <h1 class="section-2 hidden-text">Must Haves</h1>
+        <p class="section-2-p hidden-text">
+          Some of our favourite picks this week
+        </p>
+      </ion-col>
+      <ion-row
+        scrollX="true"
+        class="hidden-list scroll-items"
+        style="margin-bottom: 4rem"
+      >
         <ion-col
-          size-md="6"
-          size-lg="4"
-          size-xs="12"
-          style="display: flex; justify-content: center"
+          class="ion-justify-content-center"
+          sizeLg="4"
+          sizeXl="3"
+          sizeSm="8"
+          sizeMd="6"
+          sizeXs="12"
+          *ngFor="let product of products"
         >
-          <ion-card routerLink="/shop/bags">
+          <ion-card class="card">
             <ion-img
               class="cropped-image fill-image"
-              src="../../../assets/baner-flat-fashion-7.jpg"
+              [src]="product.productImg"
+              alt="Image not availabel"
+              [routerLink]='"/product/"+product.id'
             ></ion-img>
-            <ion-label class="card-text"
-              >Bags <br />
-              <ion-note class="card-hint">View all</ion-note>
-            </ion-label>
-          </ion-card>
-        </ion-col>
-        <ion-col
-          size-md="6"
-          size-lg="4"
-          size-xs="12"
-          style="display: flex; justify-content: center"
-        >
-          <ion-card routerLink="/shop/bottomwear">
-            <ion-img
-              class="cropped-image fill-image"
-              src="../../../assets/bottom.jpg"
-            ></ion-img>
-            <ion-label class="card-text"
-              >Bottomwear <br />
-              <ion-note class="card-hint">View all</ion-note>
-            </ion-label>
-          </ion-card>
-        </ion-col>
-
-        <ion-col
-          size-md="6"
-          size-lg="4"
-          size-xs="12"
-          style="display: flex; justify-content: center"
-        >
-          <ion-card routerLink="/shop/footwear">
-            <ion-img
-              class="cropped-image fill-image"
-              src="../../../assets/footwear2.jpg"
-            ></ion-img>
-            <ion-label class="card-text"
-              >Footwear <br />
-              <ion-note class="card-hint">View all</ion-note>
-            </ion-label>
-          </ion-card>
-        </ion-col>
-        <ion-col
-          size-md="6"
-          size-lg="4"
-          size-xs="12"
-          style="display: flex; justify-content: center"
-        >
-          <ion-card routerLink="/shop/topwear">
-            <ion-img
-              class="cropped-image fill-image"
-              src="../../../assets/top2.jpg"
-            ></ion-img>
-            <ion-label class="card-text"
-              >Topwear <br />
-              <ion-note class="card-hint">View all</ion-note>
-            </ion-label>
-          </ion-card>
-        </ion-col>
-
-        <ion-col
-          size-md="6"
-          size-lg="4"
-          size-xs="12"
-          style="display: flex; justify-content: center"
-        >
-          <ion-card routerLink="/shop/wearables">
-            <ion-img
-              class="cropped-image fill-image"
-              src="../../../assets/watch-accessories.jpeg"
-            ></ion-img>
-            <ion-label class="card-text"
-              >Wearables <br />
-              <ion-note class="card-hint">View all</ion-note>
-            </ion-label>
+            <ion-card-header style="padding: 1rem 0 0 0">
+              <ion-label [routerLink]='"/product/"+product.id'>
+                <ion-card-title class="ellipsis"
+                  >{{product.productName}}</ion-card-title
+                >
+                <p class="section-2-brandname">
+                  {{ product.brand?product.brand.name:null}}
+                </p>
+              </ion-label>
+            </ion-card-header>
+            <ion-card-content>
+              <h3 class="price" [routerLink]='"/product/"+product.id'>
+                {{product.productPrice | currency: "INR":"symbol":"2.0" }}
+              </h3>
+              <ul class="section2-productsize">
+                <li
+                  *ngFor="let variation of product.variations"
+                  [routerLink]='"/product/"+product.id'
+                >
+                  {{variation.productSize}}
+                </li>
+              </ul>
+            </ion-card-content>
           </ion-card>
         </ion-col>
       </ion-row>
-    </ion-list>
+    </section>
+    <section class="hidden-video">
+      <video
+        src="https://cdn.shopify.com/s/files/1/1132/3440/files/cutdown_1_1080_1.mp4?v=1630055283"
+        type="video/mp4"
+        loop
+        id="video"
+        width="100%"
+      ></video>
+    </section>
   </ion-grid>
-  <ion-spinner *ngIf="spinner" name="lines-small"></ion-spinner>
+  <!-- <ion-spinner *ngIf="spinner" name="lines-small"></ion-spinner>
   <ion-grid *ngIf="!spinner" class="grid">
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size-lg="5" size-xs="12" class="ion-text-center">
-        <h1 style="color: #fd346e">Most Viewed Products</h1>
-      </ion-col>
-    </ion-row>
-    <ion-row style="margin-left: 10%; margin-right: 10%">
-      <ion-col
-        size-md="6"
-        size-lg="3"
-        size-xs="12"
-        style="display: flex; justify-content: center"
-        *ngFor="let product of products"
-      >
-        <ion-card
-          [routerLink]='"/product/"+product.id'
-          routerLinkActive="selected"
-          class="card"
-        >
-          <ion-img
-            class="cropped-image fill-image"
-            [src]="product.productImg"
-            alt="Image not availabel"
-          ></ion-img>
-          <ion-card-header style="padding-bottom: 2%">
-            <ion-label>
-              <ion-card-title class="ellipsis"
-                >{{product.productName}}</ion-card-title
-              >
-            </ion-label>
-          </ion-card-header>
-          <ion-card-content>
-            <h3 class="price">
-              {{product.productPrice | currency: "INR":"symbol":"2.0" }}
-            </h3>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size-lg="5" size-xs="12" class="ion-text-center">
         <ion-button
@@ -221,5 +113,59 @@
         </ion-button>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
+  <ion-footer>
+    <ion-toolbar style="margin-bottom: 12rem">
+      <ion-row class="ion-text-center">
+        <ion-title class="footer-title hidden-text">Join us</ion-title>
+      </ion-row>
+      <ion-row class="ion-justify-content-center footer-text">
+        <div class="ion-text-center footer-text-center hidden-text">
+          <ion-text>
+            We will let you know when we have new arrivals, events and promo's
+            don't worry we send them infrequently, just a friendly hi now and
+            again!
+          </ion-text>
+        </div>
+      </ion-row>
+      <ion-row class="ion-justify-content-center hidden-text">
+        <ion-item class="footer-input-item">
+          <ion-input
+            placeholder="Enter your email"
+            autocomplete="email"
+            color="light"
+            inputmode="email"
+            class="footer-input"
+          >
+          </ion-input
+          ><ion-icon color="light" name="mail-outline"></ion-icon>
+        </ion-item>
+      </ion-row>
+      <ion-row
+        class="ion-justify-content-center hidden-text"
+        style="gap: 1rem; margin-top: 2rem; margin-bottom: 2rem"
+      >
+        <ion-fab-button class="fab-button">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button class="fab-button">
+          <ion-icon name="logo-facebook"> </ion-icon>
+        </ion-fab-button>
+      </ion-row>
+      <ion-row class="ion-justify-content-center hidden-list">
+        <ul class="footer-ul">
+          <li>Contact</li>
+          <li>FAQ</li>
+          <li>Shipping</li>
+          <li>Returns</li>
+          <li>Terms of Use</li>
+          <li>Privacy Policy</li>
+        </ul>
+      </ion-row>
+      <ion-row class="ion-justify-content-center hidden-text">
+        <ion-note style="color: white">© 2022 Hebe Designer Boutique </ion-note>
+      </ion-row>
+    </ion-toolbar>
+  </ion-footer>
 </ion-content>
+<app-menu class="hide-menu"></app-menu>

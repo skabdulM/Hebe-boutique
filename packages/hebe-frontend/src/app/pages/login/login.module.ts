@@ -9,7 +9,9 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 import { HttpClientModule } from '@angular/common/http';
-import { UserService } from 'src/app/api/user.service';
+import { UserService } from 'src/app/services/user.service';
+import { SharedDirectivesModule } from 'src/app/shared/shared.module';
+import { SearchPage } from '../search/search.page';
 
 @NgModule({
   imports: [
@@ -19,8 +21,9 @@ import { UserService } from 'src/app/api/user.service';
     LoginPageRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SharedDirectivesModule,
   ],
   declarations: [LoginPage],
-  providers: [UserService],
+  providers: [UserService, SearchPage],
 })
 export class LoginPageModule {}

@@ -7,11 +7,11 @@ export class OrderDto {
   @IsNotEmpty()
   name: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   phone: string;
 
-  @IsNumber()
+  @IsString()
   @IsOptional()
   phone2?: string;
 
@@ -20,9 +20,9 @@ export class OrderDto {
   shippingAddress: string;
 
   ///status default in db
-  @IsNumber()
-  @IsNotEmpty()
-  totalAmount: number;
+  // @IsNumber()
+  // @IsNotEmpty()
+  // totalAmount: number;
 
 
   @IsString()
@@ -31,5 +31,5 @@ export class OrderDto {
 
   @IsArray()
   @IsNotEmpty()
-  products: [];
+  products: any;
 }

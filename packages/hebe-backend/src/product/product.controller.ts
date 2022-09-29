@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -14,8 +15,14 @@ import {
 import { Products } from '@prisma/client';
 import { Roles } from '../auth/decorator';
 import { JwtGuard, RolesGuard } from '../auth/guard';
-import { addProductTag, ProductDto, UpdateProductDto } from './dto';
+import {
+  addProductTag,
+  AddProductVariation,
+  ProductDto,
+  UpdateProductDto,
+} from './dto';
 import { addProductCategory } from './dto/addCategory';
+import { UpdateProductVariation } from './dto/updateVariation.dto';
 import { ProductService } from './product.service';
 
 @Controller('product')
@@ -45,21 +52,22 @@ export class ProductController {
   @Patch('addProductTag')
   productTag(@Body() dto: addProductTag) {
     return this.productService.addProductTag(dto);
+    //can take product id using query
   }
 
   @Get('search')
   searchTag(
     @Query('searchQuery') searchQuery: string,
-    @Query('greaterthan') greaterthan: number,
-    @Query('lessthan') lessthan: number,
-    @Query('take') take: number,
+    @Query('greaterthan', ParseIntPipe) greaterthan: number,
+    @Query('lessthan', ParseIntPipe) lessthan: number,
+    @Query('take', ParseIntPipe) take: number,
     @Query('cursor') cursor?: string,
   ) {
     return this.productService.search({
       searchQuery,
       greaterthan,
       lessthan,
-      take:Number(take),
+      take: Number(take),
       cursor: { id: cursor },
     });
   }
@@ -69,6 +77,23 @@ export class ProductController {
   @Patch('addProductCategory')
   addproductCategory(@Body() dto: addProductCategory) {
     return this.productService.addProductCategory(dto);
+    //can take product id using query
+  }
+
+  @Roles('MANAGER', 'ADMIN')
+  @UseGuards(JwtGuard, RolesGuard)
+  @Patch('addVariation')
+  addProductVariation(@Body() dto: AddProductVariation) {
+    return this.productService.addProductVariation(dto);
+    //can take product id using query
+  }
+
+  @Roles('MANAGER', 'ADMIN')
+  @UseGuards(JwtGuard, RolesGuard)
+  @Patch('updateVariation')
+  updateProductVariation(@Body() dto: UpdateProductVariation) {
+    return this.productService.updateProductVariation(dto);
+    //can take product id using query
   }
 
   @Roles('MANAGER', 'ADMIN')
@@ -76,6 +101,7 @@ export class ProductController {
   @Patch('removeTag')
   removeTag(@Body() dto: addProductTag) {
     return this.productService.removeTag(dto);
+    //can take product id using query
   }
 
   @Roles('MANAGER', 'ADMIN')
@@ -83,13 +109,14 @@ export class ProductController {
   @Patch('removeCategory')
   removeCategory(@Body() dto: addProductCategory) {
     return this.productService.removeCategory(dto);
+    //can take product id using query
   }
 
   @Get('getproducts')
   async getproducts(
-    @Query('greaterthan') greaterthan: number,
-    @Query('lessthan') lessthan: number,
-    @Query('take') take: number,
+    @Query('greaterthan', ParseIntPipe) greaterthan: number,
+    @Query('lessthan', ParseIntPipe) lessthan: number,
+    @Query('take', ParseIntPipe) take: number,
     @Query('views') views?: string,
     @Query('cursor') cursor?: string,
   ): Promise<Products[]> {
@@ -101,12 +128,12 @@ export class ProductController {
       cursor: { id: cursor },
     });
   }
- 
+
   @Get('getproducts/count')
   async getProductscount(
     @Query('searchQuery') searchQuery?: string,
-    @Query('greaterthan') greaterthan?: number,
-    @Query('lessthan') lessthan?: number,
+    @Query('greaterthan', ParseIntPipe) greaterthan?: number,
+    @Query('lessthan', ParseIntPipe) lessthan?: number,
   ) {
     return this.productService.searchcount({
       searchQuery,
@@ -115,10 +142,11 @@ export class ProductController {
     });
   }
 
+  // not in use maybe check later
   @Get('getproducts/sortprice/:gt/:lt')
   async sortProductprice(
-    @Param('gt') greaterthan: number,
-    @Param('lt') lessthan: number,
+    @Param('gt', ParseIntPipe) greaterthan: number,
+    @Param('lt', ParseIntPipe) lessthan: number,
   ) {
     return this.productService.sortPrice(greaterthan, lessthan);
   }
@@ -127,7 +155,7 @@ export class ProductController {
   async getallcatergory() {
     return this.productService.getcategorynames();
   }
-  
+
   @Get('brand')
   async getBrandnames() {
     return this.productService.getBrandnames();
@@ -144,6 +172,14 @@ export class ProductController {
   @Delete(':id')
   deleteProduct(@Param('id') productId: string) {
     return this.productService.deleteProduct(productId);
+  }
+
+  @Roles('MANAGER', 'ADMIN')
+  @UseGuards(JwtGuard, RolesGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete('variation/:id')
+  deleteProductVariation(@Param('id') variationId: string) {
+    return this.productService.deleteProductVariation(variationId);
   }
 
   // to delete disconnected values in tags and categories

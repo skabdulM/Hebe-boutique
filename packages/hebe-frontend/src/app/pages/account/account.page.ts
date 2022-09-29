@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
-import { UserService } from 'src/app/api/user.service';
+import { UserService } from 'src/app/services/user.service';
 import { UpdateUser } from 'src/app/interface/updateUser';
 
 @Component({
@@ -42,23 +42,46 @@ export class AccountPage implements OnInit {
     address: new FormControl(''),
   });
 
-  ngOnInit() {}
-
-  ionViewWillEnter() {
-    this.storage
-      .getItem('jwt_token')
-      .then((data) => {
-        if (data == null) {
-          this.router.navigateByUrl('/account/login');
-        } else {
-          this.userInfo();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  ngOnInit() {
   }
 
+  ionViewWillEnter() {
+    this.userInfo();
+
+  }
+  // async isLoggedIn() {
+  //   let token: any;
+  //   this.storage
+  //     .getItem('jwt_token')
+  //     .then((data) => {
+  //       if (data == null) {
+  //         this.router.navigateByUrl('/account/login');
+  //       } else {
+  //         // this.userInfo();
+  //         token = data;
+  //         const payload = atob(token.split('.')[1]);
+  //         const parsedPayload = JSON.parse(payload);
+  //         console.log(parsedPayload);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+
+  //  await this.storage
+  //     .getItem('jwt_token')
+  //     .then((data) => token = data)
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  //   console.log(token);
+
+  //   // const token = localStorage.getItem('token'); // get token from local storage
+  //   // decode payload of token
+  //   // convert payload into an Object
+
+  //   // return parsedPayload.exp > Date.now() / 1000; // check if token is expired
+  // }
   updateUser() {
     this.showProgressBar();
     const updateUser: UpdateUser = {
@@ -76,9 +99,9 @@ export class AccountPage implements OnInit {
     );
   }
 
-  userInfo() {
+  async userInfo() {
     this.showProgressBar();
-    this.userService.getUser().subscribe(
+    (await this.userService.getUser()).subscribe(
       (data: any) => {
         this.account.setValue({
           email: data.email,
@@ -94,7 +117,7 @@ export class AccountPage implements OnInit {
         this.presentAlert('Session expired');
         console.log(error);
       }
-    );
+    )
   }
 
   async presentAlert(msg: string) {

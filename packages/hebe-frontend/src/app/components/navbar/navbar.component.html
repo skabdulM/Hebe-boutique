@@ -1,46 +1,89 @@
-<ion-toolbar class="header">
-  <ion-nav class="nav">
-    <ion-title class="title">HEBE. </ion-title>
-    <div class="items">
-      <ion-label routerLink="/home">Home</ion-label>
-      <ion-label style="display: flex; align-items: center" routerLink="/shop"
-        >Shop
-        <ion-icon slot="end" id="hover-trigger" name="chevron-down"></ion-icon>
-      </ion-label>
-      <ion-popover
-        trigger="hover-trigger"
-        triggerAction="hover"
-        alignment="center"
-        size="auto"
-        dismiss-on-select="true"
-        style="--min-width: 60%; --box-shadow: none; --offset-y: 2em;--offset-x:-4em"
-      >
-        <ng-template>
-          <ion-grid class="ion-no-padding">
-            <ion-row>
-              <ion-col
-                class="ion-no-padding ion-text-center"
-                size-md="6"
-                size-lg="3"
-                size-xs="12"
-                *ngFor="let category of categories"
-              >
-                <ion-item
-                  lines="none"
-                  [routerLink]="'/shop/' + category"
-                  routerLinkActive="selected"
-                >
-                  {{ category | titlecase }}
-                </ion-item>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ng-template>
-      </ion-popover>
-      <ion-label>About</ion-label>
-      <ion-icon class="icon" name="search-outline"></ion-icon>
-      <ion-icon class="icon" name="person-outline" routerLink="/account"></ion-icon>
-      <ion-icon class="icon" name="cart-outline"></ion-icon>
-    </div>
-  </ion-nav>
-</ion-toolbar>
+<nav class="navbar">
+  <div class="logo" [routerLink]="['/home']">
+    <label
+      class="typewrite"
+      id="logo"
+      data-period="2000"
+      data-type='[ "hebe." ]'
+    >
+      <span class="wrap"></span>
+    </label>
+  </div>
+  <ul>
+    <li class="dropdown">
+      <button class="dropbtn" [routerLink]="['/shop']">
+        <label class="underline">SHOP</label>
+      </button>
+      <div class="dropdown-content">
+        <ion-grid class="ion-no-padding grid">
+          <ion-row>
+            <ion-col
+              class="ion-no-padding ion-text-center"
+              size-md="6"
+              size-lg="3"
+              size-xs="6"
+              style="padding-left: 5%; padding-bottom: 5px"
+              *ngFor="let category of categories"
+            >
+              <ul>
+                <li class="list">
+                  <label
+                    class="dropunderline"
+                    [routerLink]="['/shop/'] + category"
+                  >
+                    {{ category | titlecase }}</label
+                  >
+                </li>
+              </ul>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </li>
+    <li class="dropdown">
+      <button class="dropbtn" [routerLink]="['/shop']">
+        <label class="underline">brands</label>
+      </button>
+      <div class="dropdown-content">
+        <ion-grid class="ion-no-padding grid">
+          <ion-row>
+            <ion-col
+              class="ion-no-padding ion-text-center"
+              size-md="6"
+              size-lg="3"
+              size-xs="6"
+              style="padding-left: 5%; padding-bottom: 5px"
+              *ngFor="let brand of brands"
+            >
+              <ul>
+                <li class="list">
+                  <label
+                    class="dropunderline"
+                    [routerLink]="['/shop/'] + brand"
+                  >
+                    {{ brand | titlecase }}</label
+                  >
+                </li>
+              </ul>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </li>
+    <li>
+      <button class="dropbtn">
+        <label class="underline" [routerLink]="['/shop/myboyfriendsback']"> MY BOYFRIENDS BACK</label>
+      </button>
+    </li>
+    <li>
+      <button class="dropbtn">
+        <label class="underline"> about</label>
+      </button>
+    </li>
+  </ul>
+  <div class="icons">
+    <ion-icon [routerLink]="['/account']" name="person-outline"></ion-icon>
+    <ion-icon id="open-modal" (click)="openModal()" name="Search-outline"></ion-icon>
+    <ion-icon [routerLink]="['/cart']" name="Cart-outline"></ion-icon>
+  </div>
+</nav>

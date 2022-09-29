@@ -10,6 +10,7 @@ import { CartModule } from './cart/cart.module';
 import { CommentController } from './comment/comment.controller';
 import { CommentService } from './comment/comment.service';
 import { CommentModule } from './comment/comment.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { CommentModule } from './comment/comment.module';
     }),
     CartModule,
     CommentModule,
+    OrderModule,
   ],
   controllers: [OrderController, CommentController],
   providers: [OrderService, CommentService],
