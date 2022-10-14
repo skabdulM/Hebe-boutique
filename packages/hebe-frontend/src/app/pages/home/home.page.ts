@@ -27,7 +27,6 @@ export class HomePage implements OnInit {
     this.productService
       .getProducts({ greaterthan: 0, lessthan: 10000, take: 8, views: 'desc' })
       .subscribe((data: any) => {
-        // this.products = data;
         data.forEach((product) => {
           this.products.push(
             this.uniqByKeepLast(
@@ -36,10 +35,6 @@ export class HomePage implements OnInit {
               (variation) => variation.productSize
             )
           );
-
-          //   product.variations.filter(function(item, pos) {
-          //     return  product.variations.indexOf(item) == pos;
-          // })
         });
       });
   }
@@ -47,6 +42,7 @@ export class HomePage implements OnInit {
   uniqByKeepLast(product, variation, key) {
     const a: any = [...new Map(variation.map((x) => [key(x), x])).values()];
     a.sort((a, b) => a.productSize - b.productSize);
+    product.productImg = product.productImg.toString().split(',');
     product.variations = a;
     return product;
   }

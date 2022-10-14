@@ -10,6 +10,7 @@ import { ProductPageRoutingModule } from './product-routing.module';
 import { ProductPage } from './product.page';
 import { ProductService } from 'src/app/services/product.service';
 import { SharedDirectivesModule } from 'src/app/shared/shared.module';
+import { CartService } from 'src/app/services/cart.service';
 
 @NgModule({
   imports: [
@@ -21,6 +22,6 @@ import { SharedDirectivesModule } from 'src/app/shared/shared.module';
     SharedDirectivesModule,
   ],
   declarations: [ProductPage],
-  providers: [ProductService],
+  providers: [ProductService, CartService],
 })
 export class ProductPageModule {}

@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
 
   ionViewWillEnter() {
     if (localStorage.getItem('jwt_token') != null) {
-      this.userInfo();
+      // this.userInfo();
     }
   }
 

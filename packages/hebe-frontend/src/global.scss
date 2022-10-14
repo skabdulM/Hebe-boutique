@@ -14,9 +14,27 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 // @import url(https://fonts.googleapis.com/css?family=Montserrat);
-@import url(http://fonts.cdnfonts.com/css/montserrat);
+// @import url(http://fonts.cdnfonts.com/css/montserrat);
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 @import url(https://fonts.googleapis.com/css?family=Poppins);
+
+.alertHeader {
+  color: white !important;
+  // --color: #b52024 !important;
+  text-transform: capitalize;
+}
+h2.alertHeader {
+  color: white !important;
+  text-transform: capitalize;
+  // --color: #b52024 !important;
+}
+
+//this works for alertHeader when inspecting in the browser
+.alert-sub-title.sc-ion-alert-md,
+.alert-title.sc-ion-alert-md {
+  color: white;
+  text-transform: capitalize;
+}
 
 ion-spinner {
   width: 100%;
@@ -96,6 +114,6 @@ ion-modal {
   --height: 100%;
   --width: 100%;
 }
-*{
+* {
   color: white;
 }

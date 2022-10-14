@@ -33,14 +33,14 @@ model Products {
 
   productName        String
   productDescription String
-  productPrice       Float             //@db.Money
-  productImg         String
+  productPrice       Float
+  productImg         String[]
   productDiscount    Int?
   views              Int                 @default(0)
   variations         ProductVariations[]
   brandsId           Int?
   brand              Brands?             @relation(fields: [brandsId], references: [id], onDelete: SetNull)
-  comments           ProductComments[] //
+  comments           ProductComments[]
   category           Category[]
   tags               Tags[]
 }
@@ -96,15 +96,15 @@ enum Role {
 
 model ProductVariations {
   id              String  @id @default(uuid())
-  productSize     String
+  productSize     String?
   productColor    String?
   productQuantity Int
 
   Products   Products @relation(fields: [productsId], references: [id], onDelete: Cascade)
   productsId String
 
-  cart     Cart[]
-  Orders   Orders[]
+  cart   Cart[]
+  Orders Orders[]
 }
 
 model ProductComments {

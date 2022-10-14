@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { AppComponent } from 'src/app/app.component';
+import { element } from 'protractor';
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.page.html',
@@ -41,12 +42,12 @@ export class ShopPage implements OnInit {
     }
   }
 
-  loadData(event) {
-    setTimeout(() => {
-      this.loadMoreresults();
-      event.target.complete();
-    }, 500);
-  }
+  // loadData(event) {
+  //   setTimeout(() => {
+  //     this.loadMoreresults();
+  //     event.target.complete();
+  //   }, 500);
+  // }
 
   @HostListener('ionScroll') onScroll() {
     const observer = new IntersectionObserver((entries) => {
@@ -73,7 +74,7 @@ export class ShopPage implements OnInit {
     const hiddenList = document.querySelectorAll('.hidden-list');
     hiddenList.forEach((el) => listObserver.observe(el));
   }
-  
+
   loadMoreresults() {
     if (this.filter) {
       this.productService
@@ -81,6 +82,7 @@ export class ShopPage implements OnInit {
         .subscribe((data: any) => {
           if (data.length !== 0) {
             data.forEach((element) => {
+              element.productImg = element.productImg.toString().split(',');
               this.products.push(element);
             });
             let lastProduct = data[data.length - 1];
@@ -96,11 +98,18 @@ export class ShopPage implements OnInit {
         });
     } else {
       this.productService
-        .getProducts({greaterthan: this.min,lessthan: this.max,take: this.take,cursor:this.cursor})
+        .getProducts({
+          greaterthan: this.min,
+          lessthan: this.max,
+          take: this.take,
+          cursor: this.cursor,
+        })
         .subscribe((data: any) => {
           data.forEach((element) => {
+            element.productImg = element.productImg.toString().split(',');
             this.products.push(element);
           });
+          console.log(this.products);
           let lastProduct = this.products[this.products.length - 1];
           this.cursor = lastProduct.id;
           this.totalresults = this.products.length;
@@ -130,11 +139,18 @@ export class ShopPage implements OnInit {
 
   fetchProducts() {
     this.productService
-      .getProducts( {greaterthan: this.min,lessthan: this.max,take: this.take})
+      .getProducts({
+        greaterthan: this.min,
+        lessthan: this.max,
+        take: this.take,
+      })
       .subscribe(async (data: any) => {
         this.hidden = true;
+        data.forEach((product) => {
+          product.productImg = product.productImg.toString().split(',');
+        });
         this.products = data;
-        console.log(this.products);
+        console.log(data);
         if (this.products != null) {
           this.totalresults = this.products.length;
           if (this.totalresults != 0) {
@@ -203,5 +219,4 @@ export class ShopPage implements OnInit {
       this.fetchProducts();
     }
   }
-
 }

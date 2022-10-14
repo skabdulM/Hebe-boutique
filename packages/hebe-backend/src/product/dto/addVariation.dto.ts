@@ -12,7 +12,7 @@ export class AddProductVariation {
 
   @IsString()
   @IsOptional()
-  productSize: string;
+  productSize?: string;
 
   @IsString()
   @IsOptional()
@@ -21,5 +21,4 @@ export class AddProductVariation {
   @IsNumber()
   @IsNotEmpty()
   productQuantity: number;
-
 }

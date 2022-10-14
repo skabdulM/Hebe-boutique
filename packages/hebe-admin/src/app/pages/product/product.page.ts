@@ -38,7 +38,7 @@ export class ProductPage implements OnInit {
     productCategory: new FormControl('', [Validators.required]),
   });
   variation: FormGroup = new FormGroup({
-    productSize: new FormControl('', [Validators.required]),
+    productSize: new FormControl(''),
     productColor: new FormControl(''),
     productQuantity: new FormControl('', [Validators.pattern('[0-9]{1,8}')]),
   });
@@ -97,7 +97,9 @@ export class ProductPage implements OnInit {
   addVariation(productId: string) {
     const variation: AddVariation = {
       productId,
-      productSize: this.variation.controls['productSize'].value,
+      productSize: this.variation.controls['productSize'].value
+        ? this.variation.controls['productSize'].value
+        : null,
       productColor: this.variation.controls['productColor'].value
         ? this.variation.controls['productColor'].value
         : null,
@@ -208,13 +210,10 @@ export class ProductPage implements OnInit {
           text: 'update',
           handler: (alertData) => {
             if (alertData.color.length >= 3) {
-              console.log(alertData.color);
             } else {
             }
             if (alertData.quantity >= 1) {
-              console.log(alertData.quantity);
             } else {
-              console.log('invalid');
             }
             // console.log(alertData.quantity);
           },
@@ -227,5 +226,4 @@ export class ProductPage implements OnInit {
     });
     await alert.present();
   }
- 
 }

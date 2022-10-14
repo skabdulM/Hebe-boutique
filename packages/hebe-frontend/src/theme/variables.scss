@@ -77,22 +77,27 @@
   --ion-color-light-tint: #f5f6f9;
 
   // background color
-  --ion-background-color: #CAAFA8;
+  --ion-background-color: #caafa8;
 
-  --ion-font-family:  Montserrat, -apple-system, BlinkMacSystemFont,
+  --ion-font-family: Montserrat, -apple-system, BlinkMacSystemFont,
     "Helvetica Neue", "Roboto", sans-serif;
-}
-ion-button {
-  // --background: #5f00d4;
-}
-ion-fab-button {
-  // --background: #5f00d4;
 }
 
 @font-face {
   font-family: chloe;
   src: url(../assets/Chloe-Regular.otf);
 }
+
+@font-face {
+  font-family: Montserrat;
+  src: url(../assets/Montserrat-Light.woff);
+}
+
+// @font-face {
+//   font-family: Montserrat;
+//   src: url(../assets/Montserrat-LightItalic.woff);
+// }
+
 /*
 @media (prefers-color-scheme: dark) {
 

@@ -53,7 +53,9 @@ export class ProductService {
             : undefined,
           variations: {
             create: {
-              productSize: dto.productSize.toUpperCase(),
+              productSize: dto.productSize
+                ? dto.productSize.toUpperCase()
+                : undefined,
               productQuantity: dto.productQuantity,
               productColor: dto.productColor
                 ? dto.productColor.toUpperCase()
@@ -111,8 +113,7 @@ export class ProductService {
               tags: {
                 some: {
                   tagName: {
-                    startsWith: searchQuery ? searchQuery : undefined,
-                    contains: searchQuery,
+                    contains: searchQuery ? searchQuery : undefined,
                     mode: 'insensitive',
                   },
                 },
@@ -122,8 +123,7 @@ export class ProductService {
               category: {
                 some: {
                   name: {
-                    startsWith: searchQuery ? searchQuery : undefined,
-                    contains: searchQuery,
+                    contains: searchQuery ? searchQuery : undefined,
                     mode: 'insensitive',
                   },
                 },
@@ -131,8 +131,7 @@ export class ProductService {
             },
             {
               productName: {
-                startsWith: searchQuery ? searchQuery : undefined,
-                contains: searchQuery,
+                contains: searchQuery ? searchQuery : undefined,
                 mode: 'insensitive',
               },
             },
@@ -226,8 +225,12 @@ export class ProductService {
       .create({
         data: {
           productsId: dto.productId,
-          productSize: dto.productSize.toUpperCase(),
-          productColor: dto.productColor,
+          productSize: dto.productSize
+            ? dto.productSize.toUpperCase()
+            : undefined,
+          productColor: dto.productColor
+            ? dto.productColor
+            : undefined,
           productQuantity: dto.productQuantity,
         },
       })
@@ -276,7 +279,6 @@ export class ProductService {
               tags: {
                 some: {
                   tagName: {
-                    startsWith: searchQuery,
                     contains: searchQuery,
                     mode: 'insensitive',
                   },
@@ -287,7 +289,6 @@ export class ProductService {
               category: {
                 some: {
                   name: {
-                    startsWith: searchQuery,
                     contains: searchQuery,
                     mode: 'insensitive',
                   },
@@ -296,7 +297,6 @@ export class ProductService {
             },
             {
               productName: {
-                startsWith: searchQuery,
                 contains: searchQuery,
                 mode: 'insensitive',
               },
@@ -305,7 +305,6 @@ export class ProductService {
               brand: {
                 name: {
                   equals: searchQuery,
-                  // startsWith:searchQuery,
                   mode: 'insensitive',
                 },
               },
@@ -334,7 +333,6 @@ export class ProductService {
               tags: {
                 some: {
                   tagName: {
-                    startsWith: searchQuery,
                     contains: searchQuery,
                     mode: 'insensitive',
                   },
@@ -345,7 +343,6 @@ export class ProductService {
               category: {
                 some: {
                   name: {
-                    startsWith: searchQuery,
                     contains: searchQuery,
                     mode: 'insensitive',
                   },
@@ -354,7 +351,6 @@ export class ProductService {
             },
             {
               productName: {
-                startsWith: searchQuery,
                 contains: searchQuery,
                 mode: 'insensitive',
               },

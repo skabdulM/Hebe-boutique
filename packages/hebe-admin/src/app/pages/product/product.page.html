@@ -84,7 +84,6 @@
                   formControlName="productImage"
                   minlength="4"
                   required="true"
-                  spellcheck="true"
                   clearInput
                 ></ion-input>
               </ion-item>
@@ -128,7 +127,7 @@
               *ngIf="addcategory || addtag || add_variation"
             >
               <ion-icon
-              (click)="addcategory =false ;addtag=false; add_variation=false"
+                (click)="addcategory =false ;addtag=false; add_variation=false"
                 style="font-size: 1.3rem; cursor: pointer"
                 class="float-right"
                 name="close-circle-outline"
@@ -183,7 +182,6 @@
                       formControlName="productSize"
                       minlength="1"
                       maxlength="4"
-                      required="true"
                       clearInput
                     ></ion-input>
                   </ion-item>
@@ -321,7 +319,7 @@
           <tbody>
             <tr *ngFor="let variation of variations;let i= index">
               <td>{{ i+1 }}</td>
-              <td>{{variation.productSize}}</td>
+              <td>{{variation.productSize?variation.productSize:"null"}}</td>
               <td>{{variation.productColor?variation.productColor:"null"}}</td>
               <td>{{variation.productQuantity}}</td>
               <td>

@@ -25,7 +25,7 @@ CREATE TABLE "Products" (
     "productName" TEXT NOT NULL,
     "productDescription" TEXT NOT NULL,
     "productPrice" DOUBLE PRECISION NOT NULL,
-    "productImg" TEXT NOT NULL,
+    "productImg" TEXT[],
     "productDiscount" INTEGER,
     "views" INTEGER NOT NULL DEFAULT 0,
     "brandsId" INTEGER,
@@ -81,7 +81,7 @@ CREATE TABLE "Brands" (
 -- CreateTable
 CREATE TABLE "ProductVariations" (
     "id" TEXT NOT NULL,
-    "productSize" TEXT NOT NULL,
+    "productSize" TEXT,
     "productColor" TEXT,
     "productQuantity" INTEGER NOT NULL,
     "productsId" TEXT NOT NULL,

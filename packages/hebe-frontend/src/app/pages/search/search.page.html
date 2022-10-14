@@ -5,15 +5,12 @@
   <ion-grid class="grid">
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size-lg="5" size-xs="12" class="ion-text-center">
-        <h1 id="product" [hidden]="hidden">No products available</h1>
+        <h1 id="product">Showing results for "{{searchQuery}}"</h1>
       </ion-col>
     </ion-row>
-    <ion-row
-      *ngIf="hidden"
-      class="ion-justify-content-center ion-align-items-center"
-    >
+    <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size-lg="5" size-xs="12" class="ion-text-center">
-        <h1 id="product">Showing results for "{{searchQuery}}"</h1>
+        <h1 id="product" [hidden]="hidden">No products available</h1>
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">
@@ -27,7 +24,7 @@
         <ion-card class="card">
           <ion-img
             class="cropped-image fill-image"
-            [src]="product.productImg"
+            [src]="product.productImg[0]"
             alt="Image not availabel"
             [routerLink]='"/product/"+product.id'
           ></ion-img>
@@ -45,7 +42,7 @@
             <h3 class="price" [routerLink]='"/product/"+product.id'>
               {{product.productPrice | currency: "INR":"symbol":"2.0" }}
             </h3>
-            <ul class="section2-productsize">
+            <ul class="section2-productsize" *ngIf="product.variations[0].size">
               <li
                 *ngFor="let variation of product.variations"
                 [routerLink]='"/product/"+product.id'
@@ -65,8 +62,6 @@
         (click)="loadMoreresults()"
         [disabled]="totalresults >= count"
         class="title_buttons"
-        routerDirection="forward"
-        [routerLink]="['/shop']"
         size="large"
       >
         View More

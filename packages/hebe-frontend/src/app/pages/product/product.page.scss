@@ -1,24 +1,274 @@
+.cropped-image {
+  width: 100%;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 3.15rem;
+  padding: 0;
+  // margin-top: 0.5rem;
+  font-weight: 500;
+  font-family: "chloe";
+  text-transform: uppercase;
+}
+
+.subtitle {
+  line-height: 1.8rem;
+  text-transform: uppercase;
+  font-size: x-small;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  font-weight: 300;
+}
+
 .price {
-  color: grey;
   font-size: large;
+  font-weight: 300;
+  line-height: 4rem;
 }
 
-@media only screen and (min-width: 700px) {
-  .img {
-    margin-top: 5%;
-    padding: 0 3% 0 5%;
-    height: 80vh;
-  }
-  .buttons{
-    width: 49%;
-  }
-}
-.brand {
+.size {
   font-size: medium;
-  font-weight: bold;
-}
-.heading {
-  font-size: x-large;
-  font-weight: bold;
+  font-weight: 300;
+  margin-top: 1rem;
 }
 
+.colors {
+  font-size: medium;
+  font-weight: 300;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.selected {
+  border: 1px solid white;
+}
+
+.section2-productsize {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+  padding: 0;
+  color: white;
+}
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.section2-productsize li {
+  font-size: x-small;
+  // outline-offset: 3px;
+  outline: 1px solid white;
+  width: 1.6rem;
+  height: 1.6rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.cropped-image-slide {
+  width: 100%;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+  border: 2px solid white;
+}
+
+.fill-image {
+  object-fit: cover;
+}
+
+.hidden-text {
+  opacity: 0;
+  transform: translate3d(0, 15px, 0);
+}
+
+.show-text {
+  opacity: 1;
+  transform: translateZ(0);
+  transition: opacity 0.6s cubic-bezier(0.04, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.04, 0, 0.2, 1);
+}
+@media (prefers-reduced-motion) {
+  .hidden-text {
+    transition: none;
+  }
+}
+
+.hidden-list {
+  opacity: 0;
+  transform: translateX(200px);
+}
+
+.show-list {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.4s cubic-bezier(0.04, 0, 0.2, 0.81) 0.3s;
+}
+
+@media (prefers-reduced-motion) {
+  .hidden-list {
+    transition: none;
+  }
+}
+
+.grid {
+  padding: 0;
+  @media (min-width: 768px) {
+    margin: 1rem 5rem;
+  }
+  @media (min-width: 1280px) {
+    margin: 1rem 8rem;
+  }
+}
+
+#content {
+  margin-left: 0;
+  @media (min-width: 992px) {
+    margin-top: 4rem;
+    padding-left: 4rem;
+  }
+  @media (max-width: 992px) {
+    margin-top: 2rem;
+    padding-left: 2.5rem;
+    padding-right: 5em;
+  }
+}
+
+#cropped-image {
+  @media (max-width: 992px) {
+    display: none;
+  }
+}
+
+.title_buttons {
+  font-weight: 300;
+  color: black;
+  --background: white;
+  --box-shadow: none;
+  --border-radius: 0;
+  width: 100%;
+}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+  @media (min-width: 992px) {
+    display: none;
+  }
+}
+.hide {
+  @media (min-width: 992px) {
+    display: none;
+  }
+}
+
+.mySlides {
+  display: none;
+}
+
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+  background-color: #717171;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+ion-segment-button {
+  --indicator-color: white;
+  --color: white;
+  --color-checked: white;
+  --indicator-height: 2px;
+  --ripple-color: transparent;
+  --background-hover: transparent;
+  text-transform: capitalize;
+  font-weight: 300;
+}
+
+.shipping-section-title {
+  padding: 0;
+  line-height: 4rem;
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  font-family: chloe;
+}
+
+.shipping-p {
+  font-size: 15px;
+  line-height: 1.8rem;
+  font-weight: 300;
+}
+
+ion-radio {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.8rem;
+  gap: 10rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #b6b6b6;
+}
+
+ion-radio.radio-checked::part(container) {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}

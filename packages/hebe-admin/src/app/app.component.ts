@@ -11,31 +11,31 @@ export class AppComponent {
   userDetails: any = {};
 
   ngOnInit() {
-    this.userInfo();
+    // this.userInfo();
   }
 
-  userInfo() {
-    this.loginService.getUser().subscribe(
-      (data) => {
-        this.userDetails = data;
-        if (
-          this.userDetails.roles == 'ADMIN' ||
-          this.userDetails.roles == 'MANAGER'
-        ) {
-          // this.router.navigate(['/home']);
-        } else {
-          this.logout();
-        }
-      },
-      (error: any) => {
-        // if (error) {
-        //   localStorage.clear();
-        //   this.router.navigate(['/login']);
-        // }
-        this.logout()
-      }
-    );
-  }
+  // userInfo() {
+  //   this.loginService.getUser().subscribe(
+  //     (data) => {
+  //       this.userDetails = data;
+  //       if (
+  //         this.userDetails.roles == 'ADMIN' ||
+  //         this.userDetails.roles == 'MANAGER'
+  //       ) {
+  //         // this.router.navigate(['/home']);
+  //       } else {
+  //         this.logout();
+  //       }
+  //     },
+  //     (error: any) => {
+  //       // if (error) {
+  //       //   localStorage.clear();
+  //       //   this.router.navigate(['/login']);
+  //       // }
+  //       this.logout();
+  //     }
+  //   );
+  // }
 
   logout() {
     localStorage.clear();

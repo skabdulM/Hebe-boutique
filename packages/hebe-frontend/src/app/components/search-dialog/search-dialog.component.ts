@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
@@ -86,6 +86,11 @@ export class SearchDialogComponent implements OnInit {
         };
         this.router.navigate(['/search'], navigationExtras);
       });
-    } 
+    }
+  }
+
+  @HostListener('window:popstate', ['$event'])
+  dismiss() {
+    this.cancel();
   }
 }

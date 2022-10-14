@@ -75,7 +75,6 @@ export class CartService {
     await this.prisma.cart
       .findFirst({
         where: {
-          // productId: dto.productId,
           product: {
             every: {
               id: dto.id,
@@ -105,7 +104,6 @@ export class CartService {
         })
         .then((data) => {
           product = data;
-          console.log(product);
         })
         .catch((error) => {
           throw error;

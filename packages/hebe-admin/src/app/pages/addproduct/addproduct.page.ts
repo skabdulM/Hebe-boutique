@@ -20,7 +20,7 @@ export class AddproductPage implements OnInit {
     productImage: new FormControl('', [Validators.required]),
     productCategory: new FormControl('', [Validators.required]),
     productBrand: new FormControl(''),
-    productSize: new FormControl('', [Validators.required]),
+    productSize: new FormControl(''),
     productColor: new FormControl(''),
     productQuantity: new FormControl('', [Validators.pattern('[0-9]{1,8}')]),
   });
@@ -43,13 +43,14 @@ export class AddproductPage implements OnInit {
       brand: this.addProductForm.controls['productBrand'].value
         ? this.addProductForm.controls['productBrand'].value
         : null,
-      productSize: this.addProductForm.controls['productSize'].value,
+      productSize: this.addProductForm.controls['productSize'].value
+        ? this.addProductForm.controls['productSize'].value
+        : null,
       productColor: this.addProductForm.controls['productColor'].value
         ? this.addProductForm.controls['productColor'].value
         : null,
       productQuantity: this.addProductForm.controls['productQuantity'].value,
     };
-    console.log(product);
     this.productService.addProduct(product).subscribe(
       () => this.fetchProducts(),
       (error) => {

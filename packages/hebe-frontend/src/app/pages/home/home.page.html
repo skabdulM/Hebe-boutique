@@ -57,7 +57,7 @@
           <ion-card class="card">
             <ion-img
               class="cropped-image fill-image"
-              [src]="product.productImg"
+              [src]="product.productImg[0]"
               alt="Image not availabel"
               [routerLink]='"/product/"+product.id'
             ></ion-img>
@@ -75,12 +75,15 @@
               <h3 class="price" [routerLink]='"/product/"+product.id'>
                 {{product.productPrice | currency: "INR":"symbol":"2.0" }}
               </h3>
-              <ul class="section2-productsize">
+              <ul
+                class="section2-productsize"
+                *ngIf="product.variations[0].productSize"
+              >
                 <li
                   *ngFor="let variation of product.variations"
                   [routerLink]='"/product/"+product.id'
                 >
-                  {{variation.productSize}}
+                  {{variation.productSize?variation.productSize:null}}
                 </li>
               </ul>
             </ion-card-content>

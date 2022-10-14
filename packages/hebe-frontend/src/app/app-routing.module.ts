@@ -60,6 +60,16 @@ const routes: Routes = [
       import('./pages/search/search.module').then((m) => m.SearchPageModule),
     canActivate: [NosearchQueryGuard],
   },
+  {
+    path: 'aboutus',
+    loadChildren: () =>
+      import('./pages/aboutus/aboutus.module').then((m) => m.AboutusPageModule),
+  },
+  {
+    path: 'cart',
+    loadChildren: () =>
+      import('./pages/cart/cart.module').then((m) => m.CartPageModule),
+  },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 
