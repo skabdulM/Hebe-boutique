@@ -19,6 +19,13 @@ export class CartService {
         where: {
           userId,
         },
+        include: {
+          product: {
+            include: {
+              Products: true,
+            },
+          },
+        },
       })
       .catch((error) => {
         throw new UnauthorizedException();

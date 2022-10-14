@@ -29,4 +29,64 @@ export class CartService {
       headers: headers,
     });
   }
+
+  async getCartProducts() {
+    let jwt_token;
+    await this.storage
+      .getItem('jwt_token')
+      .then((data) => {
+        jwt_token = data;
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+    const url: string = Serverurl + '/cart';
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + jwt_token
+    );
+    return this.http.get(url, {
+      headers: headers,
+    });
+  }
+
+  async updateCartProduct(data) {
+    let jwt_token;
+    await this.storage
+      .getItem('jwt_token')
+      .then((data) => {
+        jwt_token = data;
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+    const url: string = Serverurl + '/cart/updateCartProduct/' + data.id;
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + jwt_token
+    );
+    return this.http.patch(url, data, {
+      headers: headers,
+    });
+  }
+
+  async removeCartProduct(data) {
+    let jwt_token;
+    await this.storage
+      .getItem('jwt_token')
+      .then((data) => {
+        jwt_token = data;
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+    const url: string = Serverurl + '/cart/remove/' + data.id;
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + jwt_token
+    );
+    return this.http.delete(url, {
+      headers: headers,
+    });
+  }
 }

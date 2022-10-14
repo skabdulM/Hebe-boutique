@@ -1,0 +1,40 @@
+* {
+  color: black;
+  --ion-background-color: #fdf9f5;
+}
+
+.cart_header {
+  display: flex;
+  align-items: center;
+  height: 5rem;
+}
+
+.list {
+  gap: 1rem;
+  display: grid;
+}
+
+.thumbnail {
+  width: 115px;
+  height: 115px;
+}
+
+.cart_product_title {
+  line-height: 1.4;
+  font-weight: 300;
+  font-size: large;
+  color: #333029;
+}
+
+.subtitles {
+  line-height: 1.4;
+  font-weight: 300;
+  font-size: small;
+  color: #333029;
+}
+
+.remove {
+  font-weight: 300;
+  font-size: small;
+  color: #333029;
+}

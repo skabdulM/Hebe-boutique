@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { AppComponent } from 'src/app/app.component';
 import { SearchPage } from 'src/app/pages/search/search.page';
+import { CartDailogComponent } from '../cart-dailog/cart-dailog.component';
 import { SearchDialogComponent } from '../search-dialog/search-dialog.component';
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,7 @@ import { SearchDialogComponent } from '../search-dialog/search-dialog.component'
 export class NavbarComponent implements OnInit {
   constructor(
     private appComponent?: AppComponent,
-    private modalCtrl?: ModalController,
+    private modalCtrl?: ModalController
   ) {}
 
   categories = this.appComponent.categories;
@@ -83,6 +84,17 @@ export class NavbarComponent implements OnInit {
   public async openModal() {
     const modal = await this.modalCtrl.create({
       component: SearchDialogComponent,
+    });
+    modal.present();
+  }
+
+  public async openCart(initBreackPoint: number) {
+    const modal = await this.modalCtrl.create({
+      component: CartDailogComponent,
+      cssClass: 'my-modal',
+      backdropDismiss: true,
+      initialBreakpoint: initBreackPoint,
+      breakpoints: [0.25, 0.5, 0.75, 1],
     });
     modal.present();
   }

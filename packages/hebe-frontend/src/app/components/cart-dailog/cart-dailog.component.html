@@ -1,0 +1,59 @@
+<ion-content class="cart_content">
+  <ion-header class="ion-no-border">
+    <ion-toolbar class="cart_header">
+      <ion-icon
+        (click)="this.close()"
+        style="margin-right: 2rem; --ionicon-stroke-width: 10px"
+        slot="end"
+        name="close-outline"
+        size="large"
+      ></ion-icon>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list class="list" lines="inset">
+    <ion-item *ngFor="let product of products">
+      <ion-thumbnail class="thumbnail" slot="start">
+        <img [src]="product.productImg[0].trim()" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2 class="cart_product_title">
+          {{ product.productName | titlecase }}
+        </h2>
+        <ion-note class="subtitles">
+          {{ product.productSize | uppercase }}
+          {{ product.productSize && product.productColor ? "  /  " : null }}
+          {{ product.productColor | titlecase }}&nbsp;
+          <del style="color: #333029">
+            {{ product.productPrice | currency: "INR" }}
+          </del>
+          &nbsp;
+          {{ product.productPrice - product.productDiscount | currency: "INR" }}
+        </ion-note>
+      </ion-label>
+      <ion-item>
+        <ion-select
+          interface="popover"
+          [placeholder]="product.productQuantity"
+          (ionChange)="changeProductQuantity(product.cartProductId, $event)"
+        >
+          <ion-select-option [value]="1">1</ion-select-option>
+          <ion-select-option [value]="2">2</ion-select-option>
+          <ion-select-option [value]="3">3</ion-select-option>
+          <ion-select-option [value]="4">4</ion-select-option>
+          <ion-select-option [value]="5">5</ion-select-option>
+        </ion-select>
+        <ion-note
+          class="remove"
+          slot="helper"
+          (click)="removeCartProduct(product.cartProductId)"
+          >Remove</ion-note
+        >
+      </ion-item>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-title> Subtotal </ion-title>
+  </ion-toolbar>
+</ion-footer>

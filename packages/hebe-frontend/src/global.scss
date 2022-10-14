@@ -20,16 +20,13 @@
 
 .alertHeader {
   color: white !important;
-  // --color: #b52024 !important;
   text-transform: capitalize;
 }
 h2.alertHeader {
   color: white !important;
   text-transform: capitalize;
-  // --color: #b52024 !important;
 }
 
-//this works for alertHeader when inspecting in the browser
 .alert-sub-title.sc-ion-alert-md,
 .alert-title.sc-ion-alert-md {
   color: white;
@@ -107,13 +104,29 @@ ion-spinner {
     width: 30%;
   }
 }
+
 .stroke {
   --ionicon-stroke-width: 20px;
 }
+
 ion-modal {
   --height: 100%;
   --width: 100%;
 }
+
+.my-modal {
+  // background: rgba(255, 255, 255, 0.08);
+  // --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+  --box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
+  --height: 100% !important;
+  @media (min-width: 910px) {
+    --width: 45vw !important;
+    justify-content: right;
+  }
+  --width: 100% !important;
+}
+
 * {
   color: white;
 }

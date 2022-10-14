@@ -9,6 +9,8 @@ import { MenuComponent } from '../components/menu/menu.component';
 import { SearchDialogComponent } from '../components/search-dialog/search-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CartDailogComponent } from '../components/cart-dailog/cart-dailog.component';
+import { CartService } from '../services/cart.service';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     MenuComponent,
     SearchDialogComponent,
+    CartDailogComponent,
   ],
   imports: [
     ShopPageRoutingModule,
@@ -24,12 +27,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     IonicModule,
     FormsModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    CartService,
+  ],
   exports: [
     HideHeaderDirective,
     NavbarComponent,
     MenuComponent,
     SearchDialogComponent,
+    CartDailogComponent,
   ],
 })
 export class SharedDirectivesModule {}

@@ -13,14 +13,18 @@ export class MenuComponent implements OnInit {
   constructor(
     public navCtrl: NavController,
     public actionSheetController: ActionSheetController,
-    private search: NavbarComponent
+    private navComponent: NavbarComponent
   ) {}
   isOpen = false;
 
   ngOnInit() {}
 
   openModal() {
-    return this.search.openModal();
+    return this.navComponent.openModal();
+  }
+
+  openCart(initBreakPoint: number) {
+    return this.navComponent.openCart(initBreakPoint);
   }
 
   presentPopover(e: Event) {
