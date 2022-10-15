@@ -75,6 +75,16 @@ export class CartDailogComponent implements OnInit {
     );
   }
 
+  getTotal(): number {
+    return this.products.reduce(
+      (i: number, j: any) =>
+        i +
+        (j.productPrice - (j.productPrice * j.productDiscount) / 100) *
+          j.productQuantity,
+      0
+    );
+  }
+
   close() {
     this.modalController.dismiss();
   }

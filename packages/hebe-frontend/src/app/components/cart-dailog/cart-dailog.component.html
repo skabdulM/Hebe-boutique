@@ -27,7 +27,13 @@
             {{ product.productPrice | currency: "INR" }}
           </del>
           &nbsp;
-          {{ product.productPrice - product.productDiscount | currency: "INR" }}
+          {{
+            (
+              (product.productPrice -
+                (product.productPrice * product.productDiscount) / 100) *
+              product.productQuantity
+            ).toFixed(2) | currency: "INR"
+          }}
         </ion-note>
       </ion-label>
       <ion-item>
@@ -51,9 +57,22 @@
       </ion-item>
     </ion-item>
   </ion-list>
+  <ion-footer class="ion-no-border footer_cart">
+    <ion-toolbar>
+      <ion-title> Subtotal </ion-title>
+      <ion-note slot="end" class="total_price">{{
+        getTotal() | currency: "INR"
+      }}</ion-note>
+    </ion-toolbar>
+    <div class="temp">
+      <ion-label>
+        Shipping, taxes, and discount codes calculated at checkout.
+      </ion-label>
+    </div>
+    <div>
+      <ion-button class="title_buttons" expand="full" shape="round">
+        Check Out
+      </ion-button>
+    </div>
+  </ion-footer>
 </ion-content>
-<ion-footer class="ion-no-border">
-  <ion-toolbar>
-    <ion-title> Subtotal </ion-title>
-  </ion-toolbar>
-</ion-footer>

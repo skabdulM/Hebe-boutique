@@ -38,3 +38,31 @@
   font-size: small;
   color: #333029;
 }
+
+.footer_cart {
+  font-weight: 300;
+  color: #333029;
+}
+
+.total_price {
+  font-weight: 300;
+  color: #333029;
+  padding-right: 1rem;
+}
+.temp {
+  font-weight: 300;
+  line-height: 26px;
+  font-size: small;
+  color: #333029;
+  text-align: center;
+}
+.title_buttons {
+  font-weight: 300;
+  color: black;
+  --background: #ffffff;
+  --box-shadow: none;
+  --border-radius: 40rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  margin-top: 2rem;
+}
